@@ -1,0 +1,20 @@
+{
+  "name": "kenote.js",
+  "version": "1.0.0",
+  "description": "Kenote.js",
+  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "bootstrap": "yarn clean && lerna bootstrap",
+    "clean": "lerna clean -y"
+  },
+  "repository": "https://github.com/kenote/kenote.js.git",
+  "author": "thondery <thondery@163.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  }
+}
