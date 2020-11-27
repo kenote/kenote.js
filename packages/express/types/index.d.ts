@@ -47,7 +47,7 @@ export declare namespace ExpressEngine {
     /**
      * 
      */
-    configure     : any
+    configure     : (app: Express) => void
   }
 
   /**
