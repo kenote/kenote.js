@@ -1,0 +1,47 @@
+{
+  "name": "@kenote/koa",
+  "version": "1.0.0",
+  "description": "Your Project's description.",
+  "main": "dist/index.js",
+  "typings": "types/index.d.ts",
+  "author": "thondery <thondery@163.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --config nodemon.json ./examples/index.ts",
+    "start": "node ./examples/index.js",
+    "test": "jest",
+    "build": "rm -rf ./dist && tsc"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "@koa/router": "^10.0.0",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-compress": "^5.0.1",
+    "koa-static-cache": "^5.1.4",
+    "koa-views": "^6.3.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "@types/koa": "^2.11.6",
+    "@types/koa__cors": "^3.0.2",
+    "@types/koa__router": "^8.0.3",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-compress": "^4.0.1",
+    "@types/koa-static-cache": "^5.1.0",
+    "@types/koa-views": "^2.0.4",
+    "@types/lodash": "^4.14.165",
+    "@types/node": "^14.14.7",
+    "@types/supertest": "^2.0.4",
+    "jest": "^25.5.4",
+    "nodemon": "2.0.4",
+    "supertest": "^6.0.1",
+    "ts-jest": "^25.5.1",
+    "ts-node": "^8.10.2",
+    "tslint": "^6.1.3",
+    "typescript": "^3.9.7"
+  },
+  "engines": {
+    "node": ">=8.16.0"
+  }
+}
