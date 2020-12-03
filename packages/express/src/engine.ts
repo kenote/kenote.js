@@ -1,9 +1,11 @@
-import express, { Express, RequestHandler, ErrorRequestHandler } from 'express'
+import express, { Express, RequestHandler, ErrorRequestHandler, Request, Response, NextFunction } from 'express'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import compress from 'compression'
 import expressStaticGzip from 'express-static-gzip'
 import { ExpressEngine } from '../'
+import { isPlainObject } from 'lodash'
+import cors from 'cors'
 
 export class ServiceEngine {
 
@@ -56,8 +58,21 @@ export class ServiceEngine {
    * @param handlers 
    */
   register (...handlers: Array<RequestHandler | ErrorRequestHandler>) {
-    return (path?: string) => {
+    return (path?: string, options?: ExpressEngine.RequestOptions) => {
       if (path) {
+        let { cors: corsOptions, headers  } = options || {}
+
+        if (corsOptions) {
+          handlers = [ isPlainObject(corsOptions) ? cors(corsOptions as cors.CorsOptions) : cors(), ...handlers ]
+        }
+        if (headers) {
+          handlers = [ (req: Request, res: Response, next: NextFunction) => {
+            for (let [ name, value ] of Object.entries(headers || {})) {
+              res.setHeader(name, value!)
+            }
+            return next()
+          }, ...handlers ]
+        }
         this.__application.use(path, ...handlers)
       }
       else {

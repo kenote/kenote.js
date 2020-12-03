@@ -4,6 +4,8 @@
 import { ExpressStaticGzipOptions } from 'express-static-gzip'
 import { Response, NextFunction, Express } from 'express'
 import Context from './context'
+import { IncomingHttpHeaders } from 'http'
+import cors from 'cors'
 
 export { ServiceEngine } from './engine'
 export { toRoutes } from './router'
@@ -48,6 +50,20 @@ export declare namespace ExpressEngine {
      * 
      */
     configure     : (app: Express) => void
+  }
+
+  /**
+   * 中间件选项
+   */
+  interface RequestOptions {
+    /**
+     * Cors 跨域选项
+     */
+    cors         ?: cors.CorsOptions | true
+    /**
+     * 设置 Headers
+     */
+    headers      ?: IncomingHttpHeaders
   }
 
   /**

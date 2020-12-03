@@ -9,8 +9,8 @@ const headers = {
 const methods = [
   {
     name: 'notfound',
-    handler: ctx => () => {
-      ctx.status(404).render('error', { message: 'This page could not be found' })
+    handler: ctx => async () => {
+      await ctx.status(404).render('error', { message: 'This page could not be found' })
     }
   },
   {

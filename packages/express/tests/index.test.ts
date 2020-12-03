@@ -4,7 +4,7 @@ import staticOptions from '../examples/plugins/static'
 import templateOptions from '../examples/plugins/template'
 import { errorHandler, notFoundHandler } from '../examples/plugins/error'
 import { Restful } from '../examples/plugins/restful'
-import RoutesAPI from '../examples/routes/api'
+import RoutesAPI, { options as routerAPIOptions } from '../examples/routes/api'
 
 let engine: ServiceEngine | null
 
@@ -15,7 +15,7 @@ describe('\nTests', () => {
     engine.staticDir = staticOptions
     engine.template = templateOptions
     engine.register(Restful)()
-    engine.register(RoutesAPI)('/api')
+    engine.register(RoutesAPI)('/api', routerAPIOptions)
     engine.register(notFoundHandler)('*')
     engine.register(errorHandler)()
   })

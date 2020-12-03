@@ -90,3 +90,12 @@ const routes = [
 ]
 
 module.exports = toRoutes(routes)
+
+exports.options = {
+  cors: true,
+  headers: {
+    'Access-Control-Allow-Headers': 'X-Requested-With,content-type, Authorization',
+    'Access-Control-Allow-Methods': 'GET, HEAD, POST, PUT, PATCH, DELETE',
+    'Access-Control-Allow-Origin': '*'
+  }
+}

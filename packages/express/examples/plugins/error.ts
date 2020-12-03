@@ -8,8 +8,8 @@ export const errorHandler = (() => {
   if (process.env.NODE_ENV === 'development') {
     return errorhandler()
   }
-  return toErrorHandler( (ctx, err) => {
-    return ctx.status(500).render('error', { message: 'This page could internal server error' })
+  return toErrorHandler(async (ctx, err) => {
+    return await ctx.status(500).render('error', { message: 'This page could internal server error' })
   })
 })()
 
@@ -17,7 +17,7 @@ export const errorHandler = (() => {
  * 处理 404 NotFound
  */
 export const notFoundHandler = toBasicHandler( 
-  ctx => {
-    return ctx.status(404).render('error', { message: 'This page could not be found.' })
+  async ctx => {
+    return await ctx.status(404).render('error', { message: 'This page could not be found.' })
   }
 )

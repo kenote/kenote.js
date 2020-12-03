@@ -1,4 +1,5 @@
 import { CookieOptions, Request, Response } from 'express'
+import { promisify } from 'util'
 
 /**
  * 路由上下文 Context
@@ -11,6 +12,10 @@ export default class Context<ReqUser = any, Payload = any> {
   constructor (req: Request, res: Response) {
     this.__req = req
     this.__res = res
+  }
+
+  get app () {
+    return this.__req.app
   }
 
   /**
@@ -197,7 +202,16 @@ export default class Context<ReqUser = any, Payload = any> {
    * @param view string
    * @param options object
    */
-  render = (view: string, options?: object) => this.__res.render(view, options)
+  render = (view: string, options?: object) => new Promise((resolve, reject) => {
+    this.__res.render(view, options, (err, html) => {
+      if (err) {
+        reject(err)
+      }
+      else {
+        resolve(html)
+      }
+    })
+  })
 
   /**
    * 跳转一个URL

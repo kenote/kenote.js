@@ -89,3 +89,12 @@ const routes: Array<ExpressEngine.Route<Context>> = [
 ]
 
 export default toRoutes(routes)
+
+export const options: ExpressEngine.RequestOptions = {
+  cors: true,
+  headers: {
+    'Access-Control-Allow-Headers': 'X-Requested-With,content-type, Authorization',
+    'Access-Control-Allow-Methods': 'GET, HEAD, POST, PUT, PATCH, DELETE',
+    'Access-Control-Allow-Origin': '*'
+  }
+}

@@ -10,8 +10,8 @@ const headers: IncomingHttpHeaders = {
 const methods: Array<ExpressEngine.Method<Context>> = [
   {
     name: 'notfound',
-    handler: (ctx: Context) => () => {
-      ctx.status(404).render('error', { message: 'This page could not be found' })
+    handler: (ctx: Context) => async () => {
+      await ctx.status(404).render('error', { message: 'This page could not be found' })
     }
   },
   {
@@ -30,9 +30,9 @@ const methods: Array<ExpressEngine.Method<Context>> = [
   }
 ]
 
-export const Restful = toMiddleware(methods, headers)
+export const Restful = toMiddleware(methods)
 
 export interface Restful {
-  notfound (): void
+  notfound (): Promise<void>
   api (info: any, error?: Error): void
 }

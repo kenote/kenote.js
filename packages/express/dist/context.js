@@ -17,12 +17,28 @@ var Context = (function () {
         }); };
         this.json = function (body) { return _this.__res.json(body); };
         this.jsonp = function (body) { return _this.__res.jsonp(body); };
-        this.render = function (view, options) { return _this.__res.render(view, options); };
+        this.render = function (view, options) { return new Promise(function (resolve, reject) {
+            _this.__res.render(view, options, function (err, html) {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(html);
+                }
+            });
+        }); };
         this.redirect = function (url) { return _this.__res.redirect(url); };
         this.cookie = function (name, value, options) { return _this.__res.cookie(name, value, options || {}); };
         this.__req = req;
         this.__res = res;
     }
+    Object.defineProperty(Context.prototype, "app", {
+        get: function () {
+            return this.__req.app;
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(Context.prototype, "req", {
         get: function () {
             return this.__req;

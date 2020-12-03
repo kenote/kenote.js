@@ -145,8 +145,8 @@ toMiddleware(
     {
       name: 'notfound',
       handler: (ctx: Context) => {
-        return () => {
-          ctx.status(404).render('error', { message: 'This page could not be found' })
+        return async () => {
+          await ctx.status(404).render('error', { message: 'This page could not be found' })
         }
       }
     }
@@ -220,7 +220,7 @@ toRoutes(
         },
         async (ctx: Context, next: NextFunction) => {
           try {
-            ctx.json(xtx.payload)
+            ctx.json(ctx.payload)
           } catch (error) {
             return next(error)
           }
@@ -234,8 +234,9 @@ toRoutes(
  * 注册路由控制器
  * @param handlers -- 路由控制器
  * @param path -- 注册路径
+ * @param options -- 路由选项
  */
-engine.register(...handlers)(path?)
+engine.register(...handlers)(path?, options?)
 ```
 
 ---
