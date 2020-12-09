@@ -6,12 +6,13 @@ import expressStaticGzip from 'express-static-gzip'
 import { ExpressEngine } from '../'
 import { isPlainObject } from 'lodash'
 import cors from 'cors'
+import { CommonEngine } from '@kenote/common'
+import consolidate from 'consolidate'
 
-export class ServiceEngine {
-
-  private __application: Express
+export class ServiceEngine extends CommonEngine<Express> {
 
   constructor () {
+    super()
     this.__application = express()
     this.__application.use(bodyParser.json({ limit: '1mb' }))
     this.__application.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }))
@@ -27,13 +28,6 @@ export class ServiceEngine {
   }
 
   /**
-   * 获取 app
-   */
-  get app (): Express {
-    return this.__application
-  }
-
-  /**
    * 设置静态目录
    */
   set staticDir (value: ExpressEngine.StaticOptions) {
@@ -45,13 +39,11 @@ export class ServiceEngine {
    * 设置模版
    */
   set template (value: ExpressEngine.TemplateOptions) {
-    let { viewDir, engine, configure } = value
+    let { viewDir, engine, extension } = value
+    this.__application.engine(extension, consolidate[engine || 'lodash'])
     this.__application.set('views', viewDir)
-    this.__application.set('view engine', engine)
-    configure(this.__application)
+    this.__application.set('view engine', extension)
   }
-
-  use = (...handlers: Array<RequestHandler | ErrorRequestHandler>) => this.__application.use(...handlers)
 
   /**
    * 注册中间件

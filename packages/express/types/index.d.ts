@@ -6,6 +6,7 @@ import { Response, NextFunction, Express } from 'express'
 import Context from './context'
 import { IncomingHttpHeaders } from 'http'
 import cors from 'cors'
+import { CommonEngineOptions } from '@kenote/common'
 
 export { ServiceEngine } from './engine'
 export { toRoutes } from './router'
@@ -19,38 +20,12 @@ export declare namespace ExpressEngine {
   /**
    * 静态服务选项
    */
-  interface StaticOptions {
-    /**
-     * 物理路径
-     */
-    rootDir       : string
-    /**
-     * 指向路径
-     */
-    rootPath     ?: string
-    /**
-     * 参数选项；查看 express-static-gzip 模块
-     */
-    options      ?: ExpressStaticGzipOptions
-  }
+  type StaticOptions = CommonEngineOptions.StaticDir<ExpressStaticGzipOptions>
 
   /**
    * 视图模版选项
    */
-  interface TemplateOptions {
-    /**
-     * 模版物理路径
-     */
-    viewDir       : string
-    /**
-     * 模版引擎
-     */
-    engine        : string
-    /**
-     * 
-     */
-    configure     : (app: Express) => void
-  }
+  type TemplateOptions = CommonEngineOptions.Template
 
   /**
    * 中间件选项
