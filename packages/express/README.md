@@ -81,36 +81,14 @@ options: ExpressStaticGzipOptions = {
 viewDir: string = __dirname + '/views'
 
 /**
- * 模版引擎
+ * 扩展名
  */
-engine: string = 'html'
+extension: string = 'html'
 
 /**
- * 配置渲染函数
+ * 模版引擎
  */
-configure = (app: ExpressEngine.app) => {
-  // 自定义渲染
-  app.engine('html', (path: string, options: object, callback(e: any, rendered?: string) => void) => {
-    let html = fs.readFileSync(path, 'utf8')
-    html = template(html)(options)
-    callback(null, html)
-  })
-  /**
-   * 使用 ejs
-   * import ejsMate from 'ejs-mate'
-   */
-  app.engine('html', ejsMate)
-  /**
-   * 使用 nunjucks
-   * import nunjucks from 'nunjucks'
-   */
-  nunjucks.configure('views', { autoescape: true, express: app })
-  /**
-   * handlerbar
-   * import hbs from 'hbs'
-   */
-  app.engine('html', hbs.__express)
-}
+engine: string = 'lodash'
 ```
 
 ## 处理中间件
