@@ -6,6 +6,7 @@ import staticCache from 'koa-static-cache'
 import cors from '@koa/cors'
 import Context from './context'
 import { IncomingHttpHeaders } from 'http'
+import { CommonEngineOptions } from '@kenote/common'
 
 export { ServiceEngine } from './engine'
 export { toRoutes } from './router'
@@ -19,56 +20,12 @@ export declare namespace KoaEngine {
   /**
    * 静态服务选项
    */
-  interface StaticOptions {
-    /**
-     * 物理路径
-     */
-    rootDir       : string
-    /**
-     * 指向路径
-     */
-    rootPath     ?: string
-    /**
-     * 参数选项；查看 koa-static-cache 模块
-     */
-    options      ?: staticCache.Options
-  }
+  type StaticOptions = CommonEngineOptions.StaticDir<staticCache.Options>
 
-  interface TemplateOptions {
-    /**
-     * 模版物理路径
-     */
-    viewDir       : string
-    /**
-     * 模版引擎
-     */
-    engine        : string
-    /**
-     * 
-     */
-    configure     : {
-      /*
-      * autoRender the result into ctx.body, defaults to true
-      */
-      autoRender?: boolean
-      /*
-      * default extension for your views
-      */
-      extension?: string
-      /*
-      * these options will get passed to the view engine
-      */
-      options?: any
-      /*
-      * map a file extension to an engine
-      */
-      map?: any
-      /*
-      * replace consolidate as default engine source
-      */
-      engineSource?: any
-    }
-  }
+  /**
+   * 视图模版选项
+   */
+  type TemplateOptions = CommonEngineOptions.Template
 
   /**
    * 中间件选项

@@ -50,29 +50,14 @@ options: staticCache.Options = {}
 viewDir: string = __dirname + '/views'
 
 /**
- * 模版引擎, 模版文件扩展名
+ * 扩展名
  */
-engine: string = 'html'
+extension: string = 'html'
 
 /**
- * 模版引擎配置
+ * 模版引擎
  */
-configure = {
-  /**
-   * 自动渲染到 ctx.body 中
-   */
-  autoRender: true,
-  /**
-   * 模版文件扩展名
-   */
-  extension: 'html'
-  /**
-   * 将扩展名绑定到引擎
-   */
-  map: {
-    html: 'lodash'
-  }
-}
+engine: string = 'lodash'
 ```
 
 ## 处理中间件

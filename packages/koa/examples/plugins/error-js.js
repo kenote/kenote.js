@@ -3,6 +3,7 @@ const fs = require('fs')
 const { template } = require('lodash')
 const { toRequestHandler } = require('../../')
 const templateOptions = require('./template-js')
+const consolidate = require('consolidate')
 
 /**
  * 处理错误
@@ -11,10 +12,11 @@ exports.errorHandler = (error, ctx) => {
   if (process.env.NODE_ENV === 'development') {
     console.error(error)
   }
-  let { viewDir, engine } = templateOptions
-  let tpl = fs.readFileSync(path.resolve(viewDir, `error.${engine || 'html'}`), 'utf-8')
-  let html = template(tpl)({ message: 'This page could internal server error' })
-  ctx.status(500).send(html)
+  let { viewDir, extension } = templateOptions
+  let tpl = fs.readFileSync(path.resolve(viewDir, `error.${extension || 'html'}`), 'utf-8')
+  consolidate.lodash.render(tpl, { message: 'This page could internal server error' }, (err, html) => {
+    ctx.status(500).send(html)
+  })
 }
 
 /**

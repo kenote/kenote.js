@@ -32,7 +32,7 @@ export abstract class CommonEngine<T = any> {
    * 注册中间件
    * @param handlers 
    */
-  register (...handlers: Function[]) {
+  register (...handlers: Array<Function | Object>) {
     return (path?: string, options?: CommonEngineOptions.RequestOptions) => {}
   }
 

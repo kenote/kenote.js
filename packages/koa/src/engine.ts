@@ -8,12 +8,12 @@ import cors from '@koa/cors'
 import views from 'koa-views'
 import { isPlainObject } from 'lodash'
 import { KoaEngine } from '../'
+import { CommonEngine } from '@kenote/common'
 
-export class ServiceEngine {
-
-  private __application: Koa
+export class ServiceEngine extends CommonEngine<Koa> {
 
   constructor () {
+    super()
     this.__application = new Koa()
     this.__application.use(bodyParser())
     this.__application.use(compress())
@@ -25,13 +25,6 @@ export class ServiceEngine {
   get name (): string {
     return 'koa'
   }
-
-  /**
-   * 获取 app
-   */
-  get app (): Koa {
-    return this.__application
-  }
   
   /**
    * 设置静态目录
@@ -42,18 +35,15 @@ export class ServiceEngine {
   }
 
   set template (value: KoaEngine.TemplateOptions) {
-    let { viewDir, engine, configure } = value
+    let { viewDir, engine, extension } = value
 
     this.__application.use(views(viewDir, {
-      extension: engine,
-      ...configure
+      extension,
+      map: {
+        [extension]: engine || 'lodash'
+      }
     }))
-    // this.__application.use( ctx => {
-    //   ctx.state.engine = 'lodash'
-    // })
   }
-
-  use = (handler: Koa.Middleware) => this.__application.use(handler)
 
   /**
    * 注册中间件
@@ -93,7 +83,6 @@ export class ServiceEngine {
           this.__application.use(router.allowedMethods())
         }
       }
-        
     }
   }
 }

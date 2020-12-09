@@ -1,4 +1,17 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -55,24 +68,19 @@ var router_1 = __importDefault(require("@koa/router"));
 var cors_1 = __importDefault(require("@koa/cors"));
 var koa_views_1 = __importDefault(require("koa-views"));
 var lodash_1 = require("lodash");
-var ServiceEngine = (function () {
+var common_1 = require("@kenote/common");
+var ServiceEngine = (function (_super) {
+    __extends(ServiceEngine, _super);
     function ServiceEngine() {
-        var _this = this;
-        this.use = function (handler) { return _this.__application.use(handler); };
-        this.__application = new koa_1.default();
-        this.__application.use(koa_bodyparser_1.default());
-        this.__application.use(koa_compress_1.default());
+        var _this = _super.call(this) || this;
+        _this.__application = new koa_1.default();
+        _this.__application.use(koa_bodyparser_1.default());
+        _this.__application.use(koa_compress_1.default());
+        return _this;
     }
     Object.defineProperty(ServiceEngine.prototype, "name", {
         get: function () {
             return 'koa';
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(ServiceEngine.prototype, "app", {
-        get: function () {
-            return this.__application;
         },
         enumerable: false,
         configurable: true
@@ -87,8 +95,14 @@ var ServiceEngine = (function () {
     });
     Object.defineProperty(ServiceEngine.prototype, "template", {
         set: function (value) {
-            var viewDir = value.viewDir, engine = value.engine, configure = value.configure;
-            this.__application.use(koa_views_1.default(viewDir, __assign({ extension: engine }, configure)));
+            var _a;
+            var viewDir = value.viewDir, engine = value.engine, extension = value.extension;
+            this.__application.use(koa_views_1.default(viewDir, {
+                extension: extension,
+                map: (_a = {},
+                    _a[extension] = engine || 'lodash',
+                    _a)
+            }));
         },
         enumerable: false,
         configurable: true
@@ -146,5 +160,5 @@ var ServiceEngine = (function () {
         };
     };
     return ServiceEngine;
-}());
+}(common_1.CommonEngine));
 exports.ServiceEngine = ServiceEngine;
