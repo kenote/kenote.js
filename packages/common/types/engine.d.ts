@@ -1,8 +1,63 @@
 import { IncomingHttpHeaders } from 'http'
 
-export { CommonEngine } from '../src/engine'
+export declare class CommonEngine<T = Object> {
+
+  protected __application: T
+
+  /**
+   * 获取名称
+   */
+  get name (): string
+
+  /**
+   * 获取 app
+   */
+  get app (): T
+
+  /**
+   * 设置静态目录
+   */
+  set staticDir (value: CommonEngineOptions.StaticDir)
+
+  /**
+   * 设置模版
+   */
+  set template (value: CommonEngineOptions.Template)
+
+  /**
+   * 注册中间件
+   * @param handlers 
+   */
+  register (...handlers: Array<Function | Object>): (path?: string, options?: CommonEngineOptions.RequestOptions) => void
+
+  /**
+   * 转换路由配置
+   * @param options 
+   */
+  toRoutes (options: CommonEngineOptions.Route[]): any
+
+  /**
+   * 转换请求函式
+   * @param handler 
+   */
+  toRequestHandler (handler: CommonEngineOptions.RequestHandler): Function
+
+  /**
+   * 转换错误函式
+   * @param handler 
+   */
+  toErrorHandler(handler: CommonEngineOptions.ErrorHandler): Function
+
+  /**
+   * 转换中间件
+   * @param Middleware typeof Object
+   */
+  toMiddleware (methods: Array<CommonEngineOptions.Method>, headers?: IncomingHttpHeaders): Function
+}
 
 export declare namespace CommonEngineOptions {
+
+  type MethodType = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
   interface StaticDir<T = any> {
     /**
@@ -47,4 +102,53 @@ export declare namespace CommonEngineOptions {
      */
     headers      ?: IncomingHttpHeaders
   }
+
+  interface Route<T = any> {
+    /**
+     * 请求方式
+     */
+    method        : MethodType
+    /**
+     * 路由路径
+     */
+    routePath     : string | string[]
+    /**
+     * Handler
+     */
+    handler       : Array<RequestHandler<T>>
+  }
+
+  /**
+   * 中间件方法
+   */
+  interface Method<T = any> {
+    /**
+     * 名称
+     */
+    name          : string
+    /**
+     * Handler
+     */
+    handler       : BasicHandler<T, Function>
+  }
+  
+  /**
+   * 基础函式
+   */
+  type BasicHandler<T = any, Result = any> = (ctx: T) => Promise<Result> | Result
+
+  /**
+   * 请求函式
+   */
+  type RequestHandler<T = any, N = NextHandler, Result = any> = (ctx: T, next: N) => Promise<Result> | Result
+  
+  /**
+   * Next 函式
+   */
+  type NextHandler = (error?: any) => Promise<void> | void
+
+  /**
+   * 错误函式
+   */
+  type ErrorHandler<T = any, Result = any> = (Error, ctx: T) => Promise<Result> | Result
 }

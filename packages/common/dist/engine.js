@@ -18,23 +18,6 @@ var CommonEngine = (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(CommonEngine.prototype, "staticDir", {
-        set: function (value) { },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(CommonEngine.prototype, "template", {
-        set: function (value) { },
-        enumerable: false,
-        configurable: true
-    });
-    CommonEngine.prototype.register = function () {
-        var handlers = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            handlers[_i] = arguments[_i];
-        }
-        return function (path, options) { };
-    };
     return CommonEngine;
 }());
 exports.CommonEngine = CommonEngine;
