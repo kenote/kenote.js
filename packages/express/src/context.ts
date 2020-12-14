@@ -1,5 +1,4 @@
 import { CookieOptions, Request, Response } from 'express'
-import { promisify } from 'util'
 
 /**
  * 路由上下文 Context
@@ -208,7 +207,7 @@ export default class Context<ReqUser = any, Payload = any> {
         reject(err)
       }
       else {
-        resolve(html)
+        this.__res.send(html)
       }
     })
   })

@@ -1,5 +1,6 @@
 import { IncomingHttpHeaders } from 'http'
-import { ExpressEngine, toMiddleware, Context } from '../../'
+import { ExpressEngine } from '../..'
+import { toMiddleware, Context } from '../../src'
 
 const headers: IncomingHttpHeaders = {
   'Access-Control-Allow-Headers': 'X-Requested-With,content-type, Authorization',

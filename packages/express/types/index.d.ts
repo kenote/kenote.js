@@ -76,16 +76,16 @@ export declare namespace ExpressEngine {
   /**
    * 请求函式
    */
-  type RequestHandler<T = Context, Result = any> = (ctx: T, next: NextFunction) => Promise<Result> | Result
+  type RequestHandler<T = Context, N = NextFunction, Result = any> = CommonEngineOptions.RequestHandler<T, N, Result>
 
   /**
    * 基础函式
    */
-  type BasicHandler<T = Context, Result = any> = (ctx: T) => Promise<Result> | Result
+  type BasicHandler<T = Context, Result = any> = CommonEngineOptions.BasicHandler<T, Result>
 
   /**
    * 错误函式
    */
-  type ErrorHandler<T = Context> = (ctx: T, err: Error) => Promise<Response | void> | Response | void
+  type ErrorHandler<T = Context> = CommonEngineOptions.ErrorHandler<T, Response | void>
   
 }

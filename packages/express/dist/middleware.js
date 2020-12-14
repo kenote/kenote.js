@@ -79,7 +79,7 @@ exports.toBasicHandler = toBasicHandler;
 function toErrorHandler(handler) {
     return function (err, req, res, next) {
         var ctx = new context_1.default(req, res);
-        return handler(ctx, err);
+        return handler(err, ctx);
     };
 }
 exports.toErrorHandler = toErrorHandler;

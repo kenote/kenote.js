@@ -41,7 +41,7 @@ export function toBasicHandler (handler: ExpressEngine.BasicHandler<Context>) {
 export function toErrorHandler (handler: ExpressEngine.ErrorHandler<Context>) {
   return (err: Error, req: Request, res: Response, next: NextFunction) => {
     let ctx = new Context(req, res)
-    return handler(ctx, err)
+    return handler(err, ctx)
   }
 }
 

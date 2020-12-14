@@ -1,6 +1,6 @@
 # @kenote/express
 
-基于 `Express` 服务端框架，简化操作、为 `@kenote/core` 或其他第三方模块整合。
+基于 `Express` 服务端框架，同化操作、为 `@kenote/core` 或其他第三方模块整合。
 
 ## 创建服务
 
@@ -104,7 +104,7 @@ toBasicHandler( (ctx: Content) => {
 /**
  * 创建错误中间件
  */
-toErrorHandler( (ctx: Content, err: Error) => {
+toErrorHandler( (err: Error, ctx: Content) => {
   return ctx.status(500).send('This page could internal server error')
 })
 

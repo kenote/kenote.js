@@ -1,4 +1,5 @@
-import { ExpressEngine, toRoutes, Context } from '../../'
+import { ExpressEngine } from '../..'
+import { toRoutes, Context } from '../../src'
 import { Restful } from '../plugins/restful'
 
 const routes: Array<ExpressEngine.Route<Context>> = [

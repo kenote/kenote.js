@@ -8,6 +8,8 @@ import { isPlainObject } from 'lodash'
 import cors from 'cors'
 import { CommonEngine } from '@kenote/common'
 import consolidate from 'consolidate'
+import { toRequestHandler, toErrorHandler, toMiddleware } from './middleware'
+import { toRoutes } from './router'
 
 export class ServiceEngine extends CommonEngine<Express> {
 
@@ -72,4 +74,10 @@ export class ServiceEngine extends CommonEngine<Express> {
       }
     }
   }
+
+  toRoutes = toRoutes.bind(this)
+  toRequestHandler = toRequestHandler.bind(this)
+  toErrorHandler = toErrorHandler.bind(this)
+  toMiddleware = toMiddleware.bind(this)
+
 }

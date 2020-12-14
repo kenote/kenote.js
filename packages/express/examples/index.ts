@@ -1,4 +1,4 @@
-import { ServiceEngine } from '..'
+import { ServiceEngine } from '../src'
 import { errorHandler, notFoundHandler } from './plugins/error'
 import { Restful } from './plugins/restful'
 import RoutesAPI, { options as routerAPIOptions } from './routes/api'

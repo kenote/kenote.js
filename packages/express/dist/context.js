@@ -23,7 +23,7 @@ var Context = (function () {
                     reject(err);
                 }
                 else {
-                    resolve(html);
+                    _this.__res.send(html);
                 }
             });
         }); };
