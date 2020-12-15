@@ -4,7 +4,6 @@
 import { ExpressStaticGzipOptions } from 'express-static-gzip'
 import { Response, NextFunction, Express } from 'express'
 import Context from './context'
-import { IncomingHttpHeaders } from 'http'
 import cors from 'cors'
 import { CommonEngineOptions } from '@kenote/common'
 
@@ -30,48 +29,17 @@ export declare namespace ExpressEngine {
   /**
    * 中间件选项
    */
-  interface RequestOptions {
-    /**
-     * Cors 跨域选项
-     */
-    cors         ?: cors.CorsOptions | true
-    /**
-     * 设置 Headers
-     */
-    headers      ?: IncomingHttpHeaders
-  }
+  type RequestOptions = CommonEngineOptions.RequestOptions<cors.CorsOptions>
 
   /**
    * 路由单元
    */
-  interface Route<T = Context> {
-    /**
-     * 请求方式
-     */
-    method        : 'GET' | 'POST' | 'PUT' | 'DELETE'
-    /**
-     * 路由路径
-     */
-    routePath     : string | RegExp
-    /**
-     * Handler
-     */
-    handler       : Array<RequestHandler<T>>
-  }
+  type Route<T = any> = CommonEngineOptions.Route<T>
 
   /**
    * 中间件方法
    */
-  interface Method<T = Context> {
-    /**
-     * 名称
-     */
-    name          : string
-    /**
-     * Handler
-     */
-    handler       : BasicHandler<T, Function>
-  }
+  type Method<T = Context> = CommonEngineOptions.Method<T>
 
   /**
    * 请求函式
@@ -87,5 +55,10 @@ export declare namespace ExpressEngine {
    * 错误函式
    */
   type ErrorHandler<T = Context> = CommonEngineOptions.ErrorHandler<T, Response | void>
+
+  /**
+   * Next 函式
+   */
+  type NextHandler = NextFunction
   
 }

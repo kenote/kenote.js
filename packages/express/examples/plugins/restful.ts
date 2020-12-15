@@ -11,13 +11,13 @@ const headers: IncomingHttpHeaders = {
 const methods: Array<ExpressEngine.Method<Context>> = [
   {
     name: 'notfound',
-    handler: (ctx: Context) => async () => {
+    handler: ctx => async () => {
       await ctx.status(404).render('error', { message: 'This page could not be found' })
     }
   },
   {
     name: 'api',
-    handler: (ctx: Context) => {
+    handler: ctx => {
       return (info: any, error?: Error) => {
         if (error) {
           let { message } = error

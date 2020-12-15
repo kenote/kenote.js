@@ -1,4 +1,5 @@
 import { CookieOptions, Request, Response } from 'express'
+import createError from 'http-errors'
 
 /**
  * 路由上下文 Context
@@ -225,5 +226,12 @@ export default class Context<ReqUser = any, Payload = any> {
    * @param options 
    */
   cookie = (name: string, value: string, options?: CookieOptions) => this.__res.cookie(name, value, options || {})
-  
+
+  /**
+   * 抛错误
+   * @param properties 
+   */
+  throw = (...properties: Array<number | string | {}>) => {
+    throw createError(...properties)
+  }
 }

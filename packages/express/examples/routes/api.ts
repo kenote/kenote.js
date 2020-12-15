@@ -2,7 +2,7 @@ import { ExpressEngine } from '../..'
 import { toRoutes, Context } from '../../src'
 import { Restful } from '../plugins/restful'
 
-const routes: Array<ExpressEngine.Route<Context>> = [
+const routes: Array<ExpressEngine.Route<Context & Restful>> = [
   {
     method: 'GET',
     routePath: '/',
@@ -74,15 +74,19 @@ const routes: Array<ExpressEngine.Route<Context>> = [
         ctx.payload = ctx.params
         return next()
       },
-      async (ctx: Context & Restful, next) => {
+      async (ctx, next) => {
         try {
           if (ctx.payload.type === 'name') {
-            let error = new Error('type is not an email')
-            throw error
+            ctx.throw(500, 'type is not an email', { code: 1000 })
           }
           ctx.api(ctx.payload)
         } catch (error) {
-          return next(error)
+          if (error.code && error.code >= 1000) {
+            ctx.api(null, error)
+          }
+          else {
+            return next(error)
+          }
         }
       }
     ]
