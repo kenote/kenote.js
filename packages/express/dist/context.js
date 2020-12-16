@@ -51,6 +51,9 @@ var Context = (function () {
                 }
             });
         }); };
+        this.renderException = function (view, options) {
+            _this.status(500).render(view, options);
+        };
         this.redirect = function (url) { return _this.__res.redirect(url); };
         this.cookie = function (name, value, options) { return _this.__res.cookie(name, value, options || {}); };
         this.setHeader = function (field, val) {
