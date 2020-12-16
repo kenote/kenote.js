@@ -53,6 +53,12 @@ export declare class CommonEngine<T = Object> {
    * @param Middleware typeof Object
    */
   toMiddleware (methods: Array<CommonEngineOptions.Method>, headers?: IncomingHttpHeaders): Function
+
+  /**
+   * 开发环境错误函式
+   * @param options 
+   */
+  errorhandler (options?: { log: boolean }): CommonEngineOptions.ErrorHandler
 }
 
 export declare namespace CommonEngineOptions {
