@@ -9,3 +9,6 @@ Object.defineProperty(exports, "toRoutes", { enumerable: true, get: function () 
 var middleware_1 = require("./middleware");
 Object.defineProperty(exports, "toRequestHandler", { enumerable: true, get: function () { return middleware_1.toRequestHandler; } });
 Object.defineProperty(exports, "toMiddleware", { enumerable: true, get: function () { return middleware_1.toMiddleware; } });
+Object.defineProperty(exports, "toErrorHandler", { enumerable: true, get: function () { return middleware_1.toErrorHandler; } });
+var errorhandler_1 = require("./errorhandler");
+Object.defineProperty(exports, "errorhandler", { enumerable: true, get: function () { return errorhandler_1.default; } });

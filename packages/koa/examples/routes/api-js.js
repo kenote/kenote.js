@@ -75,13 +75,16 @@ const routes = [
       async (ctx, next) => {
         try {
           if (ctx.payload.type === 'name') {
-            let error = new Error('type is not an email')
-            throw error
+            ctx.throw(500, 'type is not an email')
           }
           ctx.api(ctx.payload)
         } catch (error) {
-          console.log(error)
-          return next(error)
+          if (error.code && error.code >= 1000) {
+            ctx.api(null, error)
+          }
+          else {
+            return next(error)
+          }
         }
       }
     ]

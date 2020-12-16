@@ -1,5 +1,6 @@
 import { IncomingHttpHeaders } from 'http'
-import { KoaEngine, Context, toMiddleware } from '../..'
+import { KoaEngine } from '../..'
+import { Context, toMiddleware } from '../../src'
 
 const headers: IncomingHttpHeaders = {
   'Access-Control-Allow-Headers': 'X-Requested-With,content-type, Authorization',

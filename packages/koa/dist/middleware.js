@@ -30,7 +30,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.toMiddleware = exports.toRequestHandler = void 0;
+exports.toMiddleware = exports.toErrorHandler = exports.toRequestHandler = void 0;
 var context_1 = __importDefault(require("./context"));
 function toRequestHandler(handler) {
     return function (context, next) {
@@ -39,6 +39,12 @@ function toRequestHandler(handler) {
     };
 }
 exports.toRequestHandler = toRequestHandler;
+function toErrorHandler(handler) {
+    return function (err, ctx) {
+        return handler(err, ctx);
+    };
+}
+exports.toErrorHandler = toErrorHandler;
 function toMiddleware(methods, headers) {
     return function (context, next) {
         var e_1, _a, e_2, _b;

@@ -2,6 +2,10 @@ import Koa from 'koa'
 import { RouterContext } from 'koa-router'
 import Cookies from 'cookies'
 import { compact, fromPairs, trim } from 'lodash'
+import consolidate from 'consolidate'
+import { KoaEngine } from '..'
+import fs from 'fs'
+import path from 'path'
 
 export default class Context<ReqUser = any, Payload = any> {
   
@@ -23,6 +27,20 @@ export default class Context<ReqUser = any, Payload = any> {
    */
   get context () {
     return this.__ctx
+  }
+
+  /**
+   * 获取 Request
+   */
+  get req () {
+    return this.__ctx.req
+  }
+
+  /**
+   * 获取 Response
+   */
+  get res () {
+    return this.__ctx.res
   }
 
   /**
@@ -135,7 +153,14 @@ export default class Context<ReqUser = any, Payload = any> {
    * 获取 statusCode
    */
   get statusCode () {
-    return this.__ctx.response.status
+    return this.__ctx.status
+  }
+
+  /**
+   * 获取 connection
+   */
+  get connection () {
+    return this.__ctx.req.connection
   }
 
   /**
@@ -169,6 +194,19 @@ export default class Context<ReqUser = any, Payload = any> {
   render = (view: string, options?: object) => this.__ctx.render(view, options)
 
   /**
+   * 返回一个渲染异常页面
+   * @param view 
+   * @param options 
+   */
+  renderException = (view: string, options?: object) => {
+    let { viewDir, extension, engine } = this.__ctx.views as KoaEngine.TemplateOptions
+    let tpl = fs.readFileSync(path.resolve(viewDir, `${view}.${extension}`), 'utf-8')
+    consolidate[engine || 'lodash'].render(tpl, options, (err, html) => {
+      this.status(500).send(html)
+    })
+  }
+
+  /**
    * 跳转一个URL
    * @param url 
    */
@@ -181,6 +219,15 @@ export default class Context<ReqUser = any, Payload = any> {
    * @param options 
    */
   cookie = (name: string, value: string, options?: Cookies.SetOption) => this.__ctx.cookies.set(name, value, options)
+
+  /**
+   * 设置 Header
+   * @param field 
+   * @param val 
+   */
+  setHeader = (field: string, val: string | string[]) => {
+    this.__ctx.append(field, val)
+  }
 
   /**
    * 错误传递

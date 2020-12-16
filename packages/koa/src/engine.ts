@@ -9,6 +9,9 @@ import views from 'koa-views'
 import { isPlainObject } from 'lodash'
 import { KoaEngine } from '../'
 import { CommonEngine } from '@kenote/common'
+import { toRequestHandler, toMiddleware, toErrorHandler } from './middleware'
+import { toRoutes } from './router'
+import errorhandler from './errorhandler'
 
 export class ServiceEngine extends CommonEngine<Koa> {
 
@@ -34,9 +37,12 @@ export class ServiceEngine extends CommonEngine<Koa> {
     this.__application.use(staticCache(rootDir, { ...options, prefix: rootPath || '/' }))
   }
 
+  /**
+   * 设置模版
+   */
   set template (value: KoaEngine.TemplateOptions) {
     let { viewDir, engine, extension } = value
-
+    this.__application.context.views = value
     this.__application.use(views(viewDir, {
       extension,
       map: {
@@ -85,4 +91,11 @@ export class ServiceEngine extends CommonEngine<Koa> {
       }
     }
   }
+
+  toRoutes = toRoutes.bind(this)
+  toRequestHandler = toRequestHandler.bind(this)
+  toErrorHandler = toErrorHandler.bind(this)
+  toMiddleware = toMiddleware.bind(this)
+  errorhandler = errorhandler.bind(this)
+  
 }

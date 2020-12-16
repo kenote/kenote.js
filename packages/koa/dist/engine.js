@@ -69,10 +69,18 @@ var cors_1 = __importDefault(require("@koa/cors"));
 var koa_views_1 = __importDefault(require("koa-views"));
 var lodash_1 = require("lodash");
 var common_1 = require("@kenote/common");
+var middleware_1 = require("./middleware");
+var router_2 = require("./router");
+var errorhandler_1 = __importDefault(require("./errorhandler"));
 var ServiceEngine = (function (_super) {
     __extends(ServiceEngine, _super);
     function ServiceEngine() {
         var _this = _super.call(this) || this;
+        _this.toRoutes = router_2.toRoutes.bind(_this);
+        _this.toRequestHandler = middleware_1.toRequestHandler.bind(_this);
+        _this.toErrorHandler = middleware_1.toErrorHandler.bind(_this);
+        _this.toMiddleware = middleware_1.toMiddleware.bind(_this);
+        _this.errorhandler = errorhandler_1.default.bind(_this);
         _this.__application = new koa_1.default();
         _this.__application.use(koa_bodyparser_1.default());
         _this.__application.use(koa_compress_1.default());
@@ -97,6 +105,7 @@ var ServiceEngine = (function (_super) {
         set: function (value) {
             var _a;
             var viewDir = value.viewDir, engine = value.engine, extension = value.extension;
+            this.__application.context.views = value;
             this.__application.use(koa_views_1.default(viewDir, {
                 extension: extension,
                 map: (_a = {},
@@ -119,10 +128,10 @@ var ServiceEngine = (function (_super) {
                 _this.__application.on(path, handler[0]);
             }
             else {
-                var router_2;
+                var router_3;
                 var handlers = handler.map(function (__handler) {
                     if (__handler instanceof router_1.default) {
-                        router_2 = __handler;
+                        router_3 = __handler;
                         if (path) {
                             __handler.prefix(path);
                         }
@@ -153,8 +162,8 @@ var ServiceEngine = (function (_super) {
                         }], handlers);
                 }
                 _this.__application.use(koa_compose_1.default(handlers));
-                if (router_2) {
-                    _this.__application.use(router_2.allowedMethods());
+                if (router_3) {
+                    _this.__application.use(router_3.allowedMethods());
                 }
             }
         };

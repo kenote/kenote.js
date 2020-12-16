@@ -8,7 +8,7 @@ import { IncomingHttpHeaders } from 'http'
  * 转换请求函式
  * @param handler 
  */
-export function toRequestHandler (handler: KoaEngine.RequestHandler<Context>) {
+export function toRequestHandler (handler: KoaEngine.RequestHandler<Context>): Koa.Middleware {
   return (context: Koa.Context & RouterContext, next: Koa.Next) => {
     let ctx = new Context(context)
     return handler(ctx, nextHandler(next, ctx))
@@ -16,10 +16,20 @@ export function toRequestHandler (handler: KoaEngine.RequestHandler<Context>) {
 }
 
 /**
+ * 转换错误函式
+ * @param handler 
+ */
+export function toErrorHandler (handler: KoaEngine.ErrorHandler<Context>) {
+  return (err: Error, ctx: Context) => {
+    return handler(err, ctx)
+  }
+}
+
+/**
  * 转换中间件
  * @param Middleware 
  */
-export function toMiddleware (methods: Array<KoaEngine.Method<Context>>, headers?: IncomingHttpHeaders) {
+export function toMiddleware (methods: Array<KoaEngine.Method<Context>>, headers?: IncomingHttpHeaders): Koa.Middleware {
   return (context: Koa.Context & RouterContext, next: Koa.Next) => {
     if (headers) {
       for (let [ name, value ] of Object.entries(headers)) {

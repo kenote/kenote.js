@@ -19,8 +19,14 @@ var __spread = (this && this.__spread) || function () {
     for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
     return ar;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var lodash_1 = require("lodash");
+var consolidate_1 = __importDefault(require("consolidate"));
+var fs_1 = __importDefault(require("fs"));
+var path_1 = __importDefault(require("path"));
 var Context = (function () {
     function Context(ctx) {
         var _this = this;
@@ -33,8 +39,18 @@ var Context = (function () {
         };
         this.json = this.send;
         this.render = function (view, options) { return _this.__ctx.render(view, options); };
+        this.renderException = function (view, options) {
+            var _a = _this.__ctx.views, viewDir = _a.viewDir, extension = _a.extension, engine = _a.engine;
+            var tpl = fs_1.default.readFileSync(path_1.default.resolve(viewDir, view + "." + extension), 'utf-8');
+            consolidate_1.default[engine || 'lodash'].render(tpl, options, function (err, html) {
+                _this.status(500).send(html);
+            });
+        };
         this.redirect = function (url) { return _this.__ctx.redirect(url); };
         this.cookie = function (name, value, options) { return _this.__ctx.cookies.set(name, value, options); };
+        this.setHeader = function (field, val) {
+            _this.__ctx.append(field, val);
+        };
         this.next = function (error) {
             _this.__ctx.app.emit('error', error, _this);
         };
@@ -58,6 +74,20 @@ var Context = (function () {
     Object.defineProperty(Context.prototype, "context", {
         get: function () {
             return this.__ctx;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Context.prototype, "req", {
+        get: function () {
+            return this.__ctx.req;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Context.prototype, "res", {
+        get: function () {
+            return this.__ctx.res;
         },
         enumerable: false,
         configurable: true
@@ -166,7 +196,14 @@ var Context = (function () {
     });
     Object.defineProperty(Context.prototype, "statusCode", {
         get: function () {
-            return this.__ctx.response.status;
+            return this.__ctx.status;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Context.prototype, "connection", {
+        get: function () {
+            return this.__ctx.req.connection;
         },
         enumerable: false,
         configurable: true

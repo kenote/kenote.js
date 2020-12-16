@@ -1,5 +1,5 @@
 
-import { ServiceEngine } from '..'
+import { ServiceEngine } from '../src'
 import staticOptions from './plugins/static'
 import templateOptions from './plugins/template'
 import RoutesAPI, { options as routerAPIOptions } from './routes/api'

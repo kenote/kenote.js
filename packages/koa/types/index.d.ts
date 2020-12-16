@@ -5,13 +5,13 @@ import Koa from 'koa'
 import staticCache from 'koa-static-cache'
 import cors from '@koa/cors'
 import Context from './context'
-import { IncomingHttpHeaders } from 'http'
 import { CommonEngineOptions } from '@kenote/common'
 
 export { ServiceEngine } from './engine'
 export { toRoutes } from './router'
-export { toRequestHandler, toMiddleware } from './middleware'
+export { toRequestHandler, toMiddleware, toErrorHandler } from './middleware'
 export { Context }
+export { default as errorhandler } from './errorhandler'
 
 export declare namespace KoaEngine {
 
@@ -30,57 +30,35 @@ export declare namespace KoaEngine {
   /**
    * 中间件选项
    */
-  interface RequestOptions {
-    /**
-     * Cors 跨域选项
-     */
-    cors         ?: cors.Options | true
-    /**
-     * 设置 Headers
-     */
-    headers      ?: IncomingHttpHeaders
-  }
+  type RequestOptions = CommonEngineOptions.RequestOptions<cors.Options>
 
-  interface Route<T = Context> {
-    /**
-     * 请求方式
-     */
-    method        : 'GET' | 'POST' | 'PUT' | 'DELETE'
-    /**
-     * 路由路径
-     */
-    routePath     : string | RegExp
-    /**
-     * Handler
-     */
-    handler       : Array<RequestHandler<T>>
-  }
+  /**
+   * 路由单元
+   */
+  type Route<T = any> = CommonEngineOptions.Route<T>
 
-  interface Method<T = Context> {
-
-    name          : string
-
-    handler       : BasicHandler<T, Function>
-  }
+  /**
+   * 中间件方法
+   */
+  type Method<T = Context> = CommonEngineOptions.Method<T>
 
   /**
    * 请求函式
    */
-  type RequestHandler<T = Context, Result = any> = (ctx: T, next: NextHandler) => Promise<Result> | Result
+  type RequestHandler<T = Context, N = NextHandler, Result = any> = CommonEngineOptions.RequestHandler<T, N, Result>
 
   /**
    * 错误函式
    */
-  type ErrorHandler<T = Context> = (err: Error, ctx?: T) => void
+  type ErrorHandler<T = Context> = CommonEngineOptions.ErrorHandler<T, Response | void>
 
   /**
    * 基础函式
    */
-  type BasicHandler<T = Context, Result = any> = (ctx: T) => Promise<Result> | Result
+  type BasicHandler<T = Context, Result = any> = CommonEngineOptions.BasicHandler<T, Result>
 
-  // type NextHandler<T = Context> = (next: Koa.Next, ctx: T) => (error?: any) => Promise<any> | any
   /**
    * Next 函式
    */
-  type NextHandler = (error?: any) => Promise<void> | void
+  type NextHandler = CommonEngineOptions.NextHandler
 }
