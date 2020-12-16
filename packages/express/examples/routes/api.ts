@@ -77,7 +77,7 @@ const routes: Array<ExpressEngine.Route<Context & Restful>> = [
       async (ctx, next) => {
         try {
           if (ctx.payload.type === 'name') {
-            ctx.throw(500, 'type is not an email', { code: 1000 })
+            ctx.throw(500, 'type is not an email')
           }
           ctx.api(ctx.payload)
         } catch (error) {

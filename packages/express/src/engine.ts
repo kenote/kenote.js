@@ -10,6 +10,7 @@ import { CommonEngine } from '@kenote/common'
 import consolidate from 'consolidate'
 import { toRequestHandler, toErrorHandler, toMiddleware } from './middleware'
 import { toRoutes } from './router'
+import errorhandler from 'errorhandler'
 
 export class ServiceEngine extends CommonEngine<Express> {
 
@@ -79,5 +80,6 @@ export class ServiceEngine extends CommonEngine<Express> {
   toRequestHandler = toRequestHandler.bind(this)
   toErrorHandler = toErrorHandler.bind(this)
   toMiddleware = toMiddleware.bind(this)
+  errorhandler = errorhandler.bind(this)
 
 }

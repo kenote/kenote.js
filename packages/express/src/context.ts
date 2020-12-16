@@ -159,6 +159,13 @@ export default class Context<ReqUser = any, Payload = any> {
   }
 
   /**
+   * 获取 connection
+   */
+  get connection () {
+    return this.__req.connection
+  }
+
+  /**
    * 发送信息
    * @param body any
    */
@@ -226,6 +233,15 @@ export default class Context<ReqUser = any, Payload = any> {
    * @param options 
    */
   cookie = (name: string, value: string, options?: CookieOptions) => this.__res.cookie(name, value, options || {})
+
+  /**
+   * 设置 Header
+   * @param field 
+   * @param val 
+   */
+  setHeader = (field: string, val: string | string[]) => {
+    this.__res.setHeader(field, val)
+  }
 
   /**
    * 抛错误

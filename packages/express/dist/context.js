@@ -53,6 +53,9 @@ var Context = (function () {
         }); };
         this.redirect = function (url) { return _this.__res.redirect(url); };
         this.cookie = function (name, value, options) { return _this.__res.cookie(name, value, options || {}); };
+        this.setHeader = function (field, val) {
+            _this.__res.setHeader(field, val);
+        };
         this.throw = function () {
             var properties = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -198,6 +201,13 @@ var Context = (function () {
     Object.defineProperty(Context.prototype, "cookies", {
         get: function () {
             return this.__req.cookies;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Context.prototype, "connection", {
+        get: function () {
+            return this.__req.connection;
         },
         enumerable: false,
         configurable: true

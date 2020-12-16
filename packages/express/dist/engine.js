@@ -59,6 +59,7 @@ var common_1 = require("@kenote/common");
 var consolidate_1 = __importDefault(require("consolidate"));
 var middleware_1 = require("./middleware");
 var router_1 = require("./router");
+var errorhandler_1 = __importDefault(require("errorhandler"));
 var ServiceEngine = (function (_super) {
     __extends(ServiceEngine, _super);
     function ServiceEngine() {
@@ -67,6 +68,7 @@ var ServiceEngine = (function (_super) {
         _this.toRequestHandler = middleware_1.toRequestHandler.bind(_this);
         _this.toErrorHandler = middleware_1.toErrorHandler.bind(_this);
         _this.toMiddleware = middleware_1.toMiddleware.bind(_this);
+        _this.errorhandler = errorhandler_1.default.bind(_this);
         _this.__application = express_1.default();
         _this.__application.use(body_parser_1.default.json({ limit: '1mb' }));
         _this.__application.use(body_parser_1.default.urlencoded({ extended: true, limit: '1mb' }));
