@@ -1,5 +1,5 @@
 import errorhandler from 'errorhandler'
-import { toErrorHandler, toBasicHandler } from '../..'
+import { toErrorHandler, toBasicHandler } from '../../src'
 
 /**
  * 处理错误
@@ -7,7 +7,7 @@ import { toErrorHandler, toBasicHandler } from '../..'
 export const errorHandler = process.env.NODE_ENV === 'development' 
   ? errorhandler() 
   : toErrorHandler(async (err, ctx) => {
-    return await ctx.status(500).render('error', { message: 'This page could internal server error' })
+    ctx.renderException('error', { message: 'This page could internal server error' })
   })
 
 /**

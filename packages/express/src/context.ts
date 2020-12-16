@@ -221,6 +221,15 @@ export default class Context<ReqUser = any, Payload = any> {
   })
 
   /**
+   * 返回一个渲染异常页面
+   * @param view 
+   * @param options 
+   */
+  renderException = (view: string, options?: object) => {
+    this.status(500).render(view, options)
+  }
+
+  /**
    * 跳转一个URL
    * @param url 
    */
