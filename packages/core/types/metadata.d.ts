@@ -1,7 +1,8 @@
-import { Controller } from './controller'
-import { Module } from './module'
+import { IController } from './controller'
+import { IModule } from './module'
 import { CommonEngineOptions } from '@kenote/common'
 import { MiddlewareOptions } from './middleware'
+export { getMetadataArgsStorage } from '../src/metadata'
 
 export declare namespace Metadata {
   /**
@@ -24,7 +25,7 @@ export declare namespace Metadata {
     /**
      * Method
      */
-    type          : Controller.MethodType
+    type          : IController.MethodType
     /**
      * 路由路径
      */
@@ -81,11 +82,11 @@ export declare namespace Metadata {
     /**
      * 静态文件模块
      */
-    staticServer     ?: Module.StaticServer
+    staticServer     ?: IModule.StaticServer
     /**
      * 模版系统
      */
-    templateOptions  ?: Module.TemplateOptions
+    templateOptions  ?: IModule.TemplateOptions
     /**
      * 路由控制器
      */
@@ -97,7 +98,7 @@ export declare namespace Metadata {
     /**
      * HttpException
      */
-    httpException    ?: Module.HttpException
+    httpException    ?: IModule.HttpException
   }
 
   /**
