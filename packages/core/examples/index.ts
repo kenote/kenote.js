@@ -1,5 +1,5 @@
 import { ServerFactory } from '../src'
-import { ServiceEngine } from '@kenote/koa'
+import { ServiceEngine } from '@kenote/express'
 import ApplicationModule from './application.module'
 
 async function bootstrap () {

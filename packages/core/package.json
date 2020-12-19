@@ -8,7 +8,6 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --config nodemon.json ./examples/index.ts",
-    "start": "node ./examples/index.js",
     "test": "jest",
     "build": "rm -rf ./dist && tsc"
   },

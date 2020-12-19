@@ -1,5 +1,5 @@
 import Koa from 'koa'
-import { RouterContext } from 'koa-router'
+import { RouterContext } from '@koa/router'
 import Cookies from 'cookies'
 import { compact, fromPairs, trim, get } from 'lodash'
 import consolidate from 'consolidate'
