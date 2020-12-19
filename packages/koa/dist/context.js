@@ -109,6 +109,13 @@ var Context = (function () {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(Context.prototype, "baseUrl", {
+        get: function () {
+            return lodash_1.get(this.__ctx, 'router.opts.prefix');
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(Context.prototype, "protocol", {
         get: function () {
             return this.__ctx.protocol;

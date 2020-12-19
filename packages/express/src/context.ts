@@ -47,20 +47,6 @@ export default class Context<ReqUser = any, Payload = any> {
   }
 
   /**
-   * 设置 User
-   */
-  set user (value: ReqUser) {
-    this.__req['user'] = value
-  }
-
-  /**
-   * 获取 User
-   */
-  get user () {
-    return this.__req['user']
-  }
-
-  /**
    * 获取 method
    */
   get method () {
@@ -156,6 +142,13 @@ export default class Context<ReqUser = any, Payload = any> {
    */
   get cookies () {
     return this.__req.cookies
+  }
+
+  /**
+   * 获取 statusCode
+   */
+  get statusCode () {
+    return this.__req.statusCode
   }
 
   /**

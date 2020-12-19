@@ -100,16 +100,6 @@ var Context = (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Context.prototype, "user", {
-        get: function () {
-            return this.__req['user'];
-        },
-        set: function (value) {
-            this.__req['user'] = value;
-        },
-        enumerable: false,
-        configurable: true
-    });
     Object.defineProperty(Context.prototype, "method", {
         get: function () {
             return this.__req.method;
@@ -204,6 +194,13 @@ var Context = (function () {
     Object.defineProperty(Context.prototype, "cookies", {
         get: function () {
             return this.__req.cookies;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Context.prototype, "statusCode", {
+        get: function () {
+            return this.__req.statusCode;
         },
         enumerable: false,
         configurable: true

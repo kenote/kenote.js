@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import { RouterContext } from 'koa-router'
 import Cookies from 'cookies'
-import { compact, fromPairs, trim } from 'lodash'
+import { compact, fromPairs, trim, get } from 'lodash'
 import consolidate from 'consolidate'
 import { KoaEngine } from '..'
 import fs from 'fs'
@@ -62,6 +62,13 @@ export default class Context<ReqUser = any, Payload = any> {
    */
   get method () {
     return this.__ctx.method
+  }
+
+  /**
+   * 获取入口 baseUrl
+   */
+  get baseUrl () {
+    return get(this.__ctx, 'router.opts.prefix')
   }
 
   /**
