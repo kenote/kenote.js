@@ -15,9 +15,14 @@ export function toMiddleware (methods: Array<ExpressEngine.Method<Context>>, hea
       }
     }
     for (let item of methods) {
-      let { name, handler } = item
+      let { name, handler, property } = item
       let ctx = new Context(req, res)
-      Context.prototype[name] = res[name] = handler(ctx)
+      if (handler) {
+        Context.prototype[name] = res[name] = handler(ctx)
+      }
+      if (property) {
+        Context.prototype[name] = res[name] = property
+      }
     }
     return next()
   }

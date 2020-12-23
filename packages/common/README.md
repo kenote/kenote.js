@@ -1,0 +1,4 @@
+# @kenote/common
+
+---
+MIT License.

@@ -12,6 +12,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __read = (this && this.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
     if (!m) return o;
@@ -62,18 +73,22 @@ var router_1 = require("./router");
 var errorhandler_1 = __importDefault(require("errorhandler"));
 var ServiceEngine = (function (_super) {
     __extends(ServiceEngine, _super);
-    function ServiceEngine() {
+    function ServiceEngine(options) {
         var _this = _super.call(this) || this;
         _this.toRoutes = router_1.toRoutes.bind(_this);
         _this.toRequestHandler = middleware_1.toRequestHandler.bind(_this);
         _this.toErrorHandler = middleware_1.toErrorHandler.bind(_this);
         _this.toMiddleware = middleware_1.toMiddleware.bind(_this);
         _this.errorhandler = errorhandler_1.default.bind(_this);
+        var _a = options || {}, bodyParserOptions = _a.bodyParser, compressOptions = _a.compress;
+        var _b = bodyParserOptions || {}, json = _b.json, urlencoded = _b.urlencoded, text = _b.text, raw = _b.raw;
         _this.__application = express_1.default();
-        _this.__application.use(body_parser_1.default.json({ limit: '1mb' }));
-        _this.__application.use(body_parser_1.default.urlencoded({ extended: true, limit: '1mb' }));
+        _this.__application.use(body_parser_1.default.json(__assign({ limit: '1mb' }, json)));
+        _this.__application.use(body_parser_1.default.urlencoded(__assign({ extended: true, limit: '1mb' }, urlencoded)));
+        _this.__application.use(body_parser_1.default.text(__assign({ limit: '1mb' }, text)));
+        _this.__application.use(body_parser_1.default.raw(__assign({ limit: '1mb' }, raw)));
         _this.__application.use(method_override_1.default());
-        _this.__application.use(compression_1.default());
+        _this.__application.use(compression_1.default(compressOptions));
         return _this;
     }
     Object.defineProperty(ServiceEngine.prototype, "name", {

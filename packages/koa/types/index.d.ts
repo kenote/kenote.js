@@ -6,6 +6,8 @@ import staticCache from 'koa-static-cache'
 import cors from '@koa/cors'
 import Context from './context'
 import { CommonEngineOptions } from '@kenote/common'
+import bodyParser from 'koa-bodyparser'
+import compress from 'koa-compress'
 
 export { ServiceEngine } from './engine'
 export { toRoutes } from './router'
@@ -16,6 +18,12 @@ export { default as errorhandler } from './errorhandler'
 export declare namespace KoaEngine {
 
   type app = Koa
+
+  interface Options {
+    keys         ?: string[]
+    bodyParser   ?: bodyParser.Options
+    compress     ?: compress.CompressOptions
+  }
 
   /**
    * 静态服务选项

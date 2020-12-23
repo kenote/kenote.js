@@ -15,11 +15,13 @@ import errorhandler from './errorhandler'
 
 export class ServiceEngine extends CommonEngine<Koa> {
 
-  constructor () {
+  constructor (options?: KoaEngine.Options) {
     super()
+    let { bodyParser: bodyParserOptions, compress: compressOptions, keys } = options || {}
     this.__application = new Koa()
-    this.__application.use(bodyParser())
-    this.__application.use(compress())
+    this.__application.use(bodyParser(bodyParserOptions))
+    this.__application.use(compress(compressOptions))
+    this.__application.keys = keys || ['keys', 'keykeys']
   }
 
   /**

@@ -9,7 +9,7 @@ import path from 'path'
 
 export default class Context<ReqUser = any, Payload = any> {
   
-  private __ctx: Koa.Context & RouterContext
+  protected __ctx: Koa.Context & RouterContext
 
   constructor (ctx: Koa.Context & RouterContext) {
     this.__ctx = ctx

@@ -14,13 +14,17 @@ import errorhandler from 'errorhandler'
 
 export class ServiceEngine extends CommonEngine<Express> {
 
-  constructor () {
+  constructor (options?: ExpressEngine.Options) {
     super()
+    let { bodyParser: bodyParserOptions, compress: compressOptions } = options || {}
+    let { json, urlencoded, text, raw } = bodyParserOptions || {}
     this.__application = express()
-    this.__application.use(bodyParser.json({ limit: '1mb' }))
-    this.__application.use(bodyParser.urlencoded({ extended: true, limit: '1mb' }))
+    this.__application.use(bodyParser.json({ limit: '1mb', ...json }))
+    this.__application.use(bodyParser.urlencoded({ extended: true, limit: '1mb', ...urlencoded }))
+    this.__application.use(bodyParser.text({ limit: '1mb', ...text }))
+    this.__application.use(bodyParser.raw({ limit: '1mb', ...raw }))
     this.__application.use(methodOverride())
-    this.__application.use(compress())
+    this.__application.use(compress(compressOptions))
   }
 
   /**

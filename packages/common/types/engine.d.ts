@@ -135,7 +135,11 @@ export declare namespace CommonEngineOptions {
     /**
      * Handler
      */
-    handler       : BasicHandler<T, Function>
+    handler      ?: BasicHandler<T, Function>
+    /**
+     * 属性
+     */
+    property     ?: any
   }
   
   /**

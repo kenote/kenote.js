@@ -6,6 +6,8 @@ import { Response, NextFunction, Express } from 'express'
 import Context from './context'
 import cors from 'cors'
 import { CommonEngineOptions } from '@kenote/common'
+import bodyParser from 'body-parser'
+import compress from 'compression'
 
 export { ServiceEngine } from './engine'
 export { toRoutes } from './router'
@@ -15,6 +17,16 @@ export { Context }
 export declare namespace ExpressEngine {
 
   type app = Express
+
+  interface Options {
+    bodyParser ?: {
+      json          ?: bodyParser.OptionsJson
+      text          ?: bodyParser.OptionsText
+      urlencoded    ?: bodyParser.OptionsUrlencoded
+      raw           ?: bodyParser.Options
+    },
+    compress   ?: compress.CompressionOptions
+  }
 
   /**
    * 静态服务选项

@@ -4,6 +4,9 @@
   "description": "Kenote.js",
   "main": "index.js",
   "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "workspaces": [
     "packages/*"
   ],

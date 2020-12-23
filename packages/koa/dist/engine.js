@@ -74,16 +74,18 @@ var router_2 = require("./router");
 var errorhandler_1 = __importDefault(require("./errorhandler"));
 var ServiceEngine = (function (_super) {
     __extends(ServiceEngine, _super);
-    function ServiceEngine() {
+    function ServiceEngine(options) {
         var _this = _super.call(this) || this;
         _this.toRoutes = router_2.toRoutes.bind(_this);
         _this.toRequestHandler = middleware_1.toRequestHandler.bind(_this);
         _this.toErrorHandler = middleware_1.toErrorHandler.bind(_this);
         _this.toMiddleware = middleware_1.toMiddleware.bind(_this);
         _this.errorhandler = errorhandler_1.default.bind(_this);
+        var _a = options || {}, bodyParserOptions = _a.bodyParser, compressOptions = _a.compress, keys = _a.keys;
         _this.__application = new koa_1.default();
-        _this.__application.use(koa_bodyparser_1.default());
-        _this.__application.use(koa_compress_1.default());
+        _this.__application.use(koa_bodyparser_1.default(bodyParserOptions));
+        _this.__application.use(koa_compress_1.default(compressOptions));
+        _this.__application.keys = keys || ['keys', 'keykeys'];
         return _this;
     }
     Object.defineProperty(ServiceEngine.prototype, "name", {

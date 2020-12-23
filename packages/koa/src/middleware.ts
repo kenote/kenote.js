@@ -1,5 +1,5 @@
 import Koa from 'koa'
-import { RouterContext } from 'koa-router'
+import { RouterContext } from '@koa/router'
 import { KoaEngine } from '..'
 import Context from './context'
 import { IncomingHttpHeaders } from 'http'
@@ -37,9 +37,14 @@ export function toMiddleware (methods: Array<KoaEngine.Method<Context>>, headers
       }
     }
     for (let item of methods) {
-      let { name, handler } = item
+      let { name, handler, property } = item
       let ctx = new Context(context)
-      Context.prototype[name] = ctx.context[name] = handler(ctx)
+      if (handler) {
+        Context.prototype[name] = ctx.context[name] = handler(ctx)
+      }
+      else if (property) {
+        Context.prototype[name] = ctx.context[name] = property
+      }
     }
     return next()
   }

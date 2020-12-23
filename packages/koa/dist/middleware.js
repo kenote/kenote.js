@@ -66,9 +66,14 @@ function toMiddleware(methods, headers) {
         try {
             for (var methods_1 = __values(methods), methods_1_1 = methods_1.next(); !methods_1_1.done; methods_1_1 = methods_1.next()) {
                 var item = methods_1_1.value;
-                var name_2 = item.name, handler = item.handler;
+                var name_2 = item.name, handler = item.handler, property = item.property;
                 var ctx = new context_1.default(context);
-                context_1.default.prototype[name_2] = ctx.context[name_2] = handler(ctx);
+                if (handler) {
+                    context_1.default.prototype[name_2] = ctx.context[name_2] = handler(ctx);
+                }
+                else if (property) {
+                    context_1.default.prototype[name_2] = ctx.context[name_2] = property;
+                }
             }
         }
         catch (e_2_1) { e_2 = { error: e_2_1 }; }
