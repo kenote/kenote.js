@@ -1,6 +1,6 @@
 
 import { Context } from '../..'
-import { Middleware, Bind } from '../../src'
+import { Middleware, Action } from '../../src'
 
 @Middleware({
   headers: {
@@ -10,14 +10,14 @@ import { Middleware, Bind } from '../../src'
 })
 export default class Restful {
 
-  @Bind('notfound')
+  @Action('notfound')
   notfound (ctx: Context) {
     return async () => {
       await ctx.status(404).render('error', { message: 'This page could not be found' })
     }
   }
 
-  @Bind()
+  @Action()
   api (ctx: Context) {
     return (info: any, error?: Error) => {
       if (error) {

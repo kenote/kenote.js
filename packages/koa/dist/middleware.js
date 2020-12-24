@@ -72,7 +72,7 @@ function toMiddleware(methods, headers) {
                     context_1.default.prototype[name_2] = ctx.context[name_2] = handler(ctx);
                 }
                 else if (property) {
-                    context_1.default.prototype[name_2] = ctx.context[name_2] = property;
+                    context_1.default.prototype[name_2] = ctx.context[name_2] = property(ctx);
                 }
             }
         }

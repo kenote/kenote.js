@@ -20,8 +20,8 @@ export function toMiddleware (methods: Array<ExpressEngine.Method<Context>>, hea
       if (handler) {
         Context.prototype[name] = res[name] = handler(ctx)
       }
-      if (property) {
-        Context.prototype[name] = res[name] = property
+      else if (property) {
+        Context.prototype[name] = req[name] = property(ctx)
       }
     }
     return next()

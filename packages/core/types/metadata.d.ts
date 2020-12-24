@@ -39,6 +39,10 @@ export declare namespace Metadata {
      */
     handler      ?: Handler
     /**
+     * 绑定的属性
+     */
+    property     ?: Handler
+    /**
      * 挂载的过滤器
      */
     filters      ?: Array<Handler>

@@ -58,8 +58,8 @@ function toMiddleware(methods, headers) {
                 if (handler) {
                     context_1.default.prototype[name_2] = res[name_2] = handler(ctx);
                 }
-                if (property) {
-                    context_1.default.prototype[name_2] = res[name_2] = property;
+                else if (property) {
+                    context_1.default.prototype[name_2] = req[name_2] = property(ctx);
                 }
             }
         }

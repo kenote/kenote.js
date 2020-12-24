@@ -3,6 +3,7 @@ import { IModule, Metadata } from '..'
 import { getMetadataArgsStorage } from './metadata'
 import { CommonEngineOptions } from '@kenote/common'
 import { toRoutePath } from './controller'
+import { property } from 'lodash'
 
 const MODULE_METADATA = 'MODULE'
 
@@ -50,7 +51,8 @@ export async function loadModules (module: Function): Promise<void> {
       for (let action of actions) {
         methods.push({
           name: action.name,
-          handler: action.handler
+          handler: action.handler,
+          property: action.property
         })
       }
       getMetadataArgsStorage().application.middleware?.push({

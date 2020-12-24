@@ -1,5 +1,5 @@
 export { Module, loadModules } from './module'
 export { ServerFactory } from './factory'
 export { Controller, Get, Post, Put, Delete } from './controller'
-export { Middleware, Bind } from './middleware'
+export { Middleware, Action, Property } from './middleware'
 export { getMetadataArgsStorage } from './metadata'

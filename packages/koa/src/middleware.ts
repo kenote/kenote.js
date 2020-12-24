@@ -43,7 +43,7 @@ export function toMiddleware (methods: Array<KoaEngine.Method<Context>>, headers
         Context.prototype[name] = ctx.context[name] = handler(ctx)
       }
       else if (property) {
-        Context.prototype[name] = ctx.context[name] = property
+        Context.prototype[name] = ctx.context[name] = property(ctx)
       }
     }
     return next()

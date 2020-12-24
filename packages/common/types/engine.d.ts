@@ -139,7 +139,7 @@ export declare namespace CommonEngineOptions {
     /**
      * 属性
      */
-    property     ?: any
+    property     ?: BasicHandler<T, Function>
   }
   
   /**
