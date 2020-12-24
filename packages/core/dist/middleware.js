@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Bind = exports.Middleware = void 0;
+exports.Property = exports.Action = exports.Middleware = void 0;
 var metadata_1 = require("./metadata");
 function Middleware(options) {
     return function (target) {
@@ -11,7 +11,7 @@ function Middleware(options) {
     };
 }
 exports.Middleware = Middleware;
-function Bind(name) {
+function Action(name) {
     return function (target, methodName, descriptor) {
         metadata_1.getMetadataArgsStorage().actions.push({
             target: target.constructor,
@@ -20,4 +20,14 @@ function Bind(name) {
         });
     };
 }
-exports.Bind = Bind;
+exports.Action = Action;
+function Property(name) {
+    return function (target, methodName, descriptor) {
+        metadata_1.getMetadataArgsStorage().actions.push({
+            target: target.constructor,
+            property: descriptor.value,
+            name: name || methodName
+        });
+    };
+}
+exports.Property = Property;

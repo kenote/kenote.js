@@ -1,5 +1,5 @@
 {
-  "name": "@nuxt/core",
+  "name": "@kenote/core",
   "version": "1.0.0",
   "description": "Your Project's description.",
   "main": "dist/index.js",

@@ -13,6 +13,7 @@ Object.defineProperty(exports, "Put", { enumerable: true, get: function () { ret
 Object.defineProperty(exports, "Delete", { enumerable: true, get: function () { return controller_1.Delete; } });
 var middleware_1 = require("./middleware");
 Object.defineProperty(exports, "Middleware", { enumerable: true, get: function () { return middleware_1.Middleware; } });
-Object.defineProperty(exports, "Bind", { enumerable: true, get: function () { return middleware_1.Bind; } });
+Object.defineProperty(exports, "Action", { enumerable: true, get: function () { return middleware_1.Action; } });
+Object.defineProperty(exports, "Property", { enumerable: true, get: function () { return middleware_1.Property; } });
 var metadata_1 = require("./metadata");
 Object.defineProperty(exports, "getMetadataArgsStorage", { enumerable: true, get: function () { return metadata_1.getMetadataArgsStorage; } });

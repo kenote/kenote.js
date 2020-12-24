@@ -149,7 +149,8 @@ function loadModules(module) {
                                     var action = actions_1_1.value;
                                     methods.push({
                                         name: action.name,
-                                        handler: action.handler
+                                        handler: action.handler,
+                                        property: action.property
                                     });
                                 }
                             }
