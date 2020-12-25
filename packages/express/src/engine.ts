@@ -2,6 +2,7 @@ import express, { Express, RequestHandler, ErrorRequestHandler, Request, Respons
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import compress from 'compression'
+import cookieParser from 'cookie-parser'
 import expressStaticGzip from 'express-static-gzip'
 import { ExpressEngine } from '../'
 import { isPlainObject } from 'lodash'
@@ -16,7 +17,7 @@ export class ServiceEngine extends CommonEngine<Express> {
 
   constructor (options?: ExpressEngine.Options) {
     super()
-    let { bodyParser: bodyParserOptions, compress: compressOptions } = options || {}
+    let { bodyParser: bodyParserOptions, compress: compressOptions, keys } = options || {}
     let { json, urlencoded, text, raw } = bodyParserOptions || {}
     this.__application = express()
     this.__application.use(bodyParser.json({ limit: '1mb', ...json }))
@@ -25,6 +26,7 @@ export class ServiceEngine extends CommonEngine<Express> {
     this.__application.use(bodyParser.raw({ limit: '1mb', ...raw }))
     this.__application.use(methodOverride())
     this.__application.use(compress(compressOptions))
+    this.__application.use(cookieParser(keys || ['keys', 'keykeys']))
   }
 
   /**

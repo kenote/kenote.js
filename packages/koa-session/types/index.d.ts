@@ -1,7 +1,9 @@
 import session from 'koa-generic-session'
-import koaSession from '../src'
+import Koa from 'koa'
 
-export default koaSession
+declare function koaSession (options?: session.SessionOptions): Koa.Middleware[]
+
+export = koaSession
 
 declare module '@kenote/koa' {
   interface Context {

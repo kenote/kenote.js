@@ -1,6 +1,6 @@
-import { ServiceEngine } from '@kenote/koa'
-import session from './plugins/session'
-import RoutesAPI from './routes/api'
+const { ServiceEngine } = require('@kenote/express')
+const session = require('./plugins/session-js')
+const RoutesAPI = require('./routes/api-js')
 
 async function bootstrap () {
   let engine = new ServiceEngine({ keys: ['kenote'] })

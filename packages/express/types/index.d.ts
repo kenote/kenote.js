@@ -19,6 +19,7 @@ export declare namespace ExpressEngine {
   type app = Express
 
   interface Options {
+    keys       ?: string | string[]
     bodyParser ?: {
       json          ?: bodyParser.OptionsJson
       text          ?: bodyParser.OptionsText

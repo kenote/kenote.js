@@ -63,6 +63,7 @@ var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var method_override_1 = __importDefault(require("method-override"));
 var compression_1 = __importDefault(require("compression"));
+var cookie_parser_1 = __importDefault(require("cookie-parser"));
 var express_static_gzip_1 = __importDefault(require("express-static-gzip"));
 var lodash_1 = require("lodash");
 var cors_1 = __importDefault(require("cors"));
@@ -80,7 +81,7 @@ var ServiceEngine = (function (_super) {
         _this.toErrorHandler = middleware_1.toErrorHandler.bind(_this);
         _this.toMiddleware = middleware_1.toMiddleware.bind(_this);
         _this.errorhandler = errorhandler_1.default.bind(_this);
-        var _a = options || {}, bodyParserOptions = _a.bodyParser, compressOptions = _a.compress;
+        var _a = options || {}, bodyParserOptions = _a.bodyParser, compressOptions = _a.compress, keys = _a.keys;
         var _b = bodyParserOptions || {}, json = _b.json, urlencoded = _b.urlencoded, text = _b.text, raw = _b.raw;
         _this.__application = express_1.default();
         _this.__application.use(body_parser_1.default.json(__assign({ limit: '1mb' }, json)));
@@ -89,6 +90,7 @@ var ServiceEngine = (function (_super) {
         _this.__application.use(body_parser_1.default.raw(__assign({ limit: '1mb' }, raw)));
         _this.__application.use(method_override_1.default());
         _this.__application.use(compression_1.default(compressOptions));
+        _this.__application.use(cookie_parser_1.default(keys || ['keys', 'keykeys']));
         return _this;
     }
     Object.defineProperty(ServiceEngine.prototype, "name", {

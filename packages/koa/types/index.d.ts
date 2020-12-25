@@ -8,6 +8,7 @@ import Context from './context'
 import { CommonEngineOptions } from '@kenote/common'
 import bodyParser from 'koa-bodyparser'
 import compress from 'koa-compress'
+import Keygrip from 'keygrip'
 
 export { ServiceEngine } from './engine'
 export { toRoutes } from './router'
@@ -20,7 +21,7 @@ export declare namespace KoaEngine {
   type app = Koa
 
   interface Options {
-    keys         ?: string[]
+    keys         ?: Keygrip | string[]
     bodyParser   ?: bodyParser.Options
     compress     ?: compress.CompressOptions
   }

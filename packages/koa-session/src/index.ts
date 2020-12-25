@@ -1,18 +1,16 @@
-import { Context } from '@kenote/koa'
-import compose from 'koa-compose'
+import { Context, toRequestHandler } from '@kenote/koa'
 import session from 'koa-generic-session'
-import Koa from 'koa'
 
-function koaSession (options?: session.SessionOptions): Koa.Middleware {
-  return compose([
+function koaSession (options?: session.SessionOptions) {
+  return [
     session(options!),
-    (context: Koa.Context, next: Koa.Next) => {
-      Context.prototype.session = context.session
-      Context.prototype.sessionSave = context.sessionSave
-      Context.prototype.regenerateSession = context.regenerateSession
+    toRequestHandler((ctx, next) => {
+      Context.prototype.session = ctx.context.session
+      Context.prototype.sessionSave = ctx.context.sessionSave
+      Context.prototype.regenerateSession = ctx.context.regenerateSession
       return next()
-    }
-  ])
+    })
+  ]
 }
 
 export = koaSession
