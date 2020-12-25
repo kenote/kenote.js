@@ -1,21 +1,26 @@
-# @kenote/koa-session
+# @kenote/express-session
 
-为 `@kenote/koa` 封装的 `session` 插件
+为 `@kenote/express` 封装的 `session` 插件
 
 ## 插件应用
 
 `index.ts`
 ```ts
-import { ServiceEngine } from '@kenote/app'
-import session from '@kenote/koa-session'
-import redisStore from 'koa-redis'
-// Type definitions for koa-redis 3.0
+import { ServiceEngine } from '@kenote/express'
+import connectRedis from 'connect-redis'
+import expressSession from 'express-session'
+import { createClient } from 'redis'
 import RoutesAPI from './routes/api'
+
+const RedisStore = connectRedis(expressSession)
 
 async function bootstarp () {
   let engine = new ServiceEngine({ keys: ['keys', 'keykeys'] })
   engine.register(session({
-    store: redisStore({})
+    secret: ['keys', 'keykeys'],
+    store: new RedisStore({ client: createClient() }),
+    resave: true,
+    saveUninitialized: true
   }))()
   engine.register(RoutesAPI)('/api')
 
@@ -25,7 +30,7 @@ async function bootstarp () {
 
 `./routes/api.ts`
 ```ts
-import { toRoutes } from '@kenote/koa'
+import { toRoutes } from '@kenote/express'
 const routes = [
   {
     method: 'GET',
