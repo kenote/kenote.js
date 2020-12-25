@@ -62,6 +62,10 @@ var __read = (this && this.__read) || function (o, n) {
     }
     return ar;
 };
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ServerFactory = void 0;
 var module_1 = require("./module");
@@ -81,15 +85,15 @@ var ServerFactoryStatic = (function () {
     ServerFactoryStatic.prototype.create = function (module) {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var $__engine, _b, staticServer, routeController, templateOptions, httpException, middleware, statics, options, _c, _d, _e, rootPath, rootDir, middleware_1, middleware_1_1, item, routeController_1, routeController_1_1, item, notFound, exception, path, path, errorhandler;
-            var e_1, _f, e_2, _g, e_3, _h;
-            return __generator(this, function (_j) {
-                switch (_j.label) {
+            var $__engine, _b, staticServer, routeController, templateOptions, httpException, middleware, plugins, statics, options, _c, _d, _e, rootPath, rootDir, plugins_1, plugins_1_1, item, middleware_1, middleware_1_1, item, routeController_1, routeController_1_1, item, notFound, exception, path, path, errorhandler;
+            var e_1, _f, e_2, _g, e_3, _h, e_4, _j;
+            return __generator(this, function (_k) {
+                switch (_k.label) {
                     case 0: return [4, module_1.loadModules(module)];
                     case 1:
-                        _j.sent();
+                        _k.sent();
                         $__engine = this.__engine;
-                        _b = metadata_1.getMetadataArgsStorage().application, staticServer = _b.staticServer, routeController = _b.routeController, templateOptions = _b.templateOptions, httpException = _b.httpException, middleware = _b.middleware;
+                        _b = metadata_1.getMetadataArgsStorage().application, staticServer = _b.staticServer, routeController = _b.routeController, templateOptions = _b.templateOptions, httpException = _b.httpException, middleware = _b.middleware, plugins = _b.plugins;
                         if (staticServer) {
                             statics = staticServer.statics, options = staticServer.options;
                             try {
@@ -109,6 +113,21 @@ var ServerFactoryStatic = (function () {
                         if (templateOptions) {
                             $__engine.template = templateOptions;
                         }
+                        if (plugins) {
+                            try {
+                                for (plugins_1 = __values(plugins), plugins_1_1 = plugins_1.next(); !plugins_1_1.done; plugins_1_1 = plugins_1.next()) {
+                                    item = plugins_1_1.value;
+                                    $__engine.register.apply($__engine, __spread(item))();
+                                }
+                            }
+                            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                            finally {
+                                try {
+                                    if (plugins_1_1 && !plugins_1_1.done && (_g = plugins_1.return)) _g.call(plugins_1);
+                                }
+                                finally { if (e_2) throw e_2.error; }
+                            }
+                        }
                         if (middleware && lodash_1.isFunction($__engine.toMiddleware)) {
                             try {
                                 for (middleware_1 = __values(middleware), middleware_1_1 = middleware_1.next(); !middleware_1_1.done; middleware_1_1 = middleware_1.next()) {
@@ -116,12 +135,12 @@ var ServerFactoryStatic = (function () {
                                     $__engine.register($__engine.toMiddleware(item.methods, (_a = item.options) === null || _a === void 0 ? void 0 : _a.headers))();
                                 }
                             }
-                            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                            catch (e_3_1) { e_3 = { error: e_3_1 }; }
                             finally {
                                 try {
-                                    if (middleware_1_1 && !middleware_1_1.done && (_g = middleware_1.return)) _g.call(middleware_1);
+                                    if (middleware_1_1 && !middleware_1_1.done && (_h = middleware_1.return)) _h.call(middleware_1);
                                 }
-                                finally { if (e_2) throw e_2.error; }
+                                finally { if (e_3) throw e_3.error; }
                             }
                         }
                         if (lodash_1.isFunction($__engine.toRoutes)) {
@@ -131,12 +150,12 @@ var ServerFactoryStatic = (function () {
                                     $__engine.register($__engine.toRoutes(item.routes))(item.path || '/', item.options);
                                 }
                             }
-                            catch (e_3_1) { e_3 = { error: e_3_1 }; }
+                            catch (e_4_1) { e_4 = { error: e_4_1 }; }
                             finally {
                                 try {
-                                    if (routeController_1_1 && !routeController_1_1.done && (_h = routeController_1.return)) _h.call(routeController_1);
+                                    if (routeController_1_1 && !routeController_1_1.done && (_j = routeController_1.return)) _j.call(routeController_1);
                                 }
-                                finally { if (e_3) throw e_3.error; }
+                                finally { if (e_4) throw e_4.error; }
                             }
                         }
                         if (httpException) {

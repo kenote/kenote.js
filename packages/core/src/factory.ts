@@ -24,7 +24,7 @@ class ServerFactoryStatic<T = any> {
     // 初始化模块
     await loadModules(module)
     let $__engine = this.__engine as unknown as CommonEngine
-    let { staticServer, routeController, templateOptions, httpException, middleware } = getMetadataArgsStorage().application
+    let { staticServer, routeController, templateOptions, httpException, middleware, plugins } = getMetadataArgsStorage().application
     // 处理静态文件
     if (staticServer) {
       let { statics, options } = staticServer
@@ -35,6 +35,12 @@ class ServerFactoryStatic<T = any> {
     // 处理模版引擎
     if (templateOptions) {
       $__engine.template = templateOptions
+    }
+    // 处理插件
+    if (plugins) {
+      for (let item of plugins) {
+        $__engine.register(...item)()
+      }
     }
     // 处理中间件
     if (middleware && isFunction($__engine.toMiddleware)) {

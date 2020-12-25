@@ -7,6 +7,7 @@ import Restful from './middleware/restful'
 
 @Module<any>({
   imports: [ StaticModule, TemplateModule, ControllerModule ],
+  plugins: [],
   middlewares: [ Restful ],
   httpException: {
     notFound: async ctx => {

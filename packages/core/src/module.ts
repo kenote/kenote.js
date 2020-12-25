@@ -41,6 +41,10 @@ export async function loadModules (module: Function): Promise<void> {
   else if ('viewDir' in options) {
     getMetadataArgsStorage().application.templateOptions = options
   }
+  // 处理插件
+  if ('plugins' in options) {
+    getMetadataArgsStorage().application.plugins = [ ...options.plugins ]
+  }
   // 处理中间件
   if ('middlewares' in options) {
     let { middlewares } = getMetadataArgsStorage()

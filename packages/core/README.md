@@ -30,6 +30,8 @@ import { Module } from '@kenote/core'
 @Module({
   // 加载其他模块，如静态模块、模版模块和控制器模块
   imports: [ ... ],
+  // 加载插件
+  plugins: [ ... ],
   // 加载中间件
   middlewares: [ ... ],
   // 定义HTTP异常处理

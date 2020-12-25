@@ -137,6 +137,9 @@ function loadModules(module) {
                     }
                     _g.label = 12;
                 case 12:
+                    if ('plugins' in options) {
+                        metadata_1.getMetadataArgsStorage().application.plugins = __spread(options.plugins);
+                    }
                     if ('middlewares' in options) {
                         middlewares = metadata_1.getMetadataArgsStorage().middlewares;
                         metadata_1.getMetadataArgsStorage().application.middleware = [];

@@ -96,6 +96,10 @@ export declare namespace Metadata {
      */
     routeController   : RouteController[]
     /**
+     * 插件
+     */
+    plugins          ?: Object[][]
+    /**
      * 中间件
      */
     middleware       ?: Middleware[]

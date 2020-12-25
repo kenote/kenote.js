@@ -11,3 +11,10 @@ declare module '@kenote/express' {
     sessionID: string
   }
 }
+
+declare module '@kenote/core' {
+  interface Context {
+    session: session.Session & Partial<session.SessionData> & { [key: string]: any }
+    sessionID: string
+  }
+}

@@ -5,13 +5,13 @@ export declare namespace IModule {
 
   interface Application {
     /**
-     * 路由控制器
-     */
-    controllers    ?: Controller[]
-    /**
      * 挂载模块
      */
     imports         : Function[]
+    /**
+     * 挂载插件
+     */
+    plugins        ?: Object[][]
     /**
      * 挂载中间件
      */

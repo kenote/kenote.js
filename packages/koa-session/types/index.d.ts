@@ -12,3 +12,11 @@ declare module '@kenote/koa' {
     regenerateSession(): Generator
   }
 }
+
+declare module '@kenote/core' {
+  interface Context {
+    session: session.Session | null
+    sessionSave: boolean | null
+    regenerateSession(): Generator
+  }
+}
