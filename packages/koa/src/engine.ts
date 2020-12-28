@@ -63,6 +63,11 @@ export class ServiceEngine extends CommonEngine<Koa> {
       if (path === 'error') {
         this.__application.on(path, handler[0] as KoaEngine.ErrorHandler)
       }
+      else if (path === 'passport') {
+        for (let _handler of handler) {
+          this.__application.use(_handler as Koa.Middleware)
+        }
+      }
       else {
         let router: Router | undefined
         let handlers = handler.map( __handler => {
