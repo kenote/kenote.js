@@ -39,7 +39,8 @@ class ServerFactoryStatic<T = any> {
     // 处理插件
     if (plugins) {
       for (let item of plugins) {
-        $__engine.register(...item)()
+        let __path = (item[0] as Function).name === 'initialize' ? 'passport' : undefined
+        $__engine.register(...item)(__path)
       }
     }
     // 处理中间件

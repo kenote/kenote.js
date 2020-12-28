@@ -15,10 +15,24 @@ export default class Restful {
       await ctx.status(404)
     }
   }
+
+  @Action()
+  api (ctx: Context) {
+    return (info: any, error?: Error) => {
+      if (error) {
+        let { message } = error
+        ctx.json({ error: message })
+      }
+      else {
+        ctx.json({ data: info })
+      }
+    }
+  }
 }
 
 declare module '@kenote/core' {
   interface Context {
     notfound (): Promise<void>
+    api (info: any, error?: Error): void
   }
 }

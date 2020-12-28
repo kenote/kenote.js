@@ -85,7 +85,7 @@ var ServerFactoryStatic = (function () {
     ServerFactoryStatic.prototype.create = function (module) {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var $__engine, _b, staticServer, routeController, templateOptions, httpException, middleware, plugins, statics, options, _c, _d, _e, rootPath, rootDir, plugins_1, plugins_1_1, item, middleware_1, middleware_1_1, item, routeController_1, routeController_1_1, item, notFound, exception, path, path, errorhandler;
+            var $__engine, _b, staticServer, routeController, templateOptions, httpException, middleware, plugins, statics, options, _c, _d, _e, rootPath, rootDir, plugins_1, plugins_1_1, item, __path, middleware_1, middleware_1_1, item, routeController_1, routeController_1_1, item, notFound, exception, path, path, errorhandler;
             var e_1, _f, e_2, _g, e_3, _h, e_4, _j;
             return __generator(this, function (_k) {
                 switch (_k.label) {
@@ -117,7 +117,8 @@ var ServerFactoryStatic = (function () {
                             try {
                                 for (plugins_1 = __values(plugins), plugins_1_1 = plugins_1.next(); !plugins_1_1.done; plugins_1_1 = plugins_1.next()) {
                                     item = plugins_1_1.value;
-                                    $__engine.register.apply($__engine, __spread(item))();
+                                    __path = item[0].name === 'initialize' ? 'passport' : undefined;
+                                    $__engine.register.apply($__engine, __spread(item))(__path);
                                 }
                             }
                             catch (e_2_1) { e_2 = { error: e_2_1 }; }
