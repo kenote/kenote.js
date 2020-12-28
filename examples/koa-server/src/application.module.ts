@@ -4,10 +4,11 @@ import TemplateModule from './application.template'
 import Restful from './middleware/restful'
 import ControllerV1Module from './application.controller.v1'
 import sessionPlugin from './pulgins/session'
+import passportPlugin from './pulgins/passport'
 
 @Module({
   imports: [ StaticModule, TemplateModule, ControllerV1Module ],
-  plugins: [ sessionPlugin ],
+  plugins: [ sessionPlugin, passportPlugin ],
   middlewares: [ Restful ],
   httpException: {
     notFound: async (ctx: Context) => {
