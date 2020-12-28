@@ -23,6 +23,17 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
 var __read = (this && this.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
     if (!m) return o;
@@ -42,17 +53,6 @@ var __read = (this && this.__read) || function (o, n) {
 var __spread = (this && this.__spread) || function () {
     for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
     return ar;
-};
-var __values = (this && this.__values) || function(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -125,35 +125,50 @@ var ServiceEngine = (function (_super) {
             handlers[_i] = arguments[_i];
         }
         return function (path, options) {
-            var _a, _b;
-            if (path) {
-                var _c = options || {}, corsOptions = _c.cors, headers_1 = _c.headers;
+            var e_1, _a, _b, _c;
+            if (path === 'passport') {
+                try {
+                    for (var handlers_1 = __values(handlers), handlers_1_1 = handlers_1.next(); !handlers_1_1.done; handlers_1_1 = handlers_1.next()) {
+                        var handler = handlers_1_1.value;
+                        _this.__application.use(handler);
+                    }
+                }
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
+                    try {
+                        if (handlers_1_1 && !handlers_1_1.done && (_a = handlers_1.return)) _a.call(handlers_1);
+                    }
+                    finally { if (e_1) throw e_1.error; }
+                }
+            }
+            else if (path) {
+                var _d = options || {}, corsOptions = _d.cors, headers_1 = _d.headers;
                 if (corsOptions) {
                     handlers = __spread([lodash_1.isPlainObject(corsOptions) ? cors_1.default(corsOptions) : cors_1.default()], handlers);
                 }
                 if (headers_1) {
                     handlers = __spread([function (req, res, next) {
-                            var e_1, _a;
+                            var e_2, _a;
                             try {
                                 for (var _b = __values(Object.entries(headers_1 || {})), _c = _b.next(); !_c.done; _c = _b.next()) {
                                     var _d = __read(_c.value, 2), name_1 = _d[0], value = _d[1];
                                     res.setHeader(name_1, value);
                                 }
                             }
-                            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                            catch (e_2_1) { e_2 = { error: e_2_1 }; }
                             finally {
                                 try {
                                     if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
                                 }
-                                finally { if (e_1) throw e_1.error; }
+                                finally { if (e_2) throw e_2.error; }
                             }
                             return next();
                         }], handlers);
                 }
-                (_a = _this.__application).use.apply(_a, __spread([path], handlers));
+                (_b = _this.__application).use.apply(_b, __spread([path], handlers));
             }
             else {
-                (_b = _this.__application).use.apply(_b, __spread(handlers));
+                (_c = _this.__application).use.apply(_c, __spread(handlers));
             }
         };
     };

@@ -60,7 +60,12 @@ export class ServiceEngine extends CommonEngine<Express> {
    */
   register (...handlers: Array<RequestHandler | ErrorRequestHandler>) {
     return (path?: string, options?: ExpressEngine.RequestOptions) => {
-      if (path) {
+      if (path === 'passport') {
+        for (let handler of handlers) {
+          this.__application.use(handler)
+        }
+      }
+      else if (path) {
         let { cors: corsOptions, headers  } = options || {}
 
         if (corsOptions) {
