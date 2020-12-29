@@ -19,9 +19,9 @@
     "passport": "^0.4.1"
   },
   "devDependencies": {
-    "@kenote/express": "1.0.0",
-    "@kenote/express-session": "1.0.0",
-    "@types/connect-redis": "^0.0.16", 
+    "@kenote/express": "^1.0.0",
+    "@kenote/express-session": "^1.0.0",
+    "@types/connect-redis": "^0.0.16",
     "@types/express-session": "^1.17.3",
     "@types/lodash": "^4.14.165",
     "@types/node": "^14.14.7",
