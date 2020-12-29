@@ -1,6 +1,6 @@
 {
   "name": "@kenote/core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Your Project's description.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
@@ -19,13 +19,13 @@
     "build": "rm -rf ./dist && tsc"
   },
   "dependencies": {
-    "@kenote/common": "^1.0.0",
+    "@kenote/common": "^1.0.1",
     "immutable": "^4.0.0-rc.12",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
-    "@kenote/express": "^1.0.0",
-    "@kenote/koa": "^1.0.0",
+    "@kenote/express": "^1.0.1",
+    "@kenote/koa": "^1.0.1",
     "@types/jest": "^25.2.3",
     "@types/lodash": "^4.14.165",
     "@types/node": "^14.14.7",
