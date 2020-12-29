@@ -101,7 +101,7 @@ export default class ControllerModule {}
 ## 中间件
 
 ```ts
-import { Context, Middleware, Bind } from '@kenote/core'
+import { Context, Middleware, Action } from '@kenote/core'
 
 @Middleware({
   // 定义 HTTP 头信息
@@ -115,7 +115,7 @@ export default class Restful {
   /**
    * 绑定中间件方法
    */
-  @Bind('notfound')
+  @Action('notfound')
   notfound (ctx: Context) {
     return async () => {
       await ctx.status(404).render('error', { message: 'This page could not be found' })
@@ -126,7 +126,7 @@ export default class Restful {
    * 绑定中间件方法
    * 不指定名称，就直接使用方法名
    */
-  @Bind()
+  @Action()
   api (ctx: Context) {
     return (info: any, error?: Error) => {
       if (error) {

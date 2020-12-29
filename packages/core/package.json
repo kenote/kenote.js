@@ -6,6 +6,10 @@
   "typings": "types/index.d.ts",
   "author": "thondery <thondery@163.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kenote/kenote.js"
+  },
   "scripts": {
     "dev": "nodemon --config nodemon.json ./examples/index.ts",
     "test": "jest",
