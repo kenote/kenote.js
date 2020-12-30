@@ -17,9 +17,18 @@ export declare namespace IModule {
      */
     middlewares    ?: Function[]
     /**
+     * 
+     */
+    ssrPlugins     ?: ssrPlugin[]
+    /**
      * HTTP 异常
      */
     httpException  ?: HttpException
+  }
+
+  interface ssrPlugin {
+    handler         : Object[]
+    prescript      ?: () => Promise<void>
   }
 
   /**

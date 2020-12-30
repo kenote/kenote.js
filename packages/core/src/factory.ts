@@ -24,7 +24,7 @@ class ServerFactoryStatic<T = any> {
     // 初始化模块
     await loadModules(module)
     let $__engine = this.__engine as unknown as CommonEngine
-    let { staticServer, routeController, templateOptions, httpException, middleware, plugins } = getMetadataArgsStorage().application
+    let { staticServer, routeController, templateOptions, httpException, middleware, plugins, ssrPlugins } = getMetadataArgsStorage().application
     // 处理静态文件
     if (staticServer) {
       let { statics, options } = staticServer
@@ -53,6 +53,16 @@ class ServerFactoryStatic<T = any> {
     if (isFunction($__engine.toRoutes)) {
       for (let item of routeController) {
         $__engine.register($__engine.toRoutes(item.routes))(item.path || '/', item.options)
+      }
+    }
+    // 处理SSR插件
+    if (ssrPlugins) {
+      for (let item of ssrPlugins) {
+        let { handler, prescript } = item
+        if (prescript) {
+          await prescript()
+        }
+        $__engine.register(...handler)()
       }
     }
     // 处理 HTTP 异常

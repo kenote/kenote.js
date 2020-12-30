@@ -85,15 +85,15 @@ var ServerFactoryStatic = (function () {
     ServerFactoryStatic.prototype.create = function (module) {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var $__engine, _b, staticServer, routeController, templateOptions, httpException, middleware, plugins, statics, options, _c, _d, _e, rootPath, rootDir, plugins_1, plugins_1_1, item, __path, middleware_1, middleware_1_1, item, routeController_1, routeController_1_1, item, notFound, exception, path, path, errorhandler;
-            var e_1, _f, e_2, _g, e_3, _h, e_4, _j;
-            return __generator(this, function (_k) {
-                switch (_k.label) {
+            var $__engine, _b, staticServer, routeController, templateOptions, httpException, middleware, plugins, ssrPlugins, statics, options, _c, _d, _e, rootPath, rootDir, plugins_1, plugins_1_1, item, __path, middleware_1, middleware_1_1, item, routeController_1, routeController_1_1, item, ssrPlugins_1, ssrPlugins_1_1, item, handler, prescript, e_1_1, notFound, exception, path, path, errorhandler;
+            var e_2, _f, e_3, _g, e_4, _h, e_5, _j, e_1, _k;
+            return __generator(this, function (_l) {
+                switch (_l.label) {
                     case 0: return [4, module_1.loadModules(module)];
                     case 1:
-                        _k.sent();
+                        _l.sent();
                         $__engine = this.__engine;
-                        _b = metadata_1.getMetadataArgsStorage().application, staticServer = _b.staticServer, routeController = _b.routeController, templateOptions = _b.templateOptions, httpException = _b.httpException, middleware = _b.middleware, plugins = _b.plugins;
+                        _b = metadata_1.getMetadataArgsStorage().application, staticServer = _b.staticServer, routeController = _b.routeController, templateOptions = _b.templateOptions, httpException = _b.httpException, middleware = _b.middleware, plugins = _b.plugins, ssrPlugins = _b.ssrPlugins;
                         if (staticServer) {
                             statics = staticServer.statics, options = staticServer.options;
                             try {
@@ -102,12 +102,12 @@ var ServerFactoryStatic = (function () {
                                     $__engine.staticDir = { rootDir: rootDir, rootPath: rootPath, options: options };
                                 }
                             }
-                            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                            catch (e_2_1) { e_2 = { error: e_2_1 }; }
                             finally {
                                 try {
                                     if (_d && !_d.done && (_f = _c.return)) _f.call(_c);
                                 }
-                                finally { if (e_1) throw e_1.error; }
+                                finally { if (e_2) throw e_2.error; }
                             }
                         }
                         if (templateOptions) {
@@ -121,12 +121,12 @@ var ServerFactoryStatic = (function () {
                                     $__engine.register.apply($__engine, __spread(item))(__path);
                                 }
                             }
-                            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                            catch (e_3_1) { e_3 = { error: e_3_1 }; }
                             finally {
                                 try {
                                     if (plugins_1_1 && !plugins_1_1.done && (_g = plugins_1.return)) _g.call(plugins_1);
                                 }
-                                finally { if (e_2) throw e_2.error; }
+                                finally { if (e_3) throw e_3.error; }
                             }
                         }
                         if (middleware && lodash_1.isFunction($__engine.toMiddleware)) {
@@ -136,12 +136,12 @@ var ServerFactoryStatic = (function () {
                                     $__engine.register($__engine.toMiddleware(item.methods, (_a = item.options) === null || _a === void 0 ? void 0 : _a.headers))();
                                 }
                             }
-                            catch (e_3_1) { e_3 = { error: e_3_1 }; }
+                            catch (e_4_1) { e_4 = { error: e_4_1 }; }
                             finally {
                                 try {
                                     if (middleware_1_1 && !middleware_1_1.done && (_h = middleware_1.return)) _h.call(middleware_1);
                                 }
-                                finally { if (e_3) throw e_3.error; }
+                                finally { if (e_4) throw e_4.error; }
                             }
                         }
                         if (lodash_1.isFunction($__engine.toRoutes)) {
@@ -151,14 +151,47 @@ var ServerFactoryStatic = (function () {
                                     $__engine.register($__engine.toRoutes(item.routes))(item.path || '/', item.options);
                                 }
                             }
-                            catch (e_4_1) { e_4 = { error: e_4_1 }; }
+                            catch (e_5_1) { e_5 = { error: e_5_1 }; }
                             finally {
                                 try {
                                     if (routeController_1_1 && !routeController_1_1.done && (_j = routeController_1.return)) _j.call(routeController_1);
                                 }
-                                finally { if (e_4) throw e_4.error; }
+                                finally { if (e_5) throw e_5.error; }
                             }
                         }
+                        if (!ssrPlugins) return [3, 10];
+                        _l.label = 2;
+                    case 2:
+                        _l.trys.push([2, 8, 9, 10]);
+                        ssrPlugins_1 = __values(ssrPlugins), ssrPlugins_1_1 = ssrPlugins_1.next();
+                        _l.label = 3;
+                    case 3:
+                        if (!!ssrPlugins_1_1.done) return [3, 7];
+                        item = ssrPlugins_1_1.value;
+                        handler = item.handler, prescript = item.prescript;
+                        if (!prescript) return [3, 5];
+                        return [4, prescript()];
+                    case 4:
+                        _l.sent();
+                        _l.label = 5;
+                    case 5:
+                        $__engine.register.apply($__engine, __spread(handler))();
+                        _l.label = 6;
+                    case 6:
+                        ssrPlugins_1_1 = ssrPlugins_1.next();
+                        return [3, 3];
+                    case 7: return [3, 10];
+                    case 8:
+                        e_1_1 = _l.sent();
+                        e_1 = { error: e_1_1 };
+                        return [3, 10];
+                    case 9:
+                        try {
+                            if (ssrPlugins_1_1 && !ssrPlugins_1_1.done && (_k = ssrPlugins_1.return)) _k.call(ssrPlugins_1);
+                        }
+                        finally { if (e_1) throw e_1.error; }
+                        return [7];
+                    case 10:
                         if (httpException) {
                             notFound = httpException.notFound, exception = httpException.exception;
                             if (notFound && $__engine.toRequestHandler && lodash_1.isFunction($__engine.toRequestHandler)) {

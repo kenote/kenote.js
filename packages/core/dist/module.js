@@ -183,6 +183,9 @@ function loadModules(module) {
                             finally { if (e_2) throw e_2.error; }
                         }
                     }
+                    if ('ssrPlugins' in options) {
+                        metadata_1.getMetadataArgsStorage().application.ssrPlugins = options.ssrPlugins;
+                    }
                     if ('httpException' in options) {
                         metadata_1.getMetadataArgsStorage().application.httpException = options.httpException;
                     }

@@ -65,6 +65,10 @@ export async function loadModules (module: Function): Promise<void> {
       })
     }
   }
+  // 处理 SSR 插件
+  if ('ssrPlugins' in options) {
+    getMetadataArgsStorage().application.ssrPlugins = options.ssrPlugins
+  }
   // 处理 HTTP 异常
   if ('httpException' in options) {
     getMetadataArgsStorage().application.httpException = options.httpException

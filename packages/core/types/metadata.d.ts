@@ -104,6 +104,10 @@ export declare namespace Metadata {
      */
     middleware       ?: Middleware[]
     /**
+     * SSR插件
+     */
+    ssrPlugins       ?: IModule.ssrPlugin[] 
+    /**
      * HttpException
      */
     httpException    ?: IModule.HttpException
