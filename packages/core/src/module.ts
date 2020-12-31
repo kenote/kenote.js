@@ -3,7 +3,6 @@ import { IModule, Metadata } from '..'
 import { getMetadataArgsStorage } from './metadata'
 import { CommonEngineOptions } from '@kenote/common'
 import { toRoutePath } from './controller'
-import { property } from 'lodash'
 
 const MODULE_METADATA = 'MODULE'
 

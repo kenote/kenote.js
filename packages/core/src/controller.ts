@@ -20,7 +20,7 @@ export function Controller (baseRoute?: string): ClassDecorator {
  * 方法装饰器 -- 绑定请求
  * @param type GET | POST | PUT | DELETE
  */
-const createMethodDecorator = (type: IController.MethodType) => (route: string, options?: IController.RouteOptions): MethodDecorator => {
+const createMethodDecorator = (type: IController.MethodType) => (route: string, options?: IController.RouteOptions) => {
   return (target: Object, methodName: string, descriptor: TypedPropertyDescriptor<any>) => {
     let { filters, headers } = options || {}
     getMetadataArgsStorage().actions.push({

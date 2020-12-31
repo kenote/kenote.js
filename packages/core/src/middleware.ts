@@ -18,7 +18,7 @@ export function Middleware (options?: MiddlewareOptions): ClassDecorator {
  * 方法装饰器 -- 绑定方法
  * @param name 
  */
-export function Action (name?: string): MethodDecorator {
+export function Action (name?: string) {
   return (target: object, methodName: string, descriptor: TypedPropertyDescriptor<any>) => {
     getMetadataArgsStorage().actions.push({
       target: target.constructor,
@@ -32,7 +32,7 @@ export function Action (name?: string): MethodDecorator {
  * 方法装饰器 -- 绑定属性
  * @param name 
  */
-export function Property (name?: string): MethodDecorator {
+export function Property (name?: string) {
   return (target: object, methodName: string, descriptor: TypedPropertyDescriptor<any>) => {
     getMetadataArgsStorage().actions.push({
       target: target.constructor,

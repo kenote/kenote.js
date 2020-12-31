@@ -195,8 +195,11 @@ var Context = (function () {
     });
     Object.defineProperty(Context.prototype, "cookies", {
         get: function () {
-            var cookies = lodash_1.compact((this.__ctx.headers.cookie || '').split(/\;/)).map(lodash_1.trim).map(function (s) { return s.split(/\=/); });
-            return lodash_1.fromPairs(cookies);
+            var cookies = lodash_1.compact((this.__ctx.headers.cookie || '').split(/\;/))
+                .map(String)
+                .map(lodash_1.trim)
+                .map(function (s) { return s.split(/\=/); });
+            return (cookies);
         },
         enumerable: false,
         configurable: true

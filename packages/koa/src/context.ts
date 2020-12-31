@@ -152,8 +152,11 @@ export default class Context<ReqUser = any, Payload = any> {
    * 获取 cookies
    */
   get cookies () {
-    let cookies = compact((this.__ctx.headers.cookie || '').split(/\;/)).map(trim).map( s => s.split(/\=/) )
-    return fromPairs(cookies)
+    let cookies = compact((this.__ctx.headers.cookie || '').split(/\;/))
+      .map(String)
+      .map(trim)
+      .map( s => s.split(/\=/) )
+    return (cookies)
   }
 
   /**
