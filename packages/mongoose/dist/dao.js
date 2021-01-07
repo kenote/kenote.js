@@ -46,9 +46,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.modelDao = exports.ModelDao = void 0;
 var lodash_1 = require("lodash");
+var bluebird_1 = require("bluebird");
 var ModelDao = (function () {
     function ModelDao(model, options) {
         this.__Options = {
@@ -68,21 +80,47 @@ var ModelDao = (function () {
     });
     ModelDao.prototype.create = function (docs) {
         return __awaiter(this, void 0, void 0, function () {
-            var populate, data;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var populate, data, _data, data_1, data_1_1, res, item, e_1_1;
+            var e_1, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         populate = this.__Options.populate;
                         return [4, this.__Model.create(docs)];
                     case 1:
-                        data = _a.sent();
-                        if (lodash_1.isArray(data)) {
-                            return [2, data.map(function (ret) { return ret.populate(populate); })];
+                        data = _b.sent();
+                        if (!lodash_1.isArray(data)) return [3, 10];
+                        _data = [];
+                        _b.label = 2;
+                    case 2:
+                        _b.trys.push([2, 7, 8, 9]);
+                        data_1 = __values(data), data_1_1 = data_1.next();
+                        _b.label = 3;
+                    case 3:
+                        if (!!data_1_1.done) return [3, 6];
+                        res = data_1_1.value;
+                        return [4, bluebird_1.promisifyAll(res).populateAsync(populate)];
+                    case 4:
+                        item = _b.sent();
+                        _data.push(item);
+                        _b.label = 5;
+                    case 5:
+                        data_1_1 = data_1.next();
+                        return [3, 3];
+                    case 6: return [3, 9];
+                    case 7:
+                        e_1_1 = _b.sent();
+                        e_1 = { error: e_1_1 };
+                        return [3, 9];
+                    case 8:
+                        try {
+                            if (data_1_1 && !data_1_1.done && (_a = data_1.return)) _a.call(data_1);
                         }
-                        else {
-                            return [2, data.populate(populate)];
-                        }
-                        return [2];
+                        finally { if (e_1) throw e_1.error; }
+                        return [7];
+                    case 9: return [2, _data];
+                    case 10: return [4, bluebird_1.promisifyAll(data).populateAsync(populate)];
+                    case 11: return [2, _b.sent()];
                 }
             });
         });

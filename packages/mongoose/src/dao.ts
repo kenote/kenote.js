@@ -1,6 +1,7 @@
-import { Model, Document, CreateQuery, FilterQuery, UpdateQuery, ModelUpdateOptions } from 'mongoose'
+import { Model, Document, CreateQuery, FilterQuery, UpdateQuery, ModelUpdateOptions, DocumentQuery } from 'mongoose'
 import type { QueryOptions } from '..'
 import { isArray } from 'lodash'
+import { promisifyAll } from 'bluebird'
 
 export class ModelDao {
 
@@ -27,10 +28,15 @@ export class ModelDao {
     let { populate } = this.__Options
     let data = await this.__Model.create(docs)
     if (isArray(data)) {
-      return data.map( ret => ret.populate(populate!) )
+      let _data: any[] = []
+      for (let res of data) {
+        let item = await promisifyAll(res).populateAsync(populate!)
+        _data.push(item)
+      }
+      return _data
     }
     else {
-      return data.populate(populate!)
+      return await promisifyAll(data as any).populateAsync(populate!)
     }
   }
 

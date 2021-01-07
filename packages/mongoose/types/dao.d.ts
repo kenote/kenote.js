@@ -73,6 +73,11 @@ export declare interface QueryOptions {
 export declare class ModelDao<T = Document> {
 
   /**
+   * Model 名称
+   */
+  name: string
+
+  /**
    * /**
    * 创建数据文档
    * @param docs 

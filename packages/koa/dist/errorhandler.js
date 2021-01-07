@@ -27,6 +27,7 @@ var path_1 = __importDefault(require("path"));
 var fs_1 = __importDefault(require("fs"));
 var util_1 = require("util");
 var escape_html_1 = __importDefault(require("escape-html"));
+var context_1 = __importDefault(require("./context"));
 var accepts_1 = __importDefault(require("accepts"));
 var lodash_1 = require("lodash");
 var DOUBLE_SPACE_REGEXP = /\x20{2}/g;
@@ -48,6 +49,7 @@ function errorhandler(options) {
         };
     }
     return function (err, ctx) {
+        ctx = 'context' in ctx ? ctx : new context_1.default(ctx);
         ctx.status(err.status || 500);
         var str = stringify(err);
         var accept = accepts_1.default(ctx.req);

@@ -35,7 +35,8 @@ export default function errorhandler (options?: Options): KoaEngine.ErrorHandler
     }
   }
 
-  return (err: any, ctx: Context) => {
+  return (err, ctx) => {
+    ctx = 'context' in ctx ? ctx : new Context(ctx)
     ctx.status(err.status || 500)
     let str = stringify(err)
     let accept = accepts(ctx.req)
@@ -74,8 +75,6 @@ export default function errorhandler (options?: Options): KoaEngine.ErrorHandler
       ctx.setHeader('Content-Type', 'text/plain; charset=utf-8')
       ctx.send(str)
     }
-    
-      
   }
 }
 
