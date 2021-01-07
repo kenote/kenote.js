@@ -1,6 +1,6 @@
 {
   "name": "@kenote/mongoose",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Your Project's description.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
