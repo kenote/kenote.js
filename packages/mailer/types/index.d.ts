@@ -1,6 +1,6 @@
-
 import SMTPTransport from 'nodemailer/lib/smtp-transport'
 import { RetryOptions } from 'async'
+import { Mailer } from '../src'
 
 export declare interface MailerSetting {
   /**
@@ -21,4 +21,8 @@ export declare interface MailerSetting {
   asyncRetryOptions   ?: number | RetryOptions
 }
 
-export type renderString = (src: string, context: any) => string
+export declare type renderString = (src: string, context: any) => string
+
+export declare const mailer: (options: MailerSetting) => Mailer
+
+export { Mailer }
