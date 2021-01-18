@@ -15,7 +15,7 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "rm -rf ./dist && tsc"
+    "build": "rm -rf ./dist && tsc && cp ./types/url-require.d.ts ./dist"
   },
   "dependencies": {
     "@types/js-yaml": "^3.12.6",
