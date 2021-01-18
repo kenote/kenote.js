@@ -1,0 +1,9 @@
+
+host: 0.0.0.0
+
+port: 7000
+
+site_name: Kenote
+
+redis:
+  pass: 123456
