@@ -2,3 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var engine_1 = require("./engine");
 Object.defineProperty(exports, "CommonEngine", { enumerable: true, get: function () { return engine_1.CommonEngine; } });
+var datanode_1 = require("./datanode");
+Object.defineProperty(exports, "DataNodeProxy", { enumerable: true, get: function () { return datanode_1.DataNodeProxy; } });
+Object.defineProperty(exports, "dataNodeProxy", { enumerable: true, get: function () { return datanode_1.dataNodeProxy; } });
+Object.defineProperty(exports, "initMaps", { enumerable: true, get: function () { return datanode_1.initMaps; } });
+Object.defineProperty(exports, "removeMaps", { enumerable: true, get: function () { return datanode_1.removeMaps; } });
+var channel_1 = require("./channel");
+Object.defineProperty(exports, "getChannelKey", { enumerable: true, get: function () { return channel_1.getChannelKey; } });
