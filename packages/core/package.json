@@ -1,6 +1,6 @@
 {
   "name": "@kenote/core",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Your Project's description.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
