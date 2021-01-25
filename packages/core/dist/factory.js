@@ -85,7 +85,7 @@ var ServerFactoryStatic = (function () {
     ServerFactoryStatic.prototype.create = function (module) {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var $__engine, _b, staticServer, routeController, templateOptions, httpException, middleware, plugins, ssrPlugins, statics, options, _c, _d, _e, rootPath, rootDir, plugins_1, plugins_1_1, item, __path, middleware_1, middleware_1_1, item, routeController_1, routeController_1_1, item, ssrPlugins_1, ssrPlugins_1_1, item, handler, prescript, e_1_1, notFound, exception, path, path, errorhandler;
+            var $__engine, _b, staticServer, routeController, templateOptions, httpException, middleware, plugins, ssrPlugins, statics, options, _c, _d, _e, rootPath, rootDir, plugins_1, plugins_1_1, item, __path, middleware_1, middleware_1_1, item, routeController_1, routeController_1_1, item, ssrPlugins_1, ssrPlugins_1_1, item, handler, prescript, prefix, e_1_1, notFound, exception, path, path, errorhandler;
             var e_2, _f, e_3, _g, e_4, _h, e_5, _j, e_1, _k;
             return __generator(this, function (_l) {
                 switch (_l.label) {
@@ -168,14 +168,14 @@ var ServerFactoryStatic = (function () {
                     case 3:
                         if (!!ssrPlugins_1_1.done) return [3, 7];
                         item = ssrPlugins_1_1.value;
-                        handler = item.handler, prescript = item.prescript;
+                        handler = item.handler, prescript = item.prescript, prefix = item.prefix;
                         if (!prescript) return [3, 5];
                         return [4, prescript()];
                     case 4:
                         _l.sent();
                         _l.label = 5;
                     case 5:
-                        $__engine.register.apply($__engine, __spread(handler))();
+                        $__engine.register.apply($__engine, __spread(handler))(prefix);
                         _l.label = 6;
                     case 6:
                         ssrPlugins_1_1 = ssrPlugins_1.next();

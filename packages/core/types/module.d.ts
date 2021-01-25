@@ -27,7 +27,17 @@ export declare namespace IModule {
   }
 
   interface ssrPlugin {
+    /**
+     * 绑定前缀
+     */
+    prefix         ?: string
+    /**
+     * Handler
+     */
     handler         : Object[]
+    /**
+     * 前置脚本
+     */
     prescript      ?: () => Promise<void>
   }
 

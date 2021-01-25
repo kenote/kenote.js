@@ -58,11 +58,11 @@ class ServerFactoryStatic<T = any> {
     // 处理SSR插件
     if (ssrPlugins) {
       for (let item of ssrPlugins) {
-        let { handler, prescript } = item
+        let { handler, prescript, prefix } = item
         if (prescript) {
           await prescript()
         }
-        $__engine.register(...handler)()
+        $__engine.register(...handler)(prefix)
       }
     }
     // 处理 HTTP 异常
