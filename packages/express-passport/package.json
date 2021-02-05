@@ -1,6 +1,6 @@
 {
   "name": "@kenote/express-passport",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Your Project's description.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
