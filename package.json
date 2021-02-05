@@ -8,11 +8,13 @@
     "access": "public"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "scripts": {
     "bootstrap": "yarn clean && lerna bootstrap",
-    "clean": "lerna clean -y"
+    "clean": "lerna clean -y",
+    "publish": "rm -fr packages/*/package-lock.json && lerna publish"
   },
   "repository": "https://github.com/kenote/kenote.js.git",
   "author": "thondery <thondery@163.com>",

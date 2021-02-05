@@ -1,8 +1,14 @@
 {
   "packages": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "version": "1.0.15",
   "useWorkspaces": true,
-  "npmClient": "npm"
+  "npmClient": "yarn",
+  "command": {
+    "publish": {
+      "npmClient": "npm"
+    }
+  }
 }
