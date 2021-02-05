@@ -19,6 +19,7 @@
     "build": "rm -rf ./dist && tsc"
   },
   "dependencies": {
+    "@types/passport": "^1.0.4",
     "passport": "^0.4.1"
   },
   "devDependencies": {
@@ -28,7 +29,6 @@
     "@types/express-session": "^1.17.3",
     "@types/lodash": "^4.14.165",
     "@types/node": "^14.14.7",
-    "@types/passport": "^1.0.4",
     "@types/passport-local": "^1.0.33",
     "connect-redis": "^4.0.4",
     "nodemon": "2.0.4",
