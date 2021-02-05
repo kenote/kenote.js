@@ -5,13 +5,16 @@ declare function expressPassport (): RequestHandler[]
 
 export = expressPassport
 
+interface AuthInfo {}
+interface User {}
+
 declare module '@kenote/express' {
   interface Context {
-    authInfo?: Express.AuthInfo
-    user?: Express.User
+    authInfo?: AuthInfo
+    user?: User
 
-    login(user: Express.User, options?: any): Promise<void>
-    logIn(user: Express.User, options?: any): Promise<void>
+    login(user: User, options?: any): Promise<void>
+    logIn(user: User, options?: any): Promise<void>
 
     logout(): void
     logOut(): void
@@ -23,11 +26,11 @@ declare module '@kenote/express' {
 
 declare module '@kenote/core' {
   interface Context {
-    authInfo?: Express.AuthInfo
-    user?: Express.User
+    authInfo?: AuthInfo
+    user?: User
 
-    login(user: Express.User, options?: any): Promise<void>
-    logIn(user: Express.User, options?: any): Promise<void>
+    login(user: User, options?: any): Promise<void>
+    logIn(user: User, options?: any): Promise<void>
 
     logout(): void
     logOut(): void
