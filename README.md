@@ -20,6 +20,8 @@ kenote create --example https://github.com/kenote/kenote.js/tree/main/examples/<
 | with-koa | Basic example using Koa |
 | with-express-graphql | Basic example using Express and GraphQL. |
 | with-koa-graphql | Basic example using Koa and GraphQL. |
+| with-express-nuxt | Basic example using Express and Nuxt.js. |
+| with-koa-nuxt | Basic example using Koa and Nuxt.js. |
 
 ## Packages
 

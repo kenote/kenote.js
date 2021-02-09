@@ -3,7 +3,7 @@ import { Module, Context } from '@kenote/core'
 import ControllerModule from './application.controller'
 import sessionPlugin from '~/plugins/session'
 import passportPlugin from '~/plugins/passport'
-import apolloPlufin from '~/plugins/apollo'
+import apolloPlugin from '~/plugins/apollo'
 import Restful from '~/middlewares/restful'
 
 @Module({
@@ -31,7 +31,7 @@ class TemplateModule {}
   // 功能模块
   imports: [ StaticModule, TemplateModule, ControllerModule ],
   // 插件
-  plugins: [ sessionPlugin, passportPlugin, apolloPlufin ],
+  plugins: [ sessionPlugin, passportPlugin, apolloPlugin ],
   // 中间件
   middlewares: [ Restful ],
   // SSR 插件

@@ -3,8 +3,8 @@ import { Module, Context } from '@kenote/core'
 import ControllerModule from './application.controller'
 import sessionPlugin from '~/plugins/session'
 import passportPlugin from '~/plugins/passport'
-import apolloPlugin from '~/plugins/apollo'
 import Restful from '~/middlewares/restful'
+import nuxtPulgin from '~/plugins/nuxt'
 
 @Module({
   /**
@@ -31,11 +31,11 @@ class TemplateModule {}
   // 功能模块
   imports: [ StaticModule, TemplateModule, ControllerModule ],
   // 插件
-  plugins: [ sessionPlugin, passportPlugin, apolloPlugin ],
+  plugins: [ sessionPlugin, passportPlugin ],
   // 中间件
   middlewares: [ Restful ],
   // SSR 插件
-  ssrPlugins: [],
+  ssrPlugins: [ nuxtPulgin ],
   // 异常处理
   httpException: {
     // 404 Not Found
