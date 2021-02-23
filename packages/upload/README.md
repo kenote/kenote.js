@@ -1,6 +1,6 @@
 # @kenote/upload
 
-Upload module for HTTP Server.
+Upload module for HTTP Server. 
 
 ## Examples
 
