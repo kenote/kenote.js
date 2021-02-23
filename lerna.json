@@ -8,7 +8,10 @@
   "npmClient": "yarn",
   "command": {
     "publish": {
-      "npmClient": "npm"
+      "npmClient": "npm",
+      "packages": [
+        "packages/*"
+      ]
     }
   }
 }
