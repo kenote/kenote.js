@@ -38,6 +38,7 @@ kenote create --example https://github.com/kenote/kenote.js/tree/main/examples/<
 | @konte/mailer | Package of NodeMailer module |
 | @kenote/mongoose | Package of Mongoose module |
 | @kenote/config | Get profile module |
+| @kenote/upload | Package of Upload module |
 
 ---
 MIT License.
