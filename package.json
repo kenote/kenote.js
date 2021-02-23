@@ -8,8 +8,7 @@
     "access": "public"
   },
   "workspaces": [
-    "packages/*",
-    "examples/*"
+    "packages/*"
   ],
   "scripts": {
     "bootstrap": "yarn clean && lerna bootstrap",
