@@ -20,6 +20,13 @@ export class UploadStore {
   }
 
   /**
+   * 获取类型
+   */
+  get type () {
+    return this.__Options.type
+  }
+
+  /**
    * 上传文件
    * @param putStream 
    * @param dir 
@@ -39,8 +46,12 @@ export class UploadStore {
   }
 
   private __upload (putStream: PutStreamFunction, dir: string = '', done: NextResult) {
-    let { max_limit, mime_types, urlprefix, root_dir, original_name, errors } = this.__Options
+    let { max_limit, mime_types, urlprefix, root_dir, original_name, errors, ossOptions } = this.__Options
     let { headers } = this.__Request
+    let files: PutResult[] = []
+    if (!('content-type' in headers)) {
+      return done(null, files)
+    }
     let busboy = new Busboy({
       headers,
       limits: {
@@ -48,7 +59,6 @@ export class UploadStore {
       }
     })
 
-    let files: PutResult[] = []
     busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
       // 获取文件名
       if (!original_name) {
@@ -69,7 +79,7 @@ export class UploadStore {
         return done(errors?.mimetype ?? 301, [max_limit])
       })
       // 保存上传文件
-      putStream(file, { name, urlprefix, root_dir }, (err, result) => {
+      putStream(file, { name, urlprefix, root_dir, ossOptions }, (err, result) => {
         if (err) {
           return done(err, result as string[])
         }

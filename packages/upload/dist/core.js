@@ -24,6 +24,13 @@ var UploadStore = (function () {
         this.__Options = options;
         this.__Request = req;
     }
+    Object.defineProperty(UploadStore.prototype, "type", {
+        get: function () {
+            return this.__Options.type;
+        },
+        enumerable: false,
+        configurable: true
+    });
     UploadStore.prototype.upload = function (putStream, errInfo, dir) {
         var _this = this;
         if (dir === void 0) { dir = ''; }
@@ -40,15 +47,18 @@ var UploadStore = (function () {
     };
     UploadStore.prototype.__upload = function (putStream, dir, done) {
         if (dir === void 0) { dir = ''; }
-        var _a = this.__Options, max_limit = _a.max_limit, mime_types = _a.mime_types, urlprefix = _a.urlprefix, root_dir = _a.root_dir, original_name = _a.original_name, errors = _a.errors;
+        var _a = this.__Options, max_limit = _a.max_limit, mime_types = _a.mime_types, urlprefix = _a.urlprefix, root_dir = _a.root_dir, original_name = _a.original_name, errors = _a.errors, ossOptions = _a.ossOptions;
         var headers = this.__Request.headers;
+        var files = [];
+        if (!('content-type' in headers)) {
+            return done(null, files);
+        }
         var busboy = new busboy_1.default({
             headers: headers,
             limits: {
                 fileSize: bytes_1.default(max_limit)
             }
         });
-        var files = [];
         busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
             var _a;
             if (!original_name) {
@@ -67,7 +77,7 @@ var UploadStore = (function () {
                 var _a;
                 return done((_a = errors === null || errors === void 0 ? void 0 : errors.mimetype) !== null && _a !== void 0 ? _a : 301, [max_limit]);
             });
-            putStream(file, { name: name, urlprefix: urlprefix, root_dir: root_dir }, function (err, result) {
+            putStream(file, { name: name, urlprefix: urlprefix, root_dir: root_dir, ossOptions: ossOptions }, function (err, result) {
                 if (err) {
                     return done(err, result);
                 }

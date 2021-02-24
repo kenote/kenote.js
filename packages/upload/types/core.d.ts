@@ -9,6 +9,11 @@ export declare class UploadStore {
   constructor  (options: UploadStoreOptions, req: IncomingMessage)
 
   /**
+   * 获取类型
+   */
+  type: string
+
+  /**
    * 上传文件
    * @param putStream 
    * @param dir 

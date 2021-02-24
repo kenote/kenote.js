@@ -5,7 +5,11 @@ export { putStream } from './local'
 /**
  * 存储器选项
  */
-export declare type UploadStoreOptions<T extends {} = {}> = {
+export declare type UploadStoreOptions<T extends {} = {}, U extends {} = {}> = {
+  /**
+   * 类型
+   */
+  type           ?: string
   /**
    * 最大上传文件大小
    */
@@ -30,18 +34,32 @@ export declare type UploadStoreOptions<T extends {} = {}> = {
    * 错误号
    */
   errors         ?: Record<'limit' | 'mimetype', number>
+  /**
+   * OSS 选项
+   */
+  ossOptions     ?: U
 } & T
 
 /**
- * 
+ * 写入流选项
  */
-export declare interface PutStreamOptions {
-
+export declare interface PutStreamOptions<T extends {} = {}> {
+  /**
+   * 文件名
+   */
   name           : string
-
+  /**
+   * URL入口
+   */
   urlprefix      : string
-
+  /**
+   * 主目录
+   */
   root_dir      ?: string
+  /**
+   * OSS 选项
+   */
+  ossOptions    ?: T
 }
 
 /**
