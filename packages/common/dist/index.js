@@ -9,3 +9,6 @@ Object.defineProperty(exports, "initMaps", { enumerable: true, get: function () 
 Object.defineProperty(exports, "removeMaps", { enumerable: true, get: function () { return datanode_1.removeMaps; } });
 var channel_1 = require("./channel");
 Object.defineProperty(exports, "getChannelKey", { enumerable: true, get: function () { return channel_1.getChannelKey; } });
+var http_client_1 = require("./http-client");
+Object.defineProperty(exports, "HttpClient", { enumerable: true, get: function () { return http_client_1.HttpClient; } });
+Object.defineProperty(exports, "xhrClient", { enumerable: true, get: function () { return http_client_1.xhrClient; } });
