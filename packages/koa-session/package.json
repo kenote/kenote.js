@@ -1,6 +1,6 @@
 {
   "name": "@kenote/koa-session",
-  "version": "1.0.12",
+  "version": "1.0.19",
   "description": "Your Project's description.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
@@ -23,7 +23,7 @@
     "koa-generic-session": "^2.1.1"
   },
   "devDependencies": {
-    "@kenote/koa": "^1.0.12",
+    "@kenote/koa": "^1.0.19",
     "@types/jest": "^25.2.3",
     "@types/koa-generic-session": "^1.0.5",
     "@types/koa-redis": "~3.0.3",
