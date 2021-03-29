@@ -1,6 +1,6 @@
 {
   "name": "@kenote/common",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Based on @kenote common methods and types.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
