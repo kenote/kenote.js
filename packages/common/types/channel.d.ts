@@ -47,5 +47,4 @@ export declare type ChannelDataNode<T extends {}> = CommonChannelDataNode & {
  * @param channels 
  * @param routePath 
  */
-export function getChannelKey<T extends ChannelDataNode<{}>> (channels: T[], routePath: string): string | undefined
-export function getChannelKey<T extends ChannelDataNode<{}>> (channels: T[], routePath: string, name: string): string | undefined
+export function getChannelKey<T extends ChannelDataNode<{}>> (channels: T[], routePath: string, name?: string): string | undefined
