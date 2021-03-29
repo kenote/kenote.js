@@ -12,8 +12,9 @@ var __values = (this && this.__values) || function(o) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getChannelKey = void 0;
-function getChannelKey(channels, routePath) {
+function getChannelKey(channels, routePath, name) {
     var e_1, _a;
+    if (name === void 0) { name = 'key'; }
     try {
         for (var channels_1 = __values(channels), channels_1_1 = channels_1.next(); !channels_1_1.done; channels_1_1 = channels_1.next()) {
             var channel = channels_1_1.value;
@@ -21,7 +22,7 @@ function getChannelKey(channels, routePath) {
                 return channel.key;
             }
             if (channel.children) {
-                var __key = findChannelKey(channel.children, channel.key, routePath);
+                var __key = findChannelKey(channel.children, channel.key, routePath, name);
                 if (__key) {
                     return __key;
                 }
@@ -38,19 +39,20 @@ function getChannelKey(channels, routePath) {
     return undefined;
 }
 exports.getChannelKey = getChannelKey;
-function findChannelKey(navs, key, routePath) {
+function findChannelKey(navs, key, routePath, name) {
     var e_2, _a;
+    if (name === void 0) { name = 'key'; }
     var __key;
     try {
         for (var navs_1 = __values(navs), navs_1_1 = navs_1.next(); !navs_1_1.done; navs_1_1 = navs_1.next()) {
             var nav = navs_1_1.value;
             if (nav.children) {
-                var __nav = nav.children.find(function (o) { return o.index === routePath; });
+                var __nav = nav.children.find(function (o) { return o[name] === routePath; });
                 if (__nav) {
                     return key;
                 }
                 else {
-                    __key = findChannelKey(nav.children, key, routePath);
+                    __key = findChannelKey(nav.children, key, routePath, name);
                 }
             }
             else if (nav.route === routePath) {
