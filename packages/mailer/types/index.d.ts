@@ -18,7 +18,7 @@ export declare interface MailerSetting {
   /**
    * 异步重试选项
    */
-  asyncRetryOptions   ?: number | RetryOptions
+  asyncRetryOptions   ?: number | RetryOptions<any>
 }
 
 export declare type renderString = (src: string, context: any) => string

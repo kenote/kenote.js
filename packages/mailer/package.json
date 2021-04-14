@@ -18,7 +18,7 @@
     "build": "rm -rf ./dist && tsc"
   },
   "dependencies": {
-    "@types/async": "^3.2.5",
+    "@types/async": "^3.2.6",
     "@types/html-to-text": "^6.0.0",
     "@types/mjml": "^4.7.0",
     "@types/nodemailer": "^6.4.0",

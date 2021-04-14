@@ -14,7 +14,7 @@ export class Mailer {
 
   private __Transport: Mail
 
-  private __AsyncRetryOptions: number | RetryOptions = { times: 5, interval: 200 }
+  private __AsyncRetryOptions: number | RetryOptions<any> = { times: 5, interval: 200 }
 
   private __mailDir: string
 
