@@ -1,6 +1,6 @@
 {
   "name": "@kenote/mailer",
-  "version": "1.0.8",
+  "version": "1.0.22",
   "description": "Your Project's description.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
