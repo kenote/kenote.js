@@ -1,3 +1,4 @@
 
 export { loadConfig, dataFileSort } from './config'
-export { asyncRequire, runJScript } from './async-require'
+export { asyncRequire } from './async-require'
+export { readCode } from './escode'

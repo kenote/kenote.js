@@ -1,10 +1,8 @@
-
 import jsYaml from 'js-yaml'
 import path from 'path'
 import fs from 'fs'
 import validator from 'validator'
 import { isArray, assign, merge, template } from 'lodash'
-
 import { LoadConfigOptions } from '../types'
 
 

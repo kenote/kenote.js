@@ -5,4 +5,5 @@ Object.defineProperty(exports, "loadConfig", { enumerable: true, get: function (
 Object.defineProperty(exports, "dataFileSort", { enumerable: true, get: function () { return config_1.dataFileSort; } });
 var async_require_1 = require("./async-require");
 Object.defineProperty(exports, "asyncRequire", { enumerable: true, get: function () { return async_require_1.asyncRequire; } });
-Object.defineProperty(exports, "runJScript", { enumerable: true, get: function () { return async_require_1.runJScript; } });
+var escode_1 = require("./escode");
+Object.defineProperty(exports, "readCode", { enumerable: true, get: function () { return escode_1.readCode; } });
