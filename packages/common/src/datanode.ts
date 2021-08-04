@@ -26,7 +26,7 @@ export class DataNodeProxy<T extends CommonDataNode> {
   public find (query?: FilterQuery<T> | null, data: T[] = this.__data): T | undefined {
     let __data: T | undefined
     for (let item of data) {
-      if (!isEmpty(query) && ruleJudgment<any>({ ...query })(item)) {
+      if (!isEmpty(query) && ruleJudgment({ ...query })(item)) {
         __data = item
         return __data
       }
@@ -34,7 +34,7 @@ export class DataNodeProxy<T extends CommonDataNode> {
         __data = this.find(query, item.children)
         if (__data) return __data
       }
-    } 
+    }
     return __data
   }
 
@@ -116,6 +116,7 @@ export const dataNodeProxy = <T extends CommonDataNode>(data: T[]) => new DataNo
  * @param maps 
  */
 export function initMaps<T extends CommonDataNode> (data: T[], maps: Array<Pick<T, 'key' | 'name'>> = []) {
+  // let __data = (data)
   data.forEach( (item, __v) => {
     item.maps = [ ...maps ]
     item.maps.push(pick(item, ['key', 'name']) as T)
@@ -131,6 +132,7 @@ export function initMaps<T extends CommonDataNode> (data: T[], maps: Array<Pick<
  * @param data 
  */
 export function removeMaps<T extends CommonDataNode> (data: T[]) {
+  // let __data = cloneDeep(data)
   data.forEach( (item, __v) => {
     unset(item, 'maps')
     if (item.children) {
