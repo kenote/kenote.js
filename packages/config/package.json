@@ -1,6 +1,6 @@
 {
   "name": "@kenote/config",
-  "version": "1.0.10",
+  "version": "1.0.23",
   "description": "Your Project's description.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
