@@ -3,7 +3,7 @@ import passport from 'koa-passport'
 
 function koaPassport () {
   passport.serializeUser((user, done) => done(null, user))
-  passport.deserializeUser((user, done) => done(null, user))
+  passport.deserializeUser<{}>((user, done) => done(null, user))
   return [
     passport.initialize(),
     passport.session(),
