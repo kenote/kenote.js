@@ -26,7 +26,7 @@ export class DataNodeProxy<T extends CommonDataNode> {
   public find (query?: FilterQuery<T> | null, data: T[] = this.__data): T | undefined {
     let __data: T | undefined
     for (let item of data) {
-      if (!isEmpty(query) && ruleJudgment({ ...query })(item)) {
+      if (!isEmpty(query) && ruleJudgment<any>({ ...query })(item)) {
         __data = item
         return __data
       }
