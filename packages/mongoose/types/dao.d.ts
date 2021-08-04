@@ -1,4 +1,6 @@
-import { ModelPopulateOptions, Model, Document, CreateQuery, FilterQuery, UpdateQuery, ModelUpdateOptions } from 'mongoose'
+import { PopulateOptions, Model, Document, DocumentDefinition, AnyObject, FilterQuery, UpdateQuery, ModelUpdateOptions } from 'mongoose'
+
+export type CreateQuery<T = Document> = T | DocumentDefinition<T> | AnyObject
 
 /**
  * 插入返回值
@@ -51,7 +53,7 @@ export declare interface QueryOptions {
   /**
    * Populate 选项
    */
-  populate           ?: ModelPopulateOptions | ModelPopulateOptions[]
+  populate           ?: string | string[] | PopulateOptions | PopulateOptions[]
   /**
    * 提取的字段
    */

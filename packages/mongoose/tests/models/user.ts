@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, Document } from 'mongoose'
 
-export default model('user', new Schema({
+export default model<Document>('user', new Schema({
   id: {
     type: Number,
     default: 0,

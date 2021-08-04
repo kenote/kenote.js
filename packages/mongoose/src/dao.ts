@@ -1,5 +1,5 @@
-import { Model, Document, CreateQuery, FilterQuery, UpdateQuery, ModelUpdateOptions, DocumentQuery } from 'mongoose'
-import type { QueryOptions } from '..'
+import { Model, Document, FilterQuery, UpdateQuery, ModelUpdateOptions } from 'mongoose'
+import type { QueryOptions, CreateQuery } from '..'
 import { isArray } from 'lodash'
 import { promisifyAll } from 'bluebird'
 
@@ -24,7 +24,7 @@ export class ModelDao {
    * 创建数据文档
    * @param docs 
    */
-  public async create (docs: CreateQuery<Document> | Array<CreateQuery<Document>>) {
+  public async create (docs: CreateQuery | CreateQuery[]) {
     let { populate } = this.__Options
     let data = await this.__Model.create(docs)
     if (isArray(data)) {
