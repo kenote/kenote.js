@@ -1,6 +1,6 @@
 {
   "name": "@kenote/koa",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "Your Project's description.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
@@ -20,7 +20,7 @@
     "build": "rm -rf ./dist && tsc"
   },
   "dependencies": {
-    "@kenote/common": "^1.0.24",
+    "@kenote/common": "^1.0.25",
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.0.0",
     "koa": "^2.13.0",
