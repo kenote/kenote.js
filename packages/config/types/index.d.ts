@@ -1,3 +1,4 @@
+export { readCode } from './escode'
 
 export declare interface LoadConfigOptions {
   /**
@@ -41,9 +42,3 @@ export declare function loadConfig<T> (name: string, options: LoadConfigOptions)
  * @param filename 
  */
 export declare function asyncRequire (filename: string): any
-
-/**
- * 运行Js代码
- * @param code 
- */
-export declare function runJScript (source: string): any
