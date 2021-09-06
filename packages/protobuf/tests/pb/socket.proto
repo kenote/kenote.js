@@ -1,0 +1,12 @@
+package com.socket;
+option java_package = "com.popdog.pb";
+option java_outer_classname = "PBSocket";
+
+message MSG_REQUEST_BASE {
+  required int32 msgtype = 1;
+  optional MSG_REQUEST_PAYLOAD payload = 2;
+}
+
+message MSG_REQUEST_PAYLOAD {
+  optional string username = 1;
+}
