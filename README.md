@@ -39,6 +39,7 @@ kenote create --example https://github.com/kenote/kenote.js/tree/main/examples/<
 | @kenote/mongoose | Package of Mongoose module |
 | @kenote/config | Get profile module |
 | @kenote/upload | Package of Upload module |
+| @kenote/protobuf | Client sending protobuf data through socket. |
 
 ---
 MIT License.
