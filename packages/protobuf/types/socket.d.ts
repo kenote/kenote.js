@@ -1,12 +1,11 @@
+import { TcpSocketConnectOpts } from 'net'
 import { Protobuf } from './protobuf'
 
 export declare namespace TCPSocket {
 
   type Configure<T = { protobuf?: Protobuf.Configure }>  = {
-    host      : string
-    port      : number
     logger   ?: Logger
-  } & T
+  } & TcpSocketConnectOpts & T
 
   interface Logger {
     info (message: any, ...args: any[]): void
@@ -23,6 +22,7 @@ export declare class TCPSocket {
    * @returns 
    */
   connect (): this
+  connect (options: TcpSocketConnectOpts): this
 
   /**
    * 关闭/销毁客户端连接

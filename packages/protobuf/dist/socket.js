@@ -43,6 +43,7 @@ exports.TCPSocket = void 0;
 var net_1 = __importDefault(require("net"));
 var protobuf_1 = require("./protobuf");
 var ExBuffer_1 = __importDefault(require("./ExBuffer"));
+var lodash_1 = require("lodash");
 var TCPSocket = (function () {
     function TCPSocket(options) {
         this.__Options = options;
@@ -56,8 +57,9 @@ var TCPSocket = (function () {
         }
         return this;
     };
-    TCPSocket.prototype.connect = function () {
-        var _a = this.__Options, host = _a.host, port = _a.port, logger = _a.logger;
+    TCPSocket.prototype.connect = function (options) {
+        var logger = this.__Options.logger;
+        var _a = lodash_1.merge(this.__Options, options), host = _a.host, port = _a.port;
         if (this.__Client) {
             this.__Client.destroy();
             this.__Client = null;

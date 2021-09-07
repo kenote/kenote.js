@@ -2,6 +2,7 @@ import net from 'net'
 import type { TCPSocket as ITCPSocket } from '..'
 import { Protobuf } from './protobuf'
 import ExBuffer from './ExBuffer'
+import { merge } from 'lodash'
 
 export class TCPSocket {
 
@@ -36,8 +37,9 @@ export class TCPSocket {
    * 连接服务器
    * @returns 
    */
-  connect () {
-    let { host, port, logger } = this.__Options
+  connect (options?: net.TcpSocketConnectOpts) {
+    let logger = this.__Options.logger
+    let { host, port } = merge(this.__Options, options)
     if (this.__Client) {
       this.__Client.destroy()
       this.__Client = null
