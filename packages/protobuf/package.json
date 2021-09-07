@@ -1,6 +1,6 @@
 {
   "name": "@kenote/protobuf",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "Client sending protobuf data through socket.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
