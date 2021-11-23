@@ -74,6 +74,8 @@ export declare interface QueryOptions {
 
 export declare class ModelDao<T = Document> {
 
+  constructor (model: Model<Document, {}>, options?: QueryOptions)
+
   /**
    * Model 名称
    */

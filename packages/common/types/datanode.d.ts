@@ -27,6 +27,17 @@ export declare interface CommonDataNode {
 export declare class DataNodeProxy<T extends CommonDataNode> {
 
   /**
+   * 传入数据节点
+   * @param data 
+   */
+  constructor (data: T[])
+
+  /**
+   * 获取处理后的数据节点
+   */
+  get data (): T[]
+
+  /**
    * 查找节点
    * @param query 
    */
@@ -76,7 +87,7 @@ export function initMaps<T extends CommonDataNode> (data: T[], maps: Array<Pick<
  * 移除数据 Maps
  * @param data 
  */
-export function removeMaps<T extends CommonDataNode> (data: T[]): T
+export function removeMaps<T extends CommonDataNode> (data: T[]): T[]
 
 /**
  * 数据查询器
