@@ -20,12 +20,12 @@
     "build": "rm -rf ./dist && tsc"
   },
   "dependencies": {
-    "koa-generic-session": "^2.1.1"
+    "koa-generic-session": "^2.3.0"
   },
   "devDependencies": {
     "@kenote/koa": "^1.0.30",
     "@types/jest": "^25.2.3",
-    "@types/koa-generic-session": "^1.0.5",
+    "@types/koa-generic-session": "^2.2.1",
     "@types/koa-redis": "~3.0.3",
     "@types/lodash": "^4.14.165",
     "@types/node": "^14.14.7",

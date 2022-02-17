@@ -139,7 +139,7 @@ function sendData(method, url, data) {
         }
         if (method.toLocaleLowerCase() === 'get') {
             var _b = url_parse_1.default(url), query = _b.query, origin_1 = _b.origin, pathname = _b.pathname;
-            config.params = __assign(__assign({}, query_string_1.default.parse(query)), { data: data });
+            config.params = __assign(__assign({}, query_string_1.default.parse(query)), data);
             config.url = origin_1 + pathname;
         }
         else {

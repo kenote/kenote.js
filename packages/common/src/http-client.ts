@@ -59,7 +59,7 @@ export function sendData<T = any> (method: Method, url: string, data: any) {
     }
     if (method.toLocaleLowerCase() === 'get') {
       let { query, origin, pathname } = urlParse(url)
-      config.params = { ...qs.parse(query as unknown as string), data }
+      config.params = { ...qs.parse(query as unknown as string), ...data }
       config.url = origin + pathname
     }
     else {

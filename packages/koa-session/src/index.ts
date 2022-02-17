@@ -7,7 +7,7 @@ function koaSession (options?: session.SessionOptions) {
     toRequestHandler((ctx, next) => {
       Context.prototype.session = ctx.context.session
       Context.prototype.sessionSave = ctx.context.sessionSave
-      Context.prototype.regenerateSession = ctx.context.regenerateSession
+      Context.prototype.regenerateSession = ctx.context.regenerateSession as unknown as () => Generator
       return next()
     })
   ]
