@@ -2,6 +2,17 @@
 
 为 `@kenote/koa` 封装的 `session` 插件
 
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Gratipay][licensed-image]][licensed-url]
+
+[npm-image]: https://img.shields.io/npm/v/@kenote/koa-session.svg
+[npm-url]: https://www.npmjs.com/package/@kenote/koa-session
+[downloads-image]: https://img.shields.io/npm/dm/@kenote/koa-session.svg
+[downloads-url]: https://www.npmjs.com/package/@kenote/koa-session
+[licensed-image]: https://img.shields.io/badge/license-MIT-blue.svg
+[licensed-url]: https://github.com/kenote/kenote.js/blob/main/LICENSE
+
 ## 插件应用
 
 `index.ts`

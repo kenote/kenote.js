@@ -2,6 +2,17 @@
 
 Client sending protobuf data through socket.
 
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Gratipay][licensed-image]][licensed-url]
+
+[npm-image]: https://img.shields.io/npm/v/@kenote/protobuf.svg
+[npm-url]: https://www.npmjs.com/package/@kenote/protobuf
+[downloads-image]: https://img.shields.io/npm/dm/@kenote/protobuf.svg
+[downloads-url]: https://www.npmjs.com/package/@kenote/protobuf
+[licensed-image]: https://img.shields.io/badge/license-MIT-blue.svg
+[licensed-url]: https://github.com/kenote/kenote.js/blob/main/LICENSE
+
 ## Examples
 
 `Node.js` 端用法

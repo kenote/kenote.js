@@ -2,6 +2,17 @@
 
 发送邮件模块。
 
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Gratipay][licensed-image]][licensed-url]
+
+[npm-image]: https://img.shields.io/npm/v/@kenote/mailer.svg
+[npm-url]: https://www.npmjs.com/package/@kenote/mailer
+[downloads-image]: https://img.shields.io/npm/dm/@kenote/mailer.svg
+[downloads-url]: https://www.npmjs.com/package/@kenote/mailer
+[licensed-image]: https://img.shields.io/badge/license-MIT-blue.svg
+[licensed-url]: https://github.com/kenote/kenote.js/blob/main/LICENSE
+
 ## 使用方法
 ```ts
 import { Mailer } from '@kenote/mailer'

@@ -2,6 +2,17 @@
 
 为 `@kenote/express` 封装的 `passport` 插件
 
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Gratipay][licensed-image]][licensed-url]
+
+[npm-image]: https://img.shields.io/npm/v/@kenote/express-passport.svg
+[npm-url]: https://www.npmjs.com/package/@kenote/express-passport
+[downloads-image]: https://img.shields.io/npm/dm/@kenote/express-passport.svg
+[downloads-url]: https://www.npmjs.com/package/@kenote/express-passport
+[licensed-image]: https://img.shields.io/badge/license-MIT-blue.svg
+[licensed-url]: https://github.com/kenote/kenote.js/blob/main/LICENSE
+
 ## 插件应用
 
 `index.ts`

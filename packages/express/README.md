@@ -2,6 +2,17 @@
 
 基于 `Express` 服务端框架，同化操作、为 `@kenote/core` 或其他第三方模块整合。
 
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Gratipay][licensed-image]][licensed-url]
+
+[npm-image]: https://img.shields.io/npm/v/@kenote/express.svg
+[npm-url]: https://www.npmjs.com/package/@kenote/express
+[downloads-image]: https://img.shields.io/npm/dm/@kenote/express.svg
+[downloads-url]: https://www.npmjs.com/package/@kenote/express
+[licensed-image]: https://img.shields.io/badge/license-MIT-blue.svg
+[licensed-url]: https://github.com/kenote/kenote.js/blob/main/LICENSE
+
 ## 创建服务
 
 ```ts

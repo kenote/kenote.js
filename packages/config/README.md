@@ -2,6 +2,17 @@
 
 读取配置文件模块，配置文件使用 `json` 或 `yaml`
 
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Gratipay][licensed-image]][licensed-url]
+
+[npm-image]: https://img.shields.io/npm/v/@kenote/config.svg
+[npm-url]: https://www.npmjs.com/package/@kenote/config
+[downloads-image]: https://img.shields.io/npm/dm/@kenote/config.svg
+[downloads-url]: https://www.npmjs.com/package/@kenote/config
+[licensed-image]: https://img.shields.io/badge/license-MIT-blue.svg
+[licensed-url]: https://github.com/kenote/kenote.js/blob/main/LICENSE
+
 ## 使用方法
 
 `data/config.yaml`

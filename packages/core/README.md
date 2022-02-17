@@ -2,6 +2,17 @@
 
 减少 `Express` 与 `Koa` 之间的差异化，平和转移义务代码。
 
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Gratipay][licensed-image]][licensed-url]
+
+[npm-image]: https://img.shields.io/npm/v/@kenote/core.svg
+[npm-url]: https://www.npmjs.com/package/@kenote/core
+[downloads-image]: https://img.shields.io/npm/dm/@kenote/core.svg
+[downloads-url]: https://www.npmjs.com/package/@kenote/core
+[licensed-image]: https://img.shields.io/badge/license-MIT-blue.svg
+[licensed-url]: https://github.com/kenote/kenote.js/blob/main/LICENSE
+
 ## 创建服务
 
 ```ts

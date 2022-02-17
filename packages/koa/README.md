@@ -2,6 +2,17 @@
 
 基于 `Koa` 服务端框架，同化操作、为 `@kenote/core` 或其他第三方模块整合。
 
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Gratipay][licensed-image]][licensed-url]
+
+[npm-image]: https://img.shields.io/npm/v/@kenote/koa.svg
+[npm-url]: https://www.npmjs.com/package/@kenote/koa
+[downloads-image]: https://img.shields.io/npm/dm/@kenote/koa.svg
+[downloads-url]: https://www.npmjs.com/package/@kenote/koa
+[licensed-image]: https://img.shields.io/badge/license-MIT-blue.svg
+[licensed-url]: https://github.com/kenote/kenote.js/blob/main/LICENSE
+
 ## 创建服务
 
 ```ts
