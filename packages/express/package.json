@@ -1,6 +1,6 @@
 {
   "name": "@kenote/express",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "description": "Your Project's description.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
@@ -20,7 +20,7 @@
     "build": "rm -rf ./dist && tsc"
   },
   "dependencies": {
-    "@kenote/common": "^1.0.30",
+    "@kenote/common": "^1.0.31",
     "compression": "^1.7.4",
     "consolidate": "^0.16.0",
     "cookie-parser": "^1.4.5",
