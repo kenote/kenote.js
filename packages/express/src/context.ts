@@ -250,6 +250,6 @@ export default class Context<ReqUser = any, Payload = any> {
    * @param properties 
    */
   throw = (...properties: Array<number | string | {}>) => {
-    throw createError(...properties)
+    throw createError(...properties as [any])
   }
 }

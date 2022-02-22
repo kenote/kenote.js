@@ -100,6 +100,13 @@ var ServiceEngine = (function (_super) {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(ServiceEngine.prototype, "server", {
+        get: function () {
+            return this.__application;
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(ServiceEngine.prototype, "staticDir", {
         set: function (value) {
             var rootDir = value.rootDir, rootPath = value.rootPath, options = value.options;

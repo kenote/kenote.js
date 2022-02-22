@@ -7,8 +7,8 @@ const routes: Array<KoaEngine.Route<Context>> = [
     handler: [
       ctx => {
         if (ctx.session) {
-          ctx.session.count = ctx.session.count || 0
-          ctx.session.count++
+          ctx.session['count'] = ctx.session['count'] || 0
+          ctx.session['count']++
         }
         ctx.json(ctx.session)
       }

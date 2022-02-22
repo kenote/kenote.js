@@ -19,34 +19,34 @@
     "build": "rm -rf ./dist && tsc"
   },
   "dependencies": {
-    "busboy": "^0.3.1",
-    "bytes": "^3.1.0",
+    "@types/busboy": "^1.3.0",
+    "@types/bytes": "^3.1.1",
+    "@types/fs-extra": "^9.0.7",
+    "busboy": "^1.4.0",
+    "bytes": "^3.1.2",
     "fs-extra": "^9.1.0"
   },
   "devDependencies": {
-    "@types/busboy": "^0.2.3",
-    "@types/bytes": "^3.1.0",
-    "@types/express": "^4.17.11",
-    "@types/fs-extra": "^9.0.7",
+    "@types/express": "^4.17.13",
     "@types/jest": "^25.2.3",
-    "@types/lodash": "^4.14.165",
-    "@types/node": "^14.14.7",
-    "@types/supertest": "^2.0.10",
-    "express": "^4.17.1",
+    "@types/lodash": "^4.14.178",
+    "@types/node": "^14.18.12",
+    "@types/supertest": "^2.0.11",
+    "express": "^4.17.3",
     "jest": "^25.5.4",
-    "nodemon": "2.0.4",
-    "supertest": "^6.1.3",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2",
     "ts-jest": "^25.5.1",
     "ts-node": "^8.10.2",
     "tslint": "^6.1.3",
     "typescript": "^3.9.7"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=10.16.0"
   },
   "keywords": [
     "busboy",
     "upload",
-    "typescript"
+    "stream"
   ]
 }

@@ -12,6 +12,7 @@ import consolidate from 'consolidate'
 import { toRequestHandler, toErrorHandler, toMiddleware } from './middleware'
 import { toRoutes } from './router'
 import errorhandler from 'errorhandler'
+import { RequestListener } from 'http'
 
 export class ServiceEngine extends CommonEngine<Express> {
 
@@ -34,6 +35,13 @@ export class ServiceEngine extends CommonEngine<Express> {
    */
   get name (): string {
     return 'express'
+  }
+
+  /**
+   * 获取 server
+   */
+  get server (): RequestListener {
+    return this.__application
   }
 
   /**

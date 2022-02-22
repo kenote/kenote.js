@@ -19,18 +19,17 @@
     "build": "rm -rf ./dist && tsc"
   },
   "dependencies": {
-    "@types/koa-passport": "^4.0.2",
-    "koa-passport": "^4.1.3"
+    "@types/koa-passport": "^4.0.3",
+    "koa-passport": "^4.1.4"
   },
   "devDependencies": {
-    "@kenote/koa": "^1.0.31",
-    "@kenote/koa-session": "^1.0.31",
-    "@types/koa-redis": "~3.0.3",
-    "@types/lodash": "^4.14.165",
-    "@types/node": "^14.14.7",
-    "@types/passport-local": "^1.0.33",
+    "@kenote/koa": "latest",
+    "@kenote/koa-session": "latest",
+    "@types/lodash": "^4.14.178",
+    "@types/node": "^14.18.12",
+    "@types/passport-local": "^1.0.34",
     "koa-redis": "^4.0.1",
-    "nodemon": "2.0.4",
+    "nodemon": "^2.0.15",
     "passport-local": "^1.0.0",
     "ts-node": "^8.10.2",
     "tslint": "^6.1.3",
@@ -38,5 +37,10 @@
   },
   "engines": {
     "node": ">=8.16.0"
-  }
+  },
+  "keywords": [
+    "koa",
+    "kenote.js",
+    "passport"
+  ]
 }

@@ -52,14 +52,15 @@ export class UploadStore {
     if (!('content-type' in headers)) {
       return done(null, files)
     }
-    let busboy = new Busboy({
+    let busboy = Busboy({
       headers,
       limits: {
         fileSize: bytes(max_limit)
       }
     })
 
-    busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
+    busboy.on('file', (fieldname, file, info) => {
+      let { filename, encoding, mimeType } = info
       // 获取文件名
       if (!original_name) {
         let extname = path.extname(filename)
@@ -67,8 +68,8 @@ export class UploadStore {
       }
       let name = path.join(dir.replace(/^\//, ''), filename)
       // 检查文件类型
-      if (mime_types && !mime_types?.includes(mimetype)) {
-        return done(errors?.mimetype ?? 302, [ mimetype ])
+      if (mime_types && !mime_types?.includes(mimeType)) {
+        return done(errors?.mimetype ?? 302, [ mimeType ])
       }
       // 检查文件大小
       let fileSize = 0

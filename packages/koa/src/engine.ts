@@ -12,6 +12,7 @@ import { CommonEngine } from '@kenote/common'
 import { toRequestHandler, toMiddleware, toErrorHandler } from './middleware'
 import { toRoutes } from './router'
 import errorhandler from './errorhandler'
+import { RequestListener } from 'http'
 
 export class ServiceEngine extends CommonEngine<Koa> {
 
@@ -29,6 +30,13 @@ export class ServiceEngine extends CommonEngine<Koa> {
    */
   get name (): string {
     return 'koa'
+  }
+
+  /**
+   * 获取 server
+   */
+  get server (): RequestListener {
+    return this.__application.callback()
   }
   
   /**

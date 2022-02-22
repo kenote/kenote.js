@@ -25,9 +25,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.readCode = void 0;
 var esprima = __importStar(require("esprima"));
 var escodegen_1 = __importDefault(require("escodegen"));
+var eval5_1 = require("eval5");
 function readCode(source) {
     var ast = esprima.parseModule(source);
     var result = escodegen_1.default.generate(ast);
-    return eval(result);
+    return eval5_1.evaluate(result);
 }
 exports.readCode = readCode;

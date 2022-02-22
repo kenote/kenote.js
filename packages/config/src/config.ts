@@ -5,7 +5,6 @@ import validator from 'validator'
 import { isArray, assign, merge, template } from 'lodash'
 import { LoadConfigOptions } from '../types'
 
-
 /**
  * 读取配置文件
  * @param filename 

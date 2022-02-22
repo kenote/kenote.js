@@ -17,12 +17,22 @@ Based on `@kenote` common methods and types.
 
 ```ts
 import { CommonEngine } from '@kenote/common'
+import express, { Express } from 'express'
+import { RequestListener } from 'http'
 
-export class ServiceEngine extends CommonEngine {
+export class ServiceEngine extends CommonEngine<Express> {
 
   constructor (options?: any) {
     super()
-    ...
+    this.__application = express()
+  }
+
+  get name (): string {
+    return 'express'
+  }
+
+  get server (): RequestListener {
+    return this.__application
   }
 }
 ```

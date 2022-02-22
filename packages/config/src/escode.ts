@@ -1,6 +1,7 @@
 
 import * as esprima from 'esprima'
 import escodegen from 'escodegen'
+import { evaluate } from 'eval5'
 
 /**
  * 读取Js代码
@@ -9,6 +10,5 @@ import escodegen from 'escodegen'
 export function readCode (source: string) {
   let ast = esprima.parseModule(source)
   let result = escodegen.generate(ast)
-  // tslint:disable-next-line: no-eval
-  return eval(result)
+  return evaluate(result)
 }

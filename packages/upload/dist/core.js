@@ -53,21 +53,22 @@ var UploadStore = (function () {
         if (!('content-type' in headers)) {
             return done(null, files);
         }
-        var busboy = new busboy_1.default({
+        var busboy = busboy_1.default({
             headers: headers,
             limits: {
                 fileSize: bytes_1.default(max_limit)
             }
         });
-        busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
+        busboy.on('file', function (fieldname, file, info) {
             var _a;
+            var filename = info.filename, encoding = info.encoding, mimeType = info.mimeType;
             if (!original_name) {
                 var extname = path_1.default.extname(filename);
                 filename = crypto_1.default.createHash('md5').update(Date.now().toString()).digest('hex') + extname;
             }
             var name = path_1.default.join(dir.replace(/^\//, ''), filename);
-            if (mime_types && !(mime_types === null || mime_types === void 0 ? void 0 : mime_types.includes(mimetype))) {
-                return done((_a = errors === null || errors === void 0 ? void 0 : errors.mimetype) !== null && _a !== void 0 ? _a : 302, [mimetype]);
+            if (mime_types && !(mime_types === null || mime_types === void 0 ? void 0 : mime_types.includes(mimeType))) {
+                return done((_a = errors === null || errors === void 0 ? void 0 : errors.mimetype) !== null && _a !== void 0 ? _a : 302, [mimeType]);
             }
             var fileSize = 0;
             file.on('data', function (data) {
