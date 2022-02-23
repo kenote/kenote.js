@@ -1,6 +1,7 @@
 # @kenote/koa-session
 
-为 `@kenote/koa` 封装的 `session` 插件
+Session plug-in based on Koa for Kenote.js.
+
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
@@ -13,47 +14,29 @@
 [licensed-image]: https://img.shields.io/badge/license-MIT-blue.svg
 [licensed-url]: https://github.com/kenote/kenote.js/blob/main/LICENSE
 
-## 插件应用
+## Usage
 
 `index.ts`
 ```ts
-import { ServiceEngine } from '@kenote/app'
+import { Module, ServerFactory } from '@kenote/core'
+import { ServiceEngine } from '@kenote/koa'
 import session from '@kenote/koa-session'
 import redisStore from 'koa-redis'
-// Type definitions for koa-redis 3.0
-import RoutesAPI from './routes/api'
 
-async function bootstarp () {
-  let engine = new ServiceEngine({ keys: ['keys', 'keykeys'] })
-  engine.register(session({
-    store: redisStore({})
-  }))()
-  engine.register(RoutesAPI)('/api')
+@Module({
+  imports: [],
+  plugins: [
+    session({
+      store: redisStore(),
+    })
+  ],
+})
+class AppModule {}
 
-  engine.listen(4000)
+async bootstarp () {
+  let factory = await ServerFactory(new ServiceEngine()).create(AppModule)
+  factory.server.listen(4000)
 }
-```
-
-`./routes/api.ts`
-```ts
-import { toRoutes } from '@kenote/koa'
-const routes = [
-  {
-    method: 'GET',
-    routePath: '/',
-    handler: [
-      ctx => {
-        if (ctx.session) {
-          ctx.session.count = ctx.session.count || 0
-          ctx.session.count++
-        }
-        ctx.json(ctx.session)
-      }
-    ]
-  }
-]
-
-export default toRoutes(routes)
 ```
 
 ---

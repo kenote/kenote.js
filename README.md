@@ -28,15 +28,15 @@ kenote create --example https://github.com/kenote/kenote.js/tree/main/examples/<
 | Project | Description |
 |----|----|
 | @kenote/common | Based on Kenote common methods and types. |
-| @kenote/core | The core library of the Kenote framework |
-| @kenote/express | Kenote framework for Express |
-| @kenote/koa | Kenote framework for Koa |
-| @kenote/express-seesion | Session plug-in based on Express for Kenote framework |
-| @kenote/express-passport | Passport plug-in based on Express for Kenote framework |
-| @kenote/koa-seesion | Session plug-in based on Koa for Kenote framework |
-| @kenote/koa-passport | Passport plug-in based on Koa for Kenote framework |
-| @konte/mailer | Package of NodeMailer module |
-| @kenote/mongoose | Package of Mongoose module |
+| @kenote/core | The core library of the Kenote.js |
+| @kenote/express | Using Express web framework to Kenote.js |
+| @kenote/koa | Using Koa web framework to Kenote.js |
+| @kenote/express-seesion | Session plug-in based on Express for Kenote.js |
+| @kenote/express-passport | Passport plug-in based on Express for Kenote.js |
+| @kenote/koa-seesion | Session Session plug-in based on Koa for Kenote.js |
+| @kenote/koa-passport | Passport plug-in based on Koa for Kenote.js |
+| @konte/mailer | Auxiliary tool for NodeMailer |
+| @kenote/mongoose | Auxiliary tool for Mongoose |
 | @kenote/config | Get profile module |
 | @kenote/upload | Package of Upload module |
 | @kenote/protobuf | Client sending protobuf data through socket. |

@@ -1,7 +1,7 @@
 {
   "name": "@kenote/mailer",
   "version": "1.0.31",
-  "description": "Your Project's description.",
+  "description": "Auxiliary tool for NodeMailer.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
   "author": "thondery <thondery@163.com>",

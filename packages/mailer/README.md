@@ -1,6 +1,6 @@
 # @kenote/mailer
 
-发送邮件模块。
+Auxiliary tool for NodeMailer.
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]

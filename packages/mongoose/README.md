@@ -1,6 +1,6 @@
 # @kenote/mongoose
 
-辅助 `mongoose` 操作 `mongoDB` 数据库，需要预先安装 `mongoose` 
+Auxiliary tool for Mongoose. 
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]

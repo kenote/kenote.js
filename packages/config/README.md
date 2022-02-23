@@ -1,6 +1,6 @@
 # @kenote/config
 
-读取配置文件模块，配置文件使用 `json` 或 `yaml`
+Get profile module
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]

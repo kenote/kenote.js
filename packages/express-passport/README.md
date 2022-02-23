@@ -1,6 +1,6 @@
 # @kenote/express-passport
 
-为 `@kenote/express` 封装的 `passport` 插件
+Passport plug-in based on Express for Kenote.js.
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
@@ -13,77 +13,44 @@
 [licensed-image]: https://img.shields.io/badge/license-MIT-blue.svg
 [licensed-url]: https://github.com/kenote/kenote.js/blob/main/LICENSE
 
-## 插件应用
+## Usage
 
 `index.ts`
 ```ts
+
+import { Module, ServerFactory } from '@kenote/core'
 import { ServiceEngine } from '@kenote/express'
-import passport from './plugins/passport'
-import session from './plugins/session'
-import RoutesAPI from './routes/api'
-
-async function bootstarp () {
-  let engine = new ServiceEngine({ keys: 'kenote' })
-
-  engine.register(...session('kenote'))()
-  engine.register(...passport)('passport')
-
-  engine.register(RoutesAPI)('/api')
-
-  engine.listen(4000)
-}
-```
-
-`./plugins/session.ts`
-```ts
 import session from '@kenote/express-session'
-import connectRedis from 'connect-redis'
-import expressSession from 'express-session'
-import { createClient } from 'redis'
-
-const RedisStore = connectRedis(expressSession)
-
-export default (keys: string | string[]) => session({
-  secret: keys,
-  store: new RedisStore({ client: createClient() }),
-  resave: true,
-  saveUninitialized: true
-})
-```
-
-`./plugins/passport.ts`
-```ts
-import expressPassport from '@kenote/express-passport'
+import { MemoryStore } from 'express-session'
+import passportPlugin from '@kenote/express-passport'
 import passport from 'passport'
-import { Strategy as LocalStrategy } from 'passport-local'
+import { Strategy } from 'passport-local'
 
-passport.use(new LocalStrategy(
+// Add Strategy
+passport.use(new Strategy(
   (username, password, done) => {
     return done(null, { username })
   }
 ))
 
-export default expressPassport()
-```
+@Module({
+  imports: [],
+  plugins: [
+    session({
+      secret: 'secret name',
+      store: new MemoryStore(),
+      resave: true,
+      saveUninitialized: true
+    }),
+    passportPlugin()
+  ],
+})
+class AppModule {}
 
-
-`./routes/api.ts`
-```ts
-import { toRoutes } from '@kenote/express'
-const routes = [
-  {
-    method: 'GET',
-    routePath: '/',
-    handler: [
-      async ctx => {
-        await ctx.login({ username: 'admin' })
-        ctx.json(ctx.user)
-      }
-    ]
-  }
-]
-
-export default toRoutes(routes)
+async bootstarp () {
+  let factory = await ServerFactory(new ServiceEngine()).create(AppModule)
+  factory.server.listen(4000)
+}
 ```
 
 ---

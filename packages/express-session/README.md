@@ -1,6 +1,6 @@
 # @kenote/express-session
 
-为 `@kenote/express` 封装的 `session` 插件
+Session plug-in based on Express for Kenote.js.
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
@@ -13,52 +13,32 @@
 [licensed-image]: https://img.shields.io/badge/license-MIT-blue.svg
 [licensed-url]: https://github.com/kenote/kenote.js/blob/main/LICENSE
 
-## 插件应用
+## Usage
 
 `index.ts`
 ```ts
+import { Module, ServerFactory } from '@kenote/core'
 import { ServiceEngine } from '@kenote/express'
-import connectRedis from 'connect-redis'
-import expressSession from 'express-session'
-import { createClient } from 'redis'
-import RoutesAPI from './routes/api'
+import session from '@kenote/express-session'
+import { MemoryStore } from 'express-session'
 
-const RedisStore = connectRedis(expressSession)
+@Module({
+  imports: [],
+  plugins: [
+    session({
+      secret: 'secret name',
+      store: new MemoryStore(),
+      resave: true,
+      saveUninitialized: true
+    })
+  ],
+})
+class AppModule {}
 
-async function bootstarp () {
-  let engine = new ServiceEngine({ keys: ['keys', 'keykeys'] })
-  engine.register(session({
-    secret: ['keys', 'keykeys'],
-    store: new RedisStore({ client: createClient() }),
-    resave: true,
-    saveUninitialized: true
-  }))()
-  engine.register(RoutesAPI)('/api')
-
-  engine.listen(4000)
+async bootstarp () {
+  let factory = await ServerFactory(new ServiceEngine()).create(AppModule)
+  factory.server.listen(4000)
 }
-```
-
-`./routes/api.ts`
-```ts
-import { toRoutes } from '@kenote/express'
-const routes = [
-  {
-    method: 'GET',
-    routePath: '/',
-    handler: [
-      ctx => {
-        if (ctx.session) {
-          ctx.session.count = ctx.session.count || 0
-          ctx.session.count++
-        }
-        ctx.json(ctx.session)
-      }
-    ]
-  }
-]
-
-export default toRoutes(routes)
 ```
 
 ---
