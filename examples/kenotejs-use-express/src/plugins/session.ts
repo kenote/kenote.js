@@ -5,7 +5,7 @@ import { ServerConfigure } from '@/types/config'
 import connectRedis from 'connect-redis'
 import Redis from 'ioredis'
 
-const { secretKey, redisOpts } = loadConfig<ServerConfigure>('config/server')
+const { secretKey, redisOpts } = loadConfig<ServerConfigure>('config/server', { mode: 'merge' })
 const RedisStore = connectRedis(expressSession)
 
 export default session({

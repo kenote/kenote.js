@@ -1,0 +1,13 @@
+login:
+  - key: username
+    type: string
+    rules:
+      - required: true
+        message: 用户名不能为空
+        code: 1000
+  - key: password
+    type: string
+    rules:
+      - required: true
+        message: 密码不能为空
+        code: 1000

@@ -1,8 +1,8 @@
-import { ApolloServer } from 'apollo-server-express'
+import { ApolloServer } from 'apollo-server-koa'
 import { IModule } from '@kenote/core'
 import { buildSchemaSync, NonEmptyArray } from 'type-graphql'
 import * as resolvers from '~/resolvers'
-import { Context } from '@kenote/express'
+import { Context } from '@kenote/koa'
 
 const server = new ApolloServer({
   schema: buildSchemaSync({
@@ -15,7 +15,7 @@ const server = new ApolloServer({
     }
   },
   introspection: true,
-  context: ({ req, res }) => new Context(req, res)
+  context: ({ ctx }) => new Context(ctx)
 })
 
 export default <IModule.ssrPlugin> {

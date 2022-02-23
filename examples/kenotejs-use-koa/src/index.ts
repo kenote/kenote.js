@@ -1,6 +1,6 @@
 import http from 'http'
 import { ServerFactory } from '@kenote/core'
-import { ServiceEngine } from '@kenote/express'
+import { ServiceEngine } from '@kenote/koa'
 import appModule from './app.module'
 import { loadConfig } from '@kenote/config'
 import { ServerConfigure } from '@/types/config'
