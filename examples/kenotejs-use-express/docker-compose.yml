@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  app:
+    image: kenotejs-use-express:latest
+    container_name: kenotejs-use-express
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ${PWD}/docker/config:/usr/src/app/config
+      - ${PWD}/docker/logs:/usr/src/app/logs
+      - ${PWD}/docker/mock:/usr/src/app/mock
+      - ${PWD}/docker/static:/usr/src/app/static
+      - ${PWD}/docker/views:/usr/src/app/views
+    ports:
+      - 4000:4000
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    driver: bridge
