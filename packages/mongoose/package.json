@@ -1,6 +1,6 @@
 {
   "name": "@kenote/mongoose",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "description": "Auxiliary tool for Mongoose.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",

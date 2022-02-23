@@ -1,6 +1,6 @@
 {
   "name": "@kenote/core",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "description": "The core library of the Kenote.js.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",

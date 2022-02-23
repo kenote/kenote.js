@@ -1,6 +1,6 @@
 {
   "name": "@kenote/express-passport",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "description": "Passport plug-in based on Express for Kenote.js.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",

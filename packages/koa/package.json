@@ -1,6 +1,6 @@
 {
   "name": "@kenote/koa",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "description": "Using Koa web framework to Kenote.js.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
