@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "outDir": "../dist",
-    "target": "ES5",
+    "outDir": "./dist",
+    "target": "ES2015",
     "lib": [
       "DOM",
       "ES2015"
@@ -22,8 +22,8 @@
     "downlevelIteration": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["../*"]
+      "~/*": ["./src/*"],
+      "@/*": ["./*"]
     },
     "types": [
       "@types/node"

@@ -1,7 +1,7 @@
 {
-  "name": "kenotejs-use-koa",
+  "name": "kenotejs-use-mongoose",
   "version": "1.0.0",
-  "description": "Using Koa web framework in Kenote.js",
+  "description": "Use mongoose to connect MongoDB in Kenote.js",
   "private": true,
   "typings": "./types",
   "license": "MIT",
@@ -11,6 +11,8 @@
     "@kenote/koa": "latest",
     "@kenote/koa-passport": "latest",
     "@kenote/koa-session": "latest",
+    "@kenote/mongoose": "latest",
+    "@typegoose/typegoose": "^8.2.0",
     "apollo-server-koa": "^2.25.3",
     "class-validator": "^0.13.2",
     "connect-redis": "^6.1.1",
@@ -40,7 +42,7 @@
   },
   "scripts": {
     "dev": "nodemon --config nodemon.json ./src/index.ts",
-    "build": "tsc --project src/tsconfig.json && tscpaths -p src/tsconfig.json -s ./src -o ./dist",
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
     "start": "[ -f ./dist/index.js ] && cross-env NODE_ENV=production node ./dist/index.js",
     "lint": "eslint . --ext .js,.ts, --cache",
     "lint:fix": "eslint . --ext .js,.ts --cache --fix"

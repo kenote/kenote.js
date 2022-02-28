@@ -1,0 +1,8 @@
+
+# Redis
+redisOpts:
+  host: redis
+
+# MongoDB
+mongoOpts:
+  uris: mongodb://mongodb:27017/kenote-use-mongoose

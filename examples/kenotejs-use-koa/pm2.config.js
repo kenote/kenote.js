@@ -22,7 +22,7 @@ function getApplication (tsnode) {
       script: './node_modules/.bin/ts-node',
       args: '-T -r tsconfig-paths/register ./src/index.ts',
       env: {
-        TS_NODE_PROJECT: './src/tsconfig.json',
+        TS_NODE_PROJECT: './tsconfig.json',
       }
     })
   }

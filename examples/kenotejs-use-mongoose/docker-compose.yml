@@ -2,13 +2,14 @@ version: '3.7'
 
 services:
   app:
-    image: kenotejs-use-koa:latest
-    container_name: kenotejs-use-koa
+    image: kenotejs-use-mongoose:latest
+    container_name: kenotejs-use-mongoose
     build: 
       context: .
       dockerfile: ./Dockerfile
     depends_on:
       - redis
+      - mongodb
     environment:
       - NODE_ENV=production
     volumes:
@@ -22,6 +23,17 @@ services:
     networks:
       - webnet
 
+  mongodb:
+    image: mongo:4.4.12
+    container_name: mongodb
+    restart: always
+    volumes:
+      - kenotejs-mongo:/var/lib/mongo/data
+    networks:
+      - webnet
+    ports:
+      - 37017:27017
+
   redis:
     image: redis:6.2.6
     container_name: redis
@@ -34,6 +46,7 @@ services:
       - 9379:6379
     
 volumes:
+  kenotejs-mongo:
   kenotejs-redis:
 
 networks:

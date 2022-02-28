@@ -7,6 +7,8 @@ services:
     build: 
       context: .
       dockerfile: ./Dockerfile
+    depends_on:
+      - redis
     environment:
       - NODE_ENV=production
     volumes:
@@ -19,6 +21,20 @@ services:
       - 4000:4000
     networks:
       - webnet
+
+  redis:
+    image: redis:6.2.6
+    container_name: redis
+    command: redis-server --appendonly yes
+    volumes:
+      - kenotejs-redis:/var/lib/redis/data
+    networks:
+      - webnet
+    ports:
+      - 9379:6379
+    
+volumes:
+  kenotejs-redis:
 
 networks:
   webnet:

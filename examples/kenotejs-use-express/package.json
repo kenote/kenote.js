@@ -39,7 +39,7 @@
   },
   "scripts": {
     "dev": "nodemon --config nodemon.json ./src/index.ts",
-    "build": "tsc --project src/tsconfig.json && tscpaths -p src/tsconfig.json -s ./src -o ./dist",
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
     "start": "[ -f ./dist/index.js ] && cross-env NODE_ENV=production node ./dist/index.js",
     "lint": "eslint . --ext .js,.ts, --cache",
     "lint:fix": "eslint . --ext .js,.ts --cache --fix"

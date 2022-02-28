@@ -34,9 +34,9 @@ export default class UserResolver {
   @Query(() => [User], { name: 'list', nullable: true, description: '用户列表' })
   @UseMiddleware(isAuth)
   async list (@Args() args: UserArgs, @Ctx() ctx: Context) {
-    let { mock } = ctx.service
+    let { db } = ctx.service
     try {
-      return await mock.user.find(args)
+      return await db.user.find(args)
     } catch (error) {
       throw error
     }
@@ -44,11 +44,11 @@ export default class UserResolver {
 
   @Mutation(() => User, { name: 'login', nullable: true, description: '用户登录' })
   async login (@Arg('data') data: LoginInput, @Ctx() ctx: Context) {
-    let { mock, httpError, ErrorCode } = ctx.service
+    let { db, httpError, ErrorCode } = ctx.service
     try {
       let filters = loadConfig<Record<string, FilterData.options[]>>('config/filters/main.yml')
       let { username, password } = filterData(filters.login)(data)
-      let result = await mock.user.findOne({ username, password })
+      let result = await db.user.findOne({ username, password })
       if (result == null) {
         throw httpError(ErrorCode.ERROR_LOGINVALID_FAIL)
       }

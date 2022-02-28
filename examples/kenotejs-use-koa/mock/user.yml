@@ -2,7 +2,7 @@
   username: admin
   password: admin
   jwtoken: >-
-    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ1NTg4Mjc1fQ.9rNEtIniPMTd5Oiu-9ZnCz0IR_L6SBOxPG2vQxuwV_I
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQ2MDI5MTE0fQ.1RNIsuzw_osZtkNpwGZyyoZj2AXe-mKNdyh818SszzQ
 - id: 2
   username: thondery
   password: 123456

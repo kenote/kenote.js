@@ -1,0 +1,4 @@
+
+# Redis
+redisOpts:
+  host: redis

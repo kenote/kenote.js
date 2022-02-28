@@ -1,0 +1,26 @@
+# name
+name: my-app
+
+# host
+host: 0.0.0.0
+
+# port
+port: 4000
+
+# secret
+secretKey: kenotejs
+
+# Redis
+redisOpts:
+  host: 127.0.0.1
+  port: 6379
+  db: 0
+
+# MongoDB
+mongoOpts:
+  uris: mongodb://localhost:27017/kenote-use-mongoose
+  options:
+    useNewUrlParser: true
+    useCreateIndex: true
+    useUnifiedTopology: true
+    useFindAndModify: false
