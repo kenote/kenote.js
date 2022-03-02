@@ -1,0 +1,26 @@
+# name
+name: my-app
+
+# host
+host: 0.0.0.0
+
+# port
+port: 4000
+
+# secret
+secretKey: kenotejs
+
+# Redis
+redisOpts:
+  host: 127.0.0.1
+  port: 6379
+  db: 0
+
+# Database
+dbOpts:
+  type: mysql
+  host: localhost
+  port: 3306
+  username: root
+  password: '123456'
+  database: kenotejs-use-typeorm

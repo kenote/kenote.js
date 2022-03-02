@@ -1,0 +1,59 @@
+version: '3.7'
+
+services:
+  app:
+    image: kenotejs-use-typeorm-mysql:latest
+    container_name: kenotejs-use-typeorm-mysql
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      - NODE_ENV=production
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - ${PWD}/.docker/config:/usr/src/app/config
+      - ${PWD}/.docker/logs:/usr/src/app/logs
+      - ${PWD}/.docker/static:/usr/src/app/static
+      - ${PWD}/.docker/views:/usr/src/app/views
+      - ${PWD}/wait-for-mysql.sh:/usr/src/app/wait-for-mysql.sh
+    command: [ "sh", "./wait-for-mysql.sh", "mysql", "node", "dist/index.js" ]
+    ports:
+      - 4000:4000
+    networks:
+      - webnet
+
+  mysql:
+    image: mysql/mysql-server:8.0.28
+    container_name: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - kenotejs-mysql:/var/lib/mysql
+      - ${PWD}/mysql:/docker-entrypoint-initdb.d/
+    networks:
+      - webnet
+    ports:
+      - 33306:3306
+
+  redis:
+    image: redis:6.2.6
+    container_name: redis
+    command: redis-server --appendonly yes
+    volumes:
+      - kenotejs-redis:/var/lib/redis/data
+    networks:
+      - webnet
+    ports:
+      - 9379:6379
+    
+volumes:
+  kenotejs-mysql:
+  kenotejs-redis:
+
+networks:
+  webnet:
+    driver: bridge
