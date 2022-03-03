@@ -1,0 +1,13 @@
+
+# Redis
+redisOpts:
+  host: redis
+
+# Database
+dbOpts:
+  type: postgres
+  host: postgres
+  port: 5432
+  username: docker
+  password: docker
+  database: kenotejs-use-typeorm

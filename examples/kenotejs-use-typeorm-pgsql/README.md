@@ -1,6 +1,6 @@
-# kenotejs-use-typeorm-mysql
+# kenotejs-use-typeorm-pgsql
 
-Use TypeORM to connect MySQL in Kenote.js.
+Use TypeORM to connect PostgreSQL in Kenote.js.
 
 ## Requirement
 
@@ -9,14 +9,14 @@ Use TypeORM to connect MySQL in Kenote.js.
 ## Features
 
 - Kenote.js
-- MySQL 8.0
+- PostgreSQL
 - TypeORM
 - Typescript
 
 ## Initialization Data
 
 ```bash
-mysql -uroot -p${MYSQL_ROOT_PASSWORD} < mysql/install.sql 
+psql -U postgres -f pgsql/install.sql
 ```
 
 ## Docker

@@ -1,0 +1,62 @@
+version: '3.7'
+
+services:
+  app:
+    image: kenotejs-use-typeorm-pgsql:latest
+    container_name: kenotejs-use-typeorm-pgsql
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - NODE_ENV=production
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ${PWD}/.docker/config:/usr/src/app/config
+      - ${PWD}/.docker/logs:/usr/src/app/logs
+      - ${PWD}/.docker/static:/usr/src/app/static
+      - ${PWD}/.docker/views:/usr/src/app/views
+      - ${PWD}/wait-for-postgres.sh:/usr/src/app/wait-for-postgres.sh
+    command: [ "sh", "./wait-for-postgres.sh", "postgres", "node", "dist/index.js" ]
+    ports:
+      - 4000:4000
+    networks:
+      - webnet
+
+  postgres:
+    image: postgres:14.2-alpine3.15
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - kenotejs-postgres:/var/lib/postgresql/data
+      - ${PWD}/pgsql/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+    networks:
+      - webnet
+    ports:
+      - 35432:5432
+
+  redis:
+    image: redis:6.2.6
+    container_name: redis
+    command: redis-server --appendonly yes
+    volumes:
+      - kenotejs-redis:/var/lib/redis/data
+    networks:
+      - webnet
+    ports:
+      - 9379:6379
+    
+volumes:
+  kenotejs-postgres:
+  kenotejs-redis:
+
+networks:
+  webnet:
+    driver: bridge
