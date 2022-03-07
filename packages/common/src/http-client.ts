@@ -1,6 +1,6 @@
 import qs from 'query-string'
 import urlParse from 'url-parse'
-import { fromPairs, compact, trim } from 'lodash'
+import { fromPairs, compact, trim, get } from 'lodash'
 import { IncomingHttpHeaders } from 'http'
 import { HeaderOptions, RequestConfig, ProgressResult, HttpResponse, ClientInstance, Method } from '../types'
 
@@ -105,6 +105,11 @@ export function xhrClient (xhr: XMLHttpRequest) {
     let __url = method!.toLocaleLowerCase() === 'get' ? qs.stringifyUrl({ url: url ?? '', query: params }) : (url ?? '')
     xhr.open(method ?? 'get', __url, true)
     xhr.timeout = timeout ?? 0
+    let __data = data
+    if (!get(headers, 'content-type') && ['post', 'put'].includes(method!.toLowerCase())) {
+      xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded')
+      __data = qs.stringify(data)
+    }
     if (headers) {
       for (let [key, val] of Object.entries(headers)) {
         xhr.setRequestHeader(key, val as string)
@@ -138,6 +143,6 @@ export function xhrClient (xhr: XMLHttpRequest) {
     xhr.onerror = () => reject('Error') 
     xhr.ontimeout = () => reject(timeoutErrorMessage ?? '网络请求超时！')
     xhr.onabort = () => {}
-    xhr.send(data)
+    xhr.send(__data)
   })
 }

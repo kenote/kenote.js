@@ -177,6 +177,11 @@ function xhrClient(xhr) {
         var __url = method.toLocaleLowerCase() === 'get' ? query_string_1.default.stringifyUrl({ url: url !== null && url !== void 0 ? url : '', query: params }) : (url !== null && url !== void 0 ? url : '');
         xhr.open(method !== null && method !== void 0 ? method : 'get', __url, true);
         xhr.timeout = timeout !== null && timeout !== void 0 ? timeout : 0;
+        var __data = data;
+        if (!lodash_1.get(headers, 'content-type') && ['post', 'put'].includes(method.toLowerCase())) {
+            xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+            __data = query_string_1.default.stringify(data);
+        }
         if (headers) {
             try {
                 for (var _b = __values(Object.entries(headers)), _c = _b.next(); !_c.done; _c = _b.next()) {
@@ -220,7 +225,7 @@ function xhrClient(xhr) {
         xhr.onerror = function () { return reject('Error'); };
         xhr.ontimeout = function () { return reject(timeoutErrorMessage !== null && timeoutErrorMessage !== void 0 ? timeoutErrorMessage : '网络请求超时！'); };
         xhr.onabort = function () { };
-        xhr.send(data);
+        xhr.send(__data);
     }); };
 }
 exports.xhrClient = xhrClient;
