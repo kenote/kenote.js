@@ -12,11 +12,11 @@ services:
     environment:
       - NODE_ENV=production
     volumes:
-      - ${PWD}/docker/config:/usr/src/app/config
-      - ${PWD}/docker/logs:/usr/src/app/logs
-      - ${PWD}/docker/mock:/usr/src/app/mock
-      - ${PWD}/docker/static:/usr/src/app/static
-      - ${PWD}/docker/views:/usr/src/app/views
+      - ${PWD}/.docker/config:/usr/src/app/config
+      - ${PWD}/.docker/logs:/usr/src/app/logs
+      - ${PWD}/.docker/mock:/usr/src/app/mock
+      - ${PWD}/.docker/static:/usr/src/app/static
+      - ${PWD}/.docker/views:/usr/src/app/views
     ports:
       - 4000:4000
     networks:

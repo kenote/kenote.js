@@ -29,6 +29,7 @@ export async function update (conditions: FilterQuery<User>, doc: Partial<User>)
       users[i] = merge(item, doc)
       break
     }
+    i++
   }
   await fs.writeFile(path.resolve(process.cwd(), 'mock/user.yml'), jsYaml.dump(users))
 }
