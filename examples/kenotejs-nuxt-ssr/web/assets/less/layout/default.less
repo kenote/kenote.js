@@ -1,0 +1,93 @@
+
+:root {
+  --header-height: 3.5rem;
+  --color: #0070f3;
+}
+
+header {
+  width: 100%;
+  height: var(--header-height);
+  position: sticky;
+  top: 0;
+
+  .header-wrapper {
+    margin: auto;
+    display: flex;
+    max-width: 80rem;
+    height: inherit;
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      height: inherit;
+      padding-right: 10rem;
+    }
+
+    .header-main {
+      display: flex;
+      align-items: center;
+
+      a {
+        text-decoration: none;
+        padding: 0 1.7rem;
+        line-height: 2.4rem;
+        color: #696969;
+
+        &:hover {
+          color: #000000;
+          cursor: pointer;
+        }
+
+        &.nuxt-link-exact-active {
+          color: #0070f3;
+        }
+      }
+    }
+  }
+}
+
+main {
+  margin: auto;
+  display: flex;
+  max-width: 80rem;
+  min-height: 40rem;
+
+  .el-card {
+    margin: auto;
+    margin-top: 10rem;
+    width: 35rem;
+    background-color: #f4f4f4;
+    padding: 0 1rem;
+
+    h3 {
+      margin: auto;
+      text-align: center;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      font-size: 1.7rem;
+    }
+
+    span {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .el-descriptions {
+    margin: auto;
+    margin-top: 10rem;
+    width: 74rem;
+    padding: 0 1rem;
+  }
+}
+
+footer {
+  width: 100%;
+  min-height: 14rem;
+  background-color: #f4f4f4;
+  border-top: 1px solid #eaeaea;
+}
+
+.x-logo {
+  height: 2rem;
+}

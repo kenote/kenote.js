@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  app:
+    image: kenotejs-nuxt-ssr:latest
+    container_name: kenotejs-nuxt-ssr
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on:
+      - redis
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ${PWD}/.docker/config:/usr/src/app/config
+      - ${PWD}/.docker/logs:/usr/src/app/logs
+      - ${PWD}/.docker/mock:/usr/src/app/mock
+      - ${PWD}/.docker/static:/usr/src/app/static
+      - ${PWD}/.docker/views:/usr/src/app/views
+    ports:
+      - 4000:4000
+    networks:
+      - webnet
+
+  redis:
+    image: redis:6.2.6
+    container_name: redis
+    command: redis-server --appendonly yes
+    volumes:
+      - kenotejs-redis:/var/lib/redis/data
+    networks:
+      - webnet
+    ports:
+      - 9379:6379
+    
+volumes:
+  kenotejs-redis:
+
+networks:
+  webnet:
+    driver: bridge
