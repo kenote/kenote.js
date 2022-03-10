@@ -4,25 +4,6 @@ Kenote is a Node.js framework, used to build server-side applications, and is wr
 
 Kenote can use koa and express as the basic web framework.
 
-## Examples
-
-```bash
-# install kenote command tool
-npm i -g kenote-cli
-
-# download & install example
-kenote create --example https://github.com/kenote/kenote.js/tree/main/examples/<example-name> <dir-path>
-```
-
-| Project | Description |
-|----|----|
-| with-express | Basic example using Express |
-| with-koa | Basic example using Koa |
-| with-express-graphql | Basic example using Express and GraphQL. |
-| with-koa-graphql | Basic example using Koa and GraphQL. |
-| with-express-nuxt | Basic example using Express and Nuxt.js. |
-| with-koa-nuxt | Basic example using Koa and Nuxt.js. |
-
 ## Packages
 
 | Project | Description |

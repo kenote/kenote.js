@@ -1,0 +1,62 @@
+
+examples:
+  - name         : KenoteJs Use Express
+    repository   : https://github.com/kenote/kenote.js/tree/main/examples/kenotejs-use-express
+    value        : kenotejs-use-express
+    results      :
+      - name       : To get started
+        content    :
+          - npm run dev
+      - name       : To get build
+        content    :
+          - npm run build
+  - name         : KenoteJs Use Koa
+    repository   : https://github.com/kenote/kenote.js/tree/main/examples/kenotejs-use-koa
+    value        : kenotejs-use-koa
+    results      :
+      - name       : To get started
+        content    :
+          - npm run dev
+      - name       : To get build
+        content    :
+          - npm run build
+  - name         : KenoteJs Use Mongoose
+    repository   : https://github.com/kenote/kenote.js/tree/main/examples/kenotejs-use-mongoose
+    value        : kenotejs-use-mongoose
+    results      :
+      - name       : To get started
+        content    :
+          - npm run dev
+      - name       : To get build
+        content    :
+          - npm run build
+  - name         : KenoteJs Use TypeORM to connect MySQL
+    repository   : https://github.com/kenote/kenote.js/tree/main/examples/kenotejs-use-typeorm-mysql
+    value        : kenotejs-use-typeorm-mysql
+    results      :
+      - name       : To get started
+        content    :
+          - npm run dev
+      - name       : To get build
+        content    :
+          - npm run build
+  - name         : KenoteJs Use TypeORM to connect PostgreSQL
+    repository   : https://github.com/kenote/kenote.js/tree/main/examples/kenotejs-use-typeorm-pgsql
+    value        : kenotejs-use-typeorm-pgsql
+    results      :
+      - name       : To get started
+        content    :
+          - npm run dev
+      - name       : To get build
+        content    :
+          - npm run build
+  - name         : KenoteJs With Nuxt SSR
+    repository   : https://github.com/kenote/kenote.js/tree/main/examples/kenotejs-nuxt-ssr
+    value        : kenotejs-nuxt-ssr
+    results      :
+      - name       : To get started
+        content    :
+          - npm run dev
+      - name       : To get build
+        content    :
+          - npm run build
