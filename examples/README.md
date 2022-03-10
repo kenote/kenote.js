@@ -8,9 +8,9 @@ Created some simple examples for quick and easy use.
 # Install command tool
 npm i -g kenote-cli
 # Download the example configuration file
-curl -O https://raw.githubusercontent.com/kenote/kenote.js/main/examples/congif.yml
+curl -O https://raw.githubusercontent.com/kenote/kenote.js/main/examples/config.yml
 # import configuration file
-kenote config ./congif.yml
+kenote config ./config.yml
 # Create New Project from Example
 kenote create {PROJECT_NAME}
 ```
