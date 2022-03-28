@@ -170,7 +170,7 @@ var ServerFactoryStatic = (function () {
                         item = ssrPlugins_1_1.value;
                         handler = item.handler, prescript = item.prescript, prefix = item.prefix;
                         if (!prescript) return [3, 5];
-                        return [4, prescript()];
+                        return [4, prescript($__engine)];
                     case 4:
                         _l.sent();
                         _l.label = 5;

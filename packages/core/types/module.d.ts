@@ -1,4 +1,4 @@
-import { CommonEngineOptions } from '@kenote/common'
+import { CommonEngine, CommonEngineOptions } from '@kenote/common'
 export { Module, loadModules } from '../src/module'
 
 export declare namespace IModule {
@@ -38,7 +38,7 @@ export declare namespace IModule {
     /**
      * 前置脚本
      */
-    prescript      ?: () => Promise<void>
+    prescript      ?: (engina: CommonEngine) => Promise<void>
   }
 
   /**

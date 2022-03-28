@@ -60,7 +60,7 @@ class ServerFactoryStatic<T = any> {
       for (let item of ssrPlugins) {
         let { handler, prescript, prefix } = item
         if (prescript) {
-          await prescript()
+          await prescript($__engine)
         }
         $__engine.register(...handler)(prefix)
       }
