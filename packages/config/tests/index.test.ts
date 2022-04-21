@@ -16,7 +16,7 @@ describe('\n Test\n', () => {
   })
 
   test('asyncRequire', () => {
-    let ct = asyncRequire('../data')
+    let ct = asyncRequire('../data', { module })
     expect(ct.a).toBe(1)
   })
 })

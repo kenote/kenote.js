@@ -1,6 +1,4 @@
 
-var result = {
+module.exports = {
   a: 1
 }
-
-result

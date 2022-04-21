@@ -5,9 +5,9 @@ import { readCode } from './escode'
  * 异步导入JS
  * @param filename 
  */
-export function asyncRequire (filename: string) {
+export function asyncRequire (filename: string, ctx?: NodeJS.Dict<any>) {
   let file = require.resolve(filename)
   if (!fs.existsSync(file)) return undefined
   let source = fs.readFileSync(file, 'utf-8')
-  return readCode(source)
+  return readCode(source, ctx)
 }

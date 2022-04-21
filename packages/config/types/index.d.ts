@@ -40,5 +40,7 @@ export declare function loadConfig<T> (name: string, options: LoadConfigOptions)
 /**
  * 异步导入JS
  * @param filename 
+ * @param ctx
  */
 export declare function asyncRequire (filename: string): any
+export declare function asyncRequire (filename: string, ctx: NodeJS.Dict<any>): any

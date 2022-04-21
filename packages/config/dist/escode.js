@@ -26,9 +26,15 @@ exports.readCode = void 0;
 var esprima = __importStar(require("esprima"));
 var escodegen_1 = __importDefault(require("escodegen"));
 var eval5_1 = require("eval5");
-function readCode(source) {
+var vm_1 = require("vm");
+function readCode(source, ctx) {
     var ast = esprima.parseModule(source);
     var result = escodegen_1.default.generate(ast);
-    return eval5_1.evaluate(result);
+    try {
+        return vm_1.runInNewContext(result, ctx);
+    }
+    catch (error) {
+        return eval5_1.evaluate(result, ctx);
+    }
 }
 exports.readCode = readCode;
