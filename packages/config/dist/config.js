@@ -45,12 +45,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dataFileSort = exports.loadConfig = void 0;
+exports.pickFilsCallback = exports.pickFilesPromise = exports.dataFileSort = exports.loadConfig = exports.isYaml = exports.isJson = void 0;
 var js_yaml_1 = __importDefault(require("js-yaml"));
 var path_1 = __importDefault(require("path"));
 var fs_1 = __importDefault(require("fs"));
 var validator_1 = __importDefault(require("validator"));
 var lodash_1 = require("lodash");
+var glob_1 = __importDefault(require("glob"));
+var async_1 = __importDefault(require("async"));
+var util_1 = require("util");
+var async_require_1 = require("./async-require");
+exports.isJson = validator_1.default.isJSON;
+function isYaml(str) {
+    if (exports.isJson(str))
+        return false;
+    try {
+        return !!js_yaml_1.default.load(str);
+    }
+    catch (error) {
+        return false;
+    }
+}
+exports.isYaml = isYaml;
 function loadDataFile(filename, options) {
     var _a;
     if (options === void 0) { options = {}; }
@@ -59,17 +75,20 @@ function loadDataFile(filename, options) {
     if (!fs_1.default.existsSync(filePath))
         return __data;
     var extname = path_1.default.extname(filePath);
-    if (!/^\.(json|yaml|yml)$/.test(extname))
+    if (!/^\.(js|json|yaml|yml)$/.test(extname))
         return __data;
     var fileStr = fs_1.default.readFileSync(filePath, 'utf-8');
+    if (/^\.(js)$/.test(extname)) {
+        return async_require_1.asyncRequire(filePath, { module: module, require: require, process: process, env: options.assign });
+    }
     if (options.assign) {
         fileStr = lodash_1.template(fileStr, { interpolate: /{{([\s\S]+?)}}/g })(options.assign);
     }
-    if (validator_1.default.isJSON(fileStr) && /^\.(json)$/.test(extname)) {
-        __data = JSON.parse(fileStr);
-    }
-    else {
+    if (isYaml(fileStr)) {
         __data = js_yaml_1.default.load(fileStr);
+    }
+    else if (exports.isJson(fileStr)) {
+        __data = JSON.parse(fileStr);
     }
     return __data;
 }
@@ -95,7 +114,7 @@ function loadConfig(name, options) {
                 var item = _e.value;
                 var itemPath = path_1.default.resolve(filePath, item);
                 var itemStat = fs_1.default.statSync(itemPath);
-                if (/\.(json|yaml|yml)$/.test(item) || itemStat.isDirectory()) {
+                if (/\.(js|json|yaml|yml)$/.test(item) || itemStat.isDirectory()) {
                     var type = itemStat.isDirectory() ? 'array' : 'object';
                     var itemdata = loadConfig(itemPath, __assign(__assign({}, options), { type: type }));
                     if (lodash_1.isArray(__data)) {
@@ -128,3 +147,16 @@ function dataFileSort(files) {
     return __spread(files.filter(function (name) { return !regex_release.test(name); }), files.filter(function (name) { return regex_release.test(name) && !absolute_release.test(name); }), files.filter(function (name) { return absolute_release.test(name); }));
 }
 exports.dataFileSort = dataFileSort;
+exports.pickFilesPromise = util_1.promisify(pickFilsCallback);
+function pickFilsCallback(patterns, options, done) {
+    async_1.default.map(patterns, function (pattern, done) { return glob_1.default(pattern, options, done); }, function (err, results) {
+        if (err) {
+            done(err);
+        }
+        else {
+            var files = results === null || results === void 0 ? void 0 : results.reduce(function (files, item) { return files === null || files === void 0 ? void 0 : files.concat(item); });
+            done(null, files);
+        }
+    });
+}
+exports.pickFilsCallback = pickFilsCallback;

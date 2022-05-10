@@ -3,7 +3,32 @@ import path from 'path'
 import fs from 'fs'
 import validator from 'validator'
 import { isArray, assign, merge, template } from 'lodash'
-import { LoadConfigOptions } from '../types'
+import { LoadConfigOptions, CallbackWithResult } from '../types'
+import glob from 'glob'
+import async from 'async'
+import { promisify } from 'util'
+import { asyncRequire } from './async-require'
+
+/**
+ * 判断字符串是否 JSON 格式
+ * @param str 
+ * @returns 
+ */
+export const isJson = validator.isJSON
+
+/**
+ * 判断字符串是否 YAML 格式
+ * @param str 
+ * @returns 
+ */
+export function isYaml (str: string) {
+  if (isJson(str)) return false
+  try {
+    return !!jsYaml.load(str)
+  } catch (error) {
+    return false
+  }
+}
 
 /**
  * 读取配置文件
@@ -15,16 +40,19 @@ function loadDataFile (filename: string, options: LoadConfigOptions = {}) {
   let __data: object | null | undefined
   if (!fs.existsSync(filePath)) return __data
   let extname = path.extname(filePath)
-  if (!/^\.(json|yaml|yml)$/.test(extname)) return __data
+  if (!/^\.(js|json|yaml|yml)$/.test(extname)) return __data
   let fileStr = fs.readFileSync(filePath, 'utf-8')
+  if (/^\.(js)$/.test(extname)) {
+    return asyncRequire(filePath, { module, require, process, env: options.assign })
+  }
   if (options.assign) {
     fileStr = template(fileStr, { interpolate: /{{([\s\S]+?)}}/g })(options.assign)
   }
-  if (validator.isJSON(fileStr) && /^\.(json)$/.test(extname)) {
-    __data = JSON.parse(fileStr)
-  }
-  else {
+  if (isYaml(fileStr)) {
     __data = jsYaml.load(fileStr)
+  }
+  else if (isJson(fileStr)) {
+    __data = JSON.parse(fileStr)
   }
   return __data
 }
@@ -49,7 +77,7 @@ export function loadConfig (name: string, options: LoadConfigOptions = {}) {
     for (let item of dataFileSort(files)) {
       let itemPath = path.resolve(filePath, item)
       let itemStat = fs.statSync(itemPath)
-      if (/\.(json|yaml|yml)$/.test(item) || itemStat.isDirectory()) {
+      if (/\.(js|json|yaml|yml)$/.test(item) || itemStat.isDirectory()) {
         let type: 'object' | 'array' = itemStat.isDirectory() ? 'array' : 'object'
         let itemdata = loadConfig(itemPath, { ...options, type })
         if (isArray(__data)) {
@@ -80,4 +108,34 @@ export function dataFileSort (files: string[]) {
     ...files.filter( name => regex_release.test(name) && !absolute_release.test(name) ),
     ...files.filter( name => absolute_release.test(name) )
   ]
+}
+
+/**
+ * 获取工作目录经过筛选的所有文件
+ * @param patterns string[]
+ * @param options glob.IOptions
+ * @returns string[]
+ */
+export const pickFilesPromise = promisify(pickFilsCallback)
+
+/**
+ * 获取工作目录经过筛选的所有文件
+ * @param patterns 
+ * @param options 
+ * @param done 
+ */
+export function pickFilsCallback (patterns: string[], options: glob.IOptions, done: CallbackWithResult<string[]>) {
+  async.map(
+    patterns,
+    (pattern, done) => glob(pattern, options, done),
+    (err, results: string[][]) => {
+      if (err) {
+        done(err)
+      }
+      else {
+        let files = results?.reduce((files, item) => files?.concat(item) )
+        done(null, files)
+      }
+    }
+  )
 }

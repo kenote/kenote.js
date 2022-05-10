@@ -18,8 +18,10 @@
     "build": "rm -rf ./dist && tsc && cp ./types/escode.d.ts ./dist"
   },
   "dependencies": {
+    "@types/async": "^3.2.12",
     "@types/js-yaml": "^3.12.6",
     "@types/validator": "^13.7.1",
+    "async": "^3.2.3",
     "escodegen": "^2.0.0",
     "esprima": "^4.0.1",
     "eval5": "^1.4.7",

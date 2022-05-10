@@ -1,5 +1,5 @@
-
-import { loadConfig, asyncRequire } from '../src'
+import { resolve } from 'path'
+import { loadConfig, asyncRequire, pickFilesPromise } from '../src'
 
 describe('\n Test\n', () => {
 
@@ -18,6 +18,12 @@ describe('\n Test\n', () => {
   test('asyncRequire', () => {
     let ct = asyncRequire('../data', { module })
     expect(ct.a).toBe(1)
+  })
+
+  test('pickFilesPromise', async () => {
+    let globOptions = { cwd: resolve(process.cwd(), 'data'), nodir: true, realpath: true, ignore: ['!**/*.js'] }
+    let files = await pickFilesPromise(['.**/**', '**'],globOptions )
+    expect(files?.length).toBe(1)
   })
 })
 

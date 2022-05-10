@@ -1,3 +1,5 @@
+import glob from 'glob'
+
 export { readCode } from './escode'
 
 export declare interface LoadConfigOptions {
@@ -44,3 +46,38 @@ export declare function loadConfig<T> (name: string, options: LoadConfigOptions)
  */
 export declare function asyncRequire (filename: string): any
 export declare function asyncRequire (filename: string, ctx: NodeJS.Dict<any>): any
+
+/**
+ * 回掉函数
+ */
+export declare type CallbackWithResult<TResult> = (err: Error | null, result?: TResult) => void
+
+/**
+ * 获取工作目录经过筛选的所有文件
+ * @param patterns 
+ * @param options 
+ * @param done 
+ */
+export declare function pickFilsCallback (patterns: string[], options: glob.IOptions, done: CallbackWithResult<string[]>): void
+
+/**
+ * 获取工作目录经过筛选的所有文件
+ * @param patterns string[]
+ * @param options glob.IOptions
+ * @returns string[]
+ */
+ export declare function pickFilesPromise (patterns: string[], options: glob.IOptions): Promise<string[] | undefined>
+
+ /**
+ * 判断字符串是否 JSON 格式
+ * @param str 
+ * @returns 
+ */
+export function isJson (str: string): boolean
+
+/**
+ * 判断字符串是否 YAML 格式
+ * @param str 
+ * @returns 
+ */
+export function isYaml (str: string): boolean
