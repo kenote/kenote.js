@@ -5,6 +5,8 @@ Object.defineProperty(exports, "loadConfig", { enumerable: true, get: function (
 Object.defineProperty(exports, "dataFileSort", { enumerable: true, get: function () { return config_1.dataFileSort; } });
 Object.defineProperty(exports, "pickFilesPromise", { enumerable: true, get: function () { return config_1.pickFilesPromise; } });
 Object.defineProperty(exports, "pickFilsCallback", { enumerable: true, get: function () { return config_1.pickFilsCallback; } });
+Object.defineProperty(exports, "isJson", { enumerable: true, get: function () { return config_1.isJson; } });
+Object.defineProperty(exports, "isYaml", { enumerable: true, get: function () { return config_1.isYaml; } });
 var async_require_1 = require("./async-require");
 Object.defineProperty(exports, "asyncRequire", { enumerable: true, get: function () { return async_require_1.asyncRequire; } });
 var escode_1 = require("./escode");
