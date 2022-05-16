@@ -1,0 +1,14 @@
+# 接口名称
+name: &name user
+
+# 接口描述
+description: Service 代理 数据
+
+# 设置路由
+router:
+  - method: GET
+    path: *name
+
+# 内部服务
+service:
+  name: data.getUser

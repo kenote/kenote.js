@@ -1,0 +1,15 @@
+# 接口名称
+name: &name json
+
+# 接口描述
+description: Http 代理 Json 资源
+
+# 设置路由
+router:
+  - method: GET
+    path: *name
+
+# HTTP代理
+httpProxy:
+  method: GET
+  url: https://raw.githubusercontent.com/kenote/kenote.js/main/package.json
