@@ -7,10 +7,8 @@ const { getUser } = service
 @Controller('/')
 export default class MainController {
 
-  @Get('/:channel/:pathLabel')
-  @Post('/:channel/:pathLabel')
-  @Get('/:channel/:pathLabel/:tag')
-  @Post('/:channel/:pathLabel/:tag')
+  @Get('/:channel/:pathLabel?/:tag?')
+  @Post('/:channel/:pathLabel?/:tag?')
   async handler (ctx: Context, next: NextHandler) {
     let { channel, pathLabel } = ctx.params
     let sandbox: Record<string, unknown> = { service }
