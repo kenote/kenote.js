@@ -1,6 +1,6 @@
 {
   "name": "@kenote/config",
-  "version": "1.0.38",
+  "version": "1.0.40",
   "description": "Get profile module.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
