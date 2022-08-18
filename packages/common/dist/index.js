@@ -1,5 +1,9 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CryptoJS = void 0;
 var engine_1 = require("./engine");
 Object.defineProperty(exports, "CommonEngine", { enumerable: true, get: function () { return engine_1.CommonEngine; } });
 var datanode_1 = require("./datanode");
@@ -12,3 +16,5 @@ Object.defineProperty(exports, "getChannelKey", { enumerable: true, get: functio
 var http_client_1 = require("./http-client");
 Object.defineProperty(exports, "HttpClient", { enumerable: true, get: function () { return http_client_1.HttpClient; } });
 Object.defineProperty(exports, "xhrClient", { enumerable: true, get: function () { return http_client_1.xhrClient; } });
+var crypto_js_1 = __importDefault(require("crypto-js"));
+exports.CryptoJS = crypto_js_1.default;

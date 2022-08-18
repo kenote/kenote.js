@@ -18,17 +18,25 @@
     "build": "rm -rf ./dist && tsc"
   },
   "dependencies": {
+    "@types/bytes": "^3.1.1",
+    "@types/crypto-js": "^4.1.1",
+    "@types/file-saver": "^2.0.5",
+    "@types/lodash": "^4.14.183",
+    "@types/query-string": "^6.3.0",
+    "@types/url-parse": "^1.4.8",
+    "bytes": "^3.1.2",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.11.5",
+    "file-saver": "^2.0.5",
     "lodash": "^4.17.21",
+    "parse-string": "^1.2.5",
     "query-string": "^6.14.1",
     "rule-judgment": "^1.1.5",
     "url-parse": "^1.5.9"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
-    "@types/lodash": "^4.14.178",
     "@types/node": "^14.18.12",
-    "@types/query-string": "^6.3.0",
-    "@types/url-parse": "^1.4.8",
     "jest": "^25.5.4",
     "ts-jest": "^25.5.1",
     "ts-node": "^8.10.2",
