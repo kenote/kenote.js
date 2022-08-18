@@ -86,35 +86,35 @@ export declare class ModelDao<T = Document> {
    * 创建数据文档
    * @param docs 
    */
-  public create<U = T> (doc: CreateQuery<Document>): Promise<U>
-  public create<U = T> (docs: Array<CreateQuery<Document>>): Promise<U[]>
+  public create<U = T> (doc: CreateQuery<T>): Promise<U>
+  public create<U = T> (docs: Array<CreateQuery<T>>): Promise<U[]>
 
   /**
    * 查询单条数据
    * @param conditions 
    * @param options 
    */
-  public findOne<U = T> (conditions: FilterQuery<Document>, options?: QueryOptions): Promise<U>
+  public findOne<U = T> (conditions: FilterQuery<T>, options?: QueryOptions): Promise<U>
 
   /**
    * 查询多条数据（列表）
    * @param conditions 
    * @param options 
    */
-  public find<U = T> (conditions?: FilterQuery<Document> | null, options?: QueryOptions): Promise<U[]>
+  public find<U = T> (conditions?: FilterQuery<T> | null, options?: QueryOptions): Promise<U[]>
 
   /**
    * 统计数据条数
    * @param conditions 
    */
-  public counts (conditions?: FilterQuery<Document> | null): Promise<number>
+  public counts (conditions?: FilterQuery<T> | null): Promise<number>
 
   /**
    * 数据分页列表
    * @param conditions 
    * @param options 
    */
-  public list (conditions?: FilterQuery<Document> | null, options?: QueryOptions): Promise<ListDataResult>
+  public list (conditions?: FilterQuery<T> | null, options?: QueryOptions): Promise<ListDataResult>
 
   /**
    * 更新单条数据
@@ -122,7 +122,7 @@ export declare class ModelDao<T = Document> {
    * @param doc 
    * @param options 
    */
-  public updateOne (conditions: FilterQuery<Document>, doc: UpdateQuery<Document>, options?: ModelUpdateOptions): Promise<UpdateWriteResult>
+  public updateOne (conditions: FilterQuery<T>, doc: UpdateQuery<T>, options?: ModelUpdateOptions): Promise<UpdateWriteResult>
 
   /**
    * 更新多条数据
@@ -130,13 +130,13 @@ export declare class ModelDao<T = Document> {
    * @param doc 
    * @param options 
    */
-  public updateMany (conditions: FilterQuery<Document> | null, doc: UpdateQuery<Document>, options?: ModelUpdateOptions): Promise<UpdateWriteResult>
+  public updateMany (conditions: FilterQuery<T> | null, doc: UpdateQuery<T>, options?: ModelUpdateOptions): Promise<UpdateWriteResult>
 
   /**
    * 删除数据文档
    * @param conditions 
    */
-  public remove (conditions?: FilterQuery<Document> | null): Promise<DeleteWriteResult>
+  public remove (conditions?: FilterQuery<T> | null): Promise<DeleteWriteResult>
 
   /**
    * 清除数据文档
