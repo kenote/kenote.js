@@ -4,7 +4,7 @@ import glob from 'glob'
 import { merge } from 'lodash'
 import fs from 'fs'
 import isStream from 'is-stream'
-import { ZipOptions, UnzipOptions } from '../types'
+import { ZipOptions, UnzipOptions } from '../types/archiver'
 
 /**
  * 默认压缩配置

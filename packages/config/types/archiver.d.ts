@@ -14,6 +14,11 @@ export declare interface ZipOptions extends UnzipOptions {
 }
 
 /**
+ * 默认压缩配置
+ */
+export declare const defaultZipOptions: ZipOptions
+
+/**
  * 压缩文件
  * @param file 
  * @param patterns 

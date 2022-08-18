@@ -1,7 +1,7 @@
 import glob from 'glob'
 
 export { readCode } from './escode'
-export * from './archiver'
+export * as archiver from './archiver'
 
 export declare interface LoadConfigOptions {
   /**
