@@ -18,14 +18,18 @@
     "build": "rm -rf ./dist && tsc && cp ./types/escode.d.ts ./dist"
   },
   "dependencies": {
+    "@types/archiver": "^5.1.1",
     "@types/async": "^3.2.12",
     "@types/js-yaml": "^3.12.6",
+    "@types/unzipper": "^0.10.5",
     "@types/validator": "^13.7.1",
+    "archiver": "^5.3.1",
     "async": "^3.2.3",
     "escodegen": "^2.0.0",
     "esprima": "^4.0.1",
     "eval5": "^1.4.7",
     "js-yaml": "^3.14.1",
+    "unzipper": "^0.10.11",
     "validator": "^13.7.0"
   },
   "devDependencies": {
@@ -41,7 +45,7 @@
     "typescript": "^3.9.7"
   },
   "engines": {
-    "node": ">=8.16.0"
+    "node": ">=10"
   },
   "keywords": [
     "config",
