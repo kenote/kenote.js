@@ -4,6 +4,9 @@
   "description": "The core library of the Kenote.js.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
+  "bin": {
+    "kenci": "bin/index.js"
+  },
   "author": "thondery <thondery@163.com>",
   "license": "MIT",
   "repository": {
@@ -19,9 +22,14 @@
     "build": "rm -rf ./dist && tsc"
   },
   "dependencies": {
+    "@types/nodemon": "^1.19.2",
     "@kenote/common": "latest",
-    "immutable": "^4.0.0",
-    "reflect-metadata": "^0.1.13"
+    "@kenote/config": "latest",
+    "immutable": "^4.1.0",
+    "nodemon": "^2.0.19",
+    "reflect-metadata": "^0.1.13",
+    "runscript": "^1.5.2",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@kenote/express": "latest",
@@ -30,14 +38,12 @@
     "@types/lodash": "^4.14.178",
     "@types/node": "^14.18.12",
     "jest": "^25.5.4",
-    "nodemon": "^2.0.15",
     "ts-jest": "^25.5.1",
-    "ts-node": "^8.10.2",
     "tslint": "^6.1.3",
     "typescript": "^3.9.7"
   },
   "engines": {
-    "node": ">=8.16.0"
+    "node": ">=10"
   },
   "keywords": [
     "kenote.js"
