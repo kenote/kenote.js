@@ -1,6 +1,6 @@
 {
   "name": "@kenote/core",
-  "version": "1.0.34",
+  "version": "1.0.41",
   "description": "The core library of the Kenote.js.",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
@@ -22,9 +22,9 @@
     "build": "rm -rf ./dist && tsc"
   },
   "dependencies": {
-    "@types/nodemon": "^1.19.2",
     "@kenote/common": "latest",
     "@kenote/config": "latest",
+    "@types/nodemon": "^1.19.2",
     "immutable": "^4.1.0",
     "nodemon": "^2.0.19",
     "reflect-metadata": "^0.1.13",
