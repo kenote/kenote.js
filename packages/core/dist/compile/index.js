@@ -22,6 +22,6 @@ var _a = __read(process.argv.slice(2), 1), argv_type = _a[0];
 if (argv_type === 'build') {
     build_1.runBuild();
 }
-else if (argv_type === 'dev') {
+else if (['dev', 'develop', 'start'].includes(argv_type)) {
     develop_1.runDevelop();
 }

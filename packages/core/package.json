@@ -29,7 +29,9 @@
     "nodemon": "^2.0.19",
     "reflect-metadata": "^0.1.13",
     "runscript": "^1.5.2",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.0",
+    "tscpaths": "^0.0.9"
   },
   "devDependencies": {
     "@kenote/express": "latest",
