@@ -42,7 +42,7 @@ export function parsePlainObject (value: any, parse?: APIProxy.ParseOptions) {
  * @returns 
  */
 export function runService (name: string, args: any[] = []) {
-  return async <T = Record<string, any>> (service: T, ctx?: Context) => {
+  return async <T = Record<string, any>> (service: T, ctx?: any) => {
     if (!get(service, name)) {
       return null
     }
@@ -60,7 +60,7 @@ export function getHeader (name: string) {
   return (header: string[]) => {
     for (let item of header) {
       let [key, val] = item.split(/\:/)
-      if (key === name) {
+      if (key.toLocaleLowerCase() === name.toLocaleLowerCase()) {
         return val
       }
     }

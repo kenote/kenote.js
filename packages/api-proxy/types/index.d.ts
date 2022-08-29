@@ -1,4 +1,6 @@
 export { APIProxy, parseProps, getEntrance, getProxyResponse } from './api-proxy'
-
+export { getHeader, getServiceModules, parsePlainObject, runService } from './utils'
 export { HttpRequest, HttpResponse, fetchToShell, shellAsCurl } from './http'
 export { Socket, socketRequest } from './socket'
+export { default as Pubsub } from './pubsub'
+export { NodeProxy, getNodeEntrance, getNodeResponse, toResponseResult } from './node-proxy'

@@ -124,7 +124,7 @@ function getHeader(name) {
             for (var header_1 = __values(header), header_1_1 = header_1.next(); !header_1_1.done; header_1_1 = header_1.next()) {
                 var item = header_1_1.value;
                 var _b = __read(item.split(/\:/), 2), key = _b[0], val = _b[1];
-                if (key === name) {
+                if (key.toLocaleLowerCase() === name.toLocaleLowerCase()) {
                     return val;
                 }
             }
