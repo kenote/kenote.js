@@ -14,6 +14,11 @@ export async function runBuild () {
     let outDir = path.resolve(process.cwd(), config.build.outDir)
     let srcDir = path.resolve(process.cwd(), config.srcDir)
     let tsconfig = path.resolve(srcDir, config.tsconfig)
+    if (config.commands) {
+      for (let command of config.commands) {
+        await runScript(command)
+      }
+    }
     if (config.build.emptyOutDir) {
       console.log(`清理编译目录...`)
       await runScript(`rm -rf ${outDir}`)

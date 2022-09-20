@@ -13,6 +13,11 @@ export async function runDevelop () {
   let nodemonConfigFile = generateNodemon(config)
   let entryFile = path.resolve(process.cwd(), config.srcDir, config.entry)
   try {
+    if (config.commands) {
+      for (let command of config.commands) {
+        await runScript(command)
+      }
+    }
     await runScript(`nodemon --config ${nodemonConfigFile} ${entryFile}`)
   } catch (error) {
     console.error(error)

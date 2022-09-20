@@ -3,7 +3,7 @@ export declare interface CompileConfigure {
   /**
    * 入口文件
    */
-  entry    : string
+  entry        : string
   /**
    * 源码目录；默认 src/
    */
@@ -15,11 +15,15 @@ export declare interface CompileConfigure {
   /**
    * 编译选项
    */
-  build     : CompileConfigure.Build
+  build        : CompileConfigure.Build
   /**
    * 开发选项
    */
-  develop   : CompileConfigure.Develop
+  develop      : CompileConfigure.Develop
+  /**
+   * 预先处理脚本
+   */
+  commands    ?: string[]
 }
 
 export namespace CompileConfigure {

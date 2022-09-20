@@ -35,6 +35,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -47,26 +58,54 @@ var config_1 = require("./config");
 function runDevelop() {
     var _a;
     return __awaiter(this, void 0, void 0, function () {
-        var options, config, nodemonConfigFile, entryFile, error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var options, config, nodemonConfigFile, entryFile, _b, _c, command, e_1_1, error_1;
+        var e_1, _d;
+        return __generator(this, function (_e) {
+            switch (_e.label) {
                 case 0:
                     options = config_1.readConfigure('kenci.config');
                     config = lodash_1.merge(config_1.defaultOptions, (_a = options === null || options === void 0 ? void 0 : options.default) !== null && _a !== void 0 ? _a : options);
                     nodemonConfigFile = config_1.generateNodemon(config);
                     entryFile = path_1.default.resolve(process.cwd(), config.srcDir, config.entry);
-                    _b.label = 1;
+                    _e.label = 1;
                 case 1:
-                    _b.trys.push([1, 3, , 4]);
-                    return [4, runscript_1.default("nodemon --config " + nodemonConfigFile + " " + entryFile)];
+                    _e.trys.push([1, 11, , 12]);
+                    if (!config.commands) return [3, 9];
+                    _e.label = 2;
                 case 2:
-                    _b.sent();
-                    return [3, 4];
+                    _e.trys.push([2, 7, 8, 9]);
+                    _b = __values(config.commands), _c = _b.next();
+                    _e.label = 3;
                 case 3:
-                    error_1 = _b.sent();
-                    console.error(error_1);
-                    return [3, 4];
+                    if (!!_c.done) return [3, 6];
+                    command = _c.value;
+                    return [4, runscript_1.default(command)];
                 case 4:
+                    _e.sent();
+                    _e.label = 5;
+                case 5:
+                    _c = _b.next();
+                    return [3, 3];
+                case 6: return [3, 9];
+                case 7:
+                    e_1_1 = _e.sent();
+                    e_1 = { error: e_1_1 };
+                    return [3, 9];
+                case 8:
+                    try {
+                        if (_c && !_c.done && (_d = _b.return)) _d.call(_b);
+                    }
+                    finally { if (e_1) throw e_1.error; }
+                    return [7];
+                case 9: return [4, runscript_1.default("nodemon --config " + nodemonConfigFile + " " + entryFile)];
+                case 10:
+                    _e.sent();
+                    return [3, 12];
+                case 11:
+                    error_1 = _e.sent();
+                    console.error(error_1);
+                    return [3, 12];
+                case 12:
                     process.exit(0);
                     return [2];
             }
