@@ -1,6 +1,6 @@
 {
   "name": "@kenote/api-proxy",
-  "version": "1.0.43",
+  "version": "1.0.45",
   "description": ".",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
