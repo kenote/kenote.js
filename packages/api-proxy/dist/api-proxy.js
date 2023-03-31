@@ -115,6 +115,9 @@ function getProxyResponse(entrance, payload) {
                     else {
                         httpProxy.body = (0, lodash_1.merge)(httpProxy.body, payload);
                     }
+                    if (payload.__TAG) {
+                        httpProxy.url = "".concat(httpProxy.url, "/").concat(payload.__TAG);
+                    }
                     return [4, (0, http_1.shellAsCurl)(httpProxy)];
                 case 3:
                     ret = _h.sent();

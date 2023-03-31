@@ -37,6 +37,9 @@ export function getProxyResponse (entrance: APIProxy.Entrance | undefined, paylo
       else {
         httpProxy.body = merge(httpProxy.body, payload)
       }
+      if (payload.__TAG) {
+        httpProxy.url = `${httpProxy.url}/${payload.__TAG}`
+      }
       let ret = await shellAsCurl(httpProxy)
       let [ , code ] = ret.status?.split(/\s+/) ?? []
       if (code != '200') {
