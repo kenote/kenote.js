@@ -31,7 +31,7 @@ export declare interface HttpRequest {
  * HTTP 响应
  */
 export declare interface HttpResponse {
-  body        ?: Buffer | null
+  body        ?: Buffer | string | null
   headers     ?: string[]
   status      ?: string
 }

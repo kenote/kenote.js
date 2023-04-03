@@ -17,7 +17,7 @@ describe('\n Test\n', () => {
 
   test('Http Proxy', async () => {
     if (factory) {
-      let res = await request(factory.server).get('/http/json')
+      let res = await request(factory.app.callback()).get('/http/json')
       let data = JSON.parse(res.text)
       expect(data?.name).toEqual('kenote.js')
     }
@@ -25,7 +25,7 @@ describe('\n Test\n', () => {
 
   test('Service Proxy', async () => {
     if (factory) {
-      let res = await request(factory.server).get('/service/user')
+      let res = await request(factory.app.callback()).get('/service/user')
       expect(res.body?.username).toEqual('thondery')
     }
   })

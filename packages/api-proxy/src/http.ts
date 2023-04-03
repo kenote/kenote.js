@@ -12,10 +12,10 @@ import { HttpRequest, HttpResponse } from '../types/http'
  */
 export async function shellAsCurl (request: HttpRequest) {
   let shell = fetchToShell(request)
-  let [ status, headers ] = await getResponseHeaders(shell)
-  let result = await runscript(`${shell}`, { stdio: 'pipe' })
+  let [ status, headers, data ] = await getResponseHeaders(shell)
+  // let result = await runscript(`${shell}`, { stdio: 'pipe' })
   let response: HttpResponse = {
-    body: result.stdout,
+    body: data as string,
     headers: headers as string[],
     status: status as string
   }
@@ -28,9 +28,23 @@ export async function shellAsCurl (request: HttpRequest) {
  * @returns 
  */
 async function getResponseHeaders (shell: string) {
-  let result = await runscript(`${shell} -I`, { stdio: 'pipe' })
-  let [ tunnel, status, ...info ] = compact(result.stdout?.toString()?.split(/\r\n/))
-  return [ status, info.slice(0, info.length -1) ]
+  let result = await runscript(`${shell} -D -`, { stdio: 'pipe' })
+  let ret = result.stdout?.toString()?.split(/\r\n\r\n/) ?? []
+  let [ headers, data ] = ret
+  if (ret[0].includes('Tunnel established')) {
+    [ , headers, data ] = ret
+    // let info = compact(headers?.split(/\r\n/) ?? [])
+    // let status = info[0]
+    // return [ status, info.slice(0, info.length -1), data ]
+  }
+  // else {
+  //   let [ headers, data ] = ret
+  let info = compact(headers?.split(/\r\n/) ?? [])
+  let status = info[0]
+  return [ status, info.slice(0, info.length -1), data ]
+
+  // }
+  
 }
 
 /**

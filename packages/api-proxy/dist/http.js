@@ -72,19 +72,16 @@ var query_string_1 = __importDefault(require("query-string"));
 var runscript_1 = __importDefault(require("runscript"));
 function shellAsCurl(request) {
     return __awaiter(this, void 0, void 0, function () {
-        var shell, _a, status, headers, result, response;
+        var shell, _a, status, headers, data, response;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     shell = fetchToShell(request);
                     return [4, getResponseHeaders(shell)];
                 case 1:
-                    _a = __read.apply(void 0, [_b.sent(), 2]), status = _a[0], headers = _a[1];
-                    return [4, (0, runscript_1.default)("".concat(shell), { stdio: 'pipe' })];
-                case 2:
-                    result = _b.sent();
+                    _a = __read.apply(void 0, [_b.sent(), 3]), status = _a[0], headers = _a[1], data = _a[2];
                     response = {
-                        body: result.stdout,
+                        body: data,
                         headers: headers,
                         status: status
                     };
@@ -95,16 +92,23 @@ function shellAsCurl(request) {
 }
 exports.shellAsCurl = shellAsCurl;
 function getResponseHeaders(shell) {
-    var _a, _b;
+    var _a, _b, _c, _d;
     return __awaiter(this, void 0, void 0, function () {
-        var result, _c, tunnel, status, info;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
-                case 0: return [4, (0, runscript_1.default)("".concat(shell, " -I"), { stdio: 'pipe' })];
+        var result, ret, _e, headers, data, info, status;
+        var _f;
+        return __generator(this, function (_g) {
+            switch (_g.label) {
+                case 0: return [4, (0, runscript_1.default)("".concat(shell, " -D -"), { stdio: 'pipe' })];
                 case 1:
-                    result = _d.sent();
-                    _c = __read((0, lodash_1.compact)((_b = (_a = result.stdout) === null || _a === void 0 ? void 0 : _a.toString()) === null || _b === void 0 ? void 0 : _b.split(/\r\n/))), tunnel = _c[0], status = _c[1], info = _c.slice(2);
-                    return [2, [status, info.slice(0, info.length - 1)]];
+                    result = _g.sent();
+                    ret = (_c = (_b = (_a = result.stdout) === null || _a === void 0 ? void 0 : _a.toString()) === null || _b === void 0 ? void 0 : _b.split(/\r\n\r\n/)) !== null && _c !== void 0 ? _c : [];
+                    _e = __read(ret, 2), headers = _e[0], data = _e[1];
+                    if (ret[0].includes('Tunnel established')) {
+                        _f = __read(ret, 3), headers = _f[1], data = _f[2];
+                    }
+                    info = (0, lodash_1.compact)((_d = headers === null || headers === void 0 ? void 0 : headers.split(/\r\n/)) !== null && _d !== void 0 ? _d : []);
+                    status = info[0];
+                    return [2, [status, info.slice(0, info.length - 1), data]];
             }
         });
     });
