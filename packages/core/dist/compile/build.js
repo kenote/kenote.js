@@ -101,7 +101,7 @@ function runBuild() {
                 case 9:
                     if (!config.build.emptyOutDir) return [3, 11];
                     console.log("\u6E05\u7406\u7F16\u8BD1\u76EE\u5F55...");
-                    return [4, runscript_1.default("rm -rf " + outDir)];
+                    return [4, runscript_1.default("rm -rf " + outDir + "/*")];
                 case 10:
                     _e.sent();
                     _e.label = 11;

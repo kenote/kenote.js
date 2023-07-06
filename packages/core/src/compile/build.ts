@@ -21,7 +21,7 @@ export async function runBuild () {
     }
     if (config.build.emptyOutDir) {
       console.log(`清理编译目录...`)
-      await runScript(`rm -rf ${outDir}`)
+      await runScript(`rm -rf ${outDir}/*`)
     }
     console.log(`编译 Ts 到 ${outDir} 目录...`)
     await runScript(`tsc --project ${tsconfig} --outDir ${outDir}`)
