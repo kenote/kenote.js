@@ -38,6 +38,7 @@ export declare interface HeaderOptions<T = {}> {
   success       ?: (response: HttpResponse) => void
   total         ?: number
   config        ?: T
+  baseURL       ?: string
 }
 
 export declare interface RequestConfig extends Record<string, any> {

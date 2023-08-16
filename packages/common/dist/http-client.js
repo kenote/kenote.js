@@ -125,8 +125,7 @@ function getResponseData(options, next) {
 function sendData(method, url, data) {
     return function (client, options) {
         var _a;
-        var config = __assign({ method: method,
-            url: url, headers: setHeader(options), timeout: options === null || options === void 0 ? void 0 : options.timeout }, options === null || options === void 0 ? void 0 : options.config);
+        var config = __assign({ method: method, url: /^(http?s)/.test(url) ? url : lodash_1.compact([options === null || options === void 0 ? void 0 : options.baseURL, url]).join(''), headers: setHeader(options), timeout: options === null || options === void 0 ? void 0 : options.timeout }, options === null || options === void 0 ? void 0 : options.config);
         if (options === null || options === void 0 ? void 0 : options.download) {
             config.responseType = (_a = options.responseType) !== null && _a !== void 0 ? _a : 'blob';
             config.headers['Content-Type'] = 'application/x-www-form-urlencoded';

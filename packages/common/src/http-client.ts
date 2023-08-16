@@ -42,7 +42,7 @@ export function sendData<T = any> (method: Method, url: string, data: any) {
   return (client: ClientInstance, options?: HeaderOptions) => {
     let config: RequestConfig = {
       method,
-      url,
+      url: /^(http?s)/.test(url) ? url : compact([options?.baseURL, url]).join(''),
       headers: setHeader(options),
       timeout: options?.timeout,
       ...options?.config
