@@ -58,7 +58,7 @@ export function sendData<T = any> (method: Method, url: string, data: any) {
       config.onUploadProgress = onProgress(options.upload, options.total)
     }
     if (method.toLocaleLowerCase() === 'get') {
-      let { query, origin, pathname } = urlParse(url)
+      let { query, origin, pathname } = urlParse(config.url??url)
       config.params = { ...qs.parse(query as unknown as string), ...data }
       config.url = origin + pathname
     }

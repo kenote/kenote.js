@@ -124,7 +124,7 @@ function getResponseData(options, next) {
 }
 function sendData(method, url, data) {
     return function (client, options) {
-        var _a;
+        var _a, _b;
         var config = __assign({ method: method, url: /^(http?s)/.test(url) ? url : lodash_1.compact([options === null || options === void 0 ? void 0 : options.baseURL, url]).join(''), headers: setHeader(options), timeout: options === null || options === void 0 ? void 0 : options.timeout }, options === null || options === void 0 ? void 0 : options.config);
         if (options === null || options === void 0 ? void 0 : options.download) {
             config.responseType = (_a = options.responseType) !== null && _a !== void 0 ? _a : 'blob';
@@ -137,7 +137,7 @@ function sendData(method, url, data) {
             config.onUploadProgress = onProgress(options.upload, options.total);
         }
         if (method.toLocaleLowerCase() === 'get') {
-            var _b = url_parse_1.default(url), query = _b.query, origin_1 = _b.origin, pathname = _b.pathname;
+            var _c = url_parse_1.default((_b = config.url) !== null && _b !== void 0 ? _b : url), query = _c.query, origin_1 = _c.origin, pathname = _c.pathname;
             config.params = __assign(__assign({}, query_string_1.default.parse(query)), data);
             config.url = origin_1 + pathname;
         }
