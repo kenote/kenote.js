@@ -43,7 +43,8 @@ export declare interface HeaderOptions<T = {}> {
 
 export declare interface RequestConfig extends Record<string, any> {
   method              ?: Method
-  url                 ?: string
+  url                  : string
+  baseURL             ?: string
   headers             ?: any
   params              ?: any
   data                ?: any

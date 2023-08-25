@@ -1,8 +1,9 @@
 import qs from 'query-string'
 import urlParse from 'url-parse'
-import { fromPairs, compact, trim, get } from 'lodash'
+import { fromPairs, compact, trim, get, merge } from 'lodash'
 import { IncomingHttpHeaders } from 'http'
 import { HeaderOptions, RequestConfig, ProgressResult, HttpResponse, ClientInstance, Method } from '../types'
+import URLParse from 'url-parse'
 
 function setHeader<T extends HeaderOptions> (options?: T) {
   let headers = options?.headers ?? {}
@@ -40,13 +41,13 @@ function getResponseData<T = any> (options: RequestConfig, next?: (response: Htt
 
 export function sendData<T = any> (method: Method, url: string, data: any) {
   return (client: ClientInstance, options?: HeaderOptions) => {
-    let config: RequestConfig = {
+    let config: RequestConfig = merge({
       method,
-      url: /^(http?s)/.test(url) ? url : compact([options?.baseURL, url]).join(''),
+      url,
       headers: setHeader(options),
       timeout: options?.timeout,
-      ...options?.config
-    }
+      baseURL: options?.baseURL
+    }, options?.config)
     if (options?.download) {
       config.responseType = options.responseType ?? 'blob'
       config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -58,9 +59,8 @@ export function sendData<T = any> (method: Method, url: string, data: any) {
       config.onUploadProgress = onProgress(options.upload, options.total)
     }
     if (method.toLocaleLowerCase() === 'get') {
-      let { query, origin, pathname } = urlParse(config.url??url)
+      let { query } = urlParse(config.url)
       config.params = { ...qs.parse(query as unknown as string), ...data }
-      config.url = origin + pathname
     }
     else {
       config.data = data
@@ -101,8 +101,12 @@ export class HttpClient {
 
 export function xhrClient (xhr: XMLHttpRequest) {
   return (config: RequestConfig): Promise<HttpResponse> => new Promise((resolve, reject) => {
-    let { method, url, timeout, data, params, onDownloadProgress, onUploadProgress, headers, responseType, timeoutErrorMessage } = config
+    let { method, url, baseURL, timeout, data, params, onDownloadProgress, onUploadProgress, headers, responseType, timeoutErrorMessage } = config
     let __url = method!.toLocaleLowerCase() === 'get' ? qs.stringifyUrl({ url: url ?? '', query: params }) : (url ?? '')
+    let { origin } = URLParse(url)
+    if (!/^(http?s)/.test(origin) && baseURL) {
+      __url = baseURL + __url
+    }
     xhr.open(method ?? 'get', __url, true)
     xhr.timeout = timeout ?? 0
     let __data = data

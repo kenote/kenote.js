@@ -81,6 +81,7 @@ exports.xhrClient = exports.HttpClient = exports.sendData = void 0;
 var query_string_1 = __importDefault(require("query-string"));
 var url_parse_1 = __importDefault(require("url-parse"));
 var lodash_1 = require("lodash");
+var url_parse_2 = __importDefault(require("url-parse"));
 function setHeader(options) {
     var _a;
     var headers = (_a = options === null || options === void 0 ? void 0 : options.headers) !== null && _a !== void 0 ? _a : {};
@@ -124,8 +125,14 @@ function getResponseData(options, next) {
 }
 function sendData(method, url, data) {
     return function (client, options) {
-        var _a, _b;
-        var config = __assign({ method: method, url: /^(http?s)/.test(url) ? url : lodash_1.compact([options === null || options === void 0 ? void 0 : options.baseURL, url]).join(''), headers: setHeader(options), timeout: options === null || options === void 0 ? void 0 : options.timeout }, options === null || options === void 0 ? void 0 : options.config);
+        var _a;
+        var config = lodash_1.merge({
+            method: method,
+            url: url,
+            headers: setHeader(options),
+            timeout: options === null || options === void 0 ? void 0 : options.timeout,
+            baseURL: options === null || options === void 0 ? void 0 : options.baseURL
+        }, options === null || options === void 0 ? void 0 : options.config);
         if (options === null || options === void 0 ? void 0 : options.download) {
             config.responseType = (_a = options.responseType) !== null && _a !== void 0 ? _a : 'blob';
             config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -137,9 +144,8 @@ function sendData(method, url, data) {
             config.onUploadProgress = onProgress(options.upload, options.total);
         }
         if (method.toLocaleLowerCase() === 'get') {
-            var _c = url_parse_1.default((_b = config.url) !== null && _b !== void 0 ? _b : url), query = _c.query, origin_1 = _c.origin, pathname = _c.pathname;
+            var query = url_parse_1.default(config.url).query;
             config.params = __assign(__assign({}, query_string_1.default.parse(query)), data);
-            config.url = origin_1 + pathname;
         }
         else {
             config.data = data;
@@ -172,8 +178,12 @@ exports.HttpClient = HttpClient;
 function xhrClient(xhr) {
     return function (config) { return new Promise(function (resolve, reject) {
         var e_1, _a;
-        var method = config.method, url = config.url, timeout = config.timeout, data = config.data, params = config.params, onDownloadProgress = config.onDownloadProgress, onUploadProgress = config.onUploadProgress, headers = config.headers, responseType = config.responseType, timeoutErrorMessage = config.timeoutErrorMessage;
+        var method = config.method, url = config.url, baseURL = config.baseURL, timeout = config.timeout, data = config.data, params = config.params, onDownloadProgress = config.onDownloadProgress, onUploadProgress = config.onUploadProgress, headers = config.headers, responseType = config.responseType, timeoutErrorMessage = config.timeoutErrorMessage;
         var __url = method.toLocaleLowerCase() === 'get' ? query_string_1.default.stringifyUrl({ url: url !== null && url !== void 0 ? url : '', query: params }) : (url !== null && url !== void 0 ? url : '');
+        var origin = url_parse_2.default(url).origin;
+        if (!/^(http?s)/.test(origin) && baseURL) {
+            __url = baseURL + __url;
+        }
         xhr.open(method !== null && method !== void 0 ? method : 'get', __url, true);
         xhr.timeout = timeout !== null && timeout !== void 0 ? timeout : 0;
         var __data = data;
