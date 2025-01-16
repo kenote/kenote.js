@@ -72,7 +72,7 @@ export function getProxyResponse (entrance: APIProxy.Entrance | undefined, paylo
       tcpSocket.logger = logger
       result = await socketRequest(msgtype, payload, requestType)({ tcpSocket, server, tag })
     }
-    result = parsePlainObject(result, entrance?.parse)(serviceModules)
+    result = parsePlainObject(result, entrance?.parse)(get(serviceModules, 'service.customize'))
     if (entrance?.native) {
       if (isPlainObject(result)) {
         result = JSON.stringify(result, null, 2)

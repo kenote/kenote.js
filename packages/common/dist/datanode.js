@@ -166,8 +166,9 @@ exports.dataNodeProxy = function (data) { return new DataNodeProxy(data); };
 function initMaps(data, maps) {
     if (maps === void 0) { maps = []; }
     data.forEach(function (item, __v) {
-        item.maps = __spread(maps);
-        item.maps.push(lodash_1.pick(item, ['key', 'name']));
+        var _a;
+        lodash_1.set(item, 'maps', __spread(maps));
+        (_a = item.maps) === null || _a === void 0 ? void 0 : _a.push(lodash_1.pick(item, ['key', 'name']));
         if (item.children) {
             return initMaps(item.children, item.maps);
         }

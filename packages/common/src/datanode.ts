@@ -1,7 +1,7 @@
 
 import ruleJudgment from 'rule-judgment'
 import { CommonDataNode, FilterQuery } from '../types'
-import { cloneDeep, remove, isEqual, merge, isArray, isEmpty, unset, pick } from 'lodash'
+import { cloneDeep, remove, isEqual, merge, isArray, isEmpty, unset, pick, set } from 'lodash'
 
 /**
  * 数据节点代理
@@ -118,8 +118,10 @@ export const dataNodeProxy = <T extends CommonDataNode>(data: T[]) => new DataNo
 export function initMaps<T extends CommonDataNode> (data: T[], maps: Array<Pick<T, 'key' | 'name'>> = []) {
   // let __data = (data)
   data.forEach( (item, __v) => {
-    item.maps = [ ...maps ]
-    item.maps.push(pick(item, ['key', 'name']) as T)
+    // item.maps = [ ...maps ]
+    set(item, 'maps', [...maps])
+    item.maps?.push(<T>pick(item, ['key', 'name']))
+    // item.maps.push(pick(item, ['key', 'name']) as T)
     if (item.children) {
       return initMaps(item.children, item.maps)
     }

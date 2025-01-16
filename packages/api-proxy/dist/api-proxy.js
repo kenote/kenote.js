@@ -155,7 +155,7 @@ function getProxyResponse(entrance, payload) {
                     result = _h.sent();
                     _h.label = 6;
                 case 6:
-                    result = (0, utils_1.parsePlainObject)(result, entrance === null || entrance === void 0 ? void 0 : entrance.parse)(serviceModules);
+                    result = (0, utils_1.parsePlainObject)(result, entrance === null || entrance === void 0 ? void 0 : entrance.parse)((0, lodash_1.get)(serviceModules, 'service.customize'));
                     if (entrance === null || entrance === void 0 ? void 0 : entrance.native) {
                         if ((0, lodash_1.isPlainObject)(result)) {
                             result = JSON.stringify(result, null, 2);
