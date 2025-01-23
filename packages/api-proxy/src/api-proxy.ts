@@ -68,6 +68,7 @@ export function getProxyResponse (entrance: APIProxy.Entrance | undefined, paylo
       }
       if (setting) {
         tcpSocket = merge(tcpSocket, setting?.tcpSocket)
+        server = setting.server??[]
       }
       tcpSocket.logger = logger
       result = await socketRequest(msgtype, payload, requestType)({ tcpSocket, server, tag })

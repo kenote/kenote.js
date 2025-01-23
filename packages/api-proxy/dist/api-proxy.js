@@ -92,9 +92,9 @@ function getProxyResponse(entrance, payload) {
     var _this = this;
     return function (options) { return __awaiter(_this, void 0, void 0, function () {
         var setting, serviceModules, logger, ctx, result, type, _a, name_1, args, httpProxy, ret, _b, code, _c, msgtype, requestType, serverTag, tag, tcpSocket, server;
-        var _d, _e, _f, _g;
-        return __generator(this, function (_h) {
-            switch (_h.label) {
+        var _d, _e, _f, _g, _h;
+        return __generator(this, function (_j) {
+            switch (_j.label) {
                 case 0:
                     setting = options.setting, serviceModules = options.serviceModules, logger = options.logger, ctx = options.ctx;
                     result = null;
@@ -104,7 +104,7 @@ function getProxyResponse(entrance, payload) {
                     ctx.payload = payload;
                     return [4, (0, utils_1.runService)(name_1, args)(serviceModules, ctx)];
                 case 1:
-                    result = _h.sent();
+                    result = _j.sent();
                     return [3, 6];
                 case 2:
                     if (!(entrance === null || entrance === void 0 ? void 0 : entrance.httpProxy)) return [3, 4];
@@ -120,7 +120,7 @@ function getProxyResponse(entrance, payload) {
                     }
                     return [4, (0, http_1.shellAsCurl)(httpProxy)];
                 case 3:
-                    ret = _h.sent();
+                    ret = _j.sent();
                     _b = __read((_e = (_d = ret.status) === null || _d === void 0 ? void 0 : _d.split(/\s+/)) !== null && _e !== void 0 ? _e : [], 2), code = _b[1];
                     if (code != '200') {
                         throw (0, http_errors_1.default)(500, ['HttpProxy:', (_f = ret.status) === null || _f === void 0 ? void 0 : _f.replace('404 OK', '404 Not Found')].join(''), { code: 1000 });
@@ -148,12 +148,13 @@ function getProxyResponse(entrance, payload) {
                     }
                     if (setting) {
                         tcpSocket = (0, lodash_1.merge)(tcpSocket, setting === null || setting === void 0 ? void 0 : setting.tcpSocket);
+                        server = (_h = setting.server) !== null && _h !== void 0 ? _h : [];
                     }
                     tcpSocket.logger = logger;
                     return [4, (0, socket_1.socketRequest)(msgtype, payload, requestType)({ tcpSocket: tcpSocket, server: server, tag: tag })];
                 case 5:
-                    result = _h.sent();
-                    _h.label = 6;
+                    result = _j.sent();
+                    _j.label = 6;
                 case 6:
                     result = (0, utils_1.parsePlainObject)(result, entrance === null || entrance === void 0 ? void 0 : entrance.parse)((0, lodash_1.get)(serviceModules, 'service.customize'));
                     if (entrance === null || entrance === void 0 ? void 0 : entrance.native) {
