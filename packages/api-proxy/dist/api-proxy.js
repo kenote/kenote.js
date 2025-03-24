@@ -177,10 +177,11 @@ exports.getProxyResponse = getProxyResponse;
 function getEntrance(options) {
     var _this = this;
     return function (ctx, pathname) { return __awaiter(_this, void 0, void 0, function () {
-        var channel, pathLabel, getUser, sandbox, channelPath, allEntrance, method, body, entrance, setting, serviceModules, whitelist, _a, authenticationState, isUser, payload, __TAG, sign, tokenOpts, valid, valid;
-        var _b, _c, _d, _e;
-        return __generator(this, function (_f) {
-            switch (_f.label) {
+        var channel, pathLabel, getUser, sandbox, channelPath, allEntrance, method, body, entrance, setting, serviceModules, whitelist, signuserOpts, __TAG, signuser, openapi, authentication, _a, _b, _c, key, val, original, target, _d, authenticationState, isUser, payload, sign, timestamp, tokenOpts, valid, valid;
+        var e_1, _e;
+        var _f, _g, _h, _j, _k, _l;
+        return __generator(this, function (_m) {
+            switch (_m.label) {
                 case 0:
                     channel = options.channel, pathLabel = options.pathLabel, getUser = options.getUser, sandbox = options.sandbox;
                     channelPath = path_1.default.resolve(process.cwd(), pathname, channel);
@@ -197,21 +198,80 @@ function getEntrance(options) {
                             alias: setting === null || setting === void 0 ? void 0 : setting.jsAlias
                         })];
                 case 1:
-                    serviceModules = _f.sent();
+                    serviceModules = _m.sent();
                     whitelist = (0, lodash_1.uniq)((0, lodash_1.compact)((0, lodash_1.concat)(setting === null || setting === void 0 ? void 0 : setting.whitelist, entrance === null || entrance === void 0 ? void 0 : entrance.whitelist)));
                     if (whitelist.length > 0 && !whitelist.find(function (v) { return new RegExp(v).test(clientIP(ctx)); })) {
                         throw (0, http_errors_1.default)(500, '没有访问该页面的权限', { code: 1000 });
                     }
+                    signuserOpts = setting.signuserOpts;
+                    __TAG = (0, lodash_1.get)(ctx.params, 'tag');
+                    signuser = signuserOpts === null || signuserOpts === void 0 ? void 0 : signuserOpts.user.find(function (v) { var _a; return v.id == __TAG && ((_a = v.openapi) === null || _a === void 0 ? void 0 : _a.includes(entrance === null || entrance === void 0 ? void 0 : entrance.name)); });
+                    if (signuser && !((_f = entrance === null || entrance === void 0 ? void 0 : entrance.authentication) === null || _f === void 0 ? void 0 : _f.find(function (v) { return v.type == 'sign'; }))) {
+                        openapi = signuserOpts === null || signuserOpts === void 0 ? void 0 : signuserOpts.openapi.find(function (v) { return v.name == (entrance === null || entrance === void 0 ? void 0 : entrance.name); });
+                        authentication = {
+                            type: 'sign',
+                            sign: {
+                                field: 'sign',
+                                md5: openapi === null || openapi === void 0 ? void 0 : openapi.valid,
+                                token: [
+                                    {
+                                        key: signuser.token,
+                                        name: signuser.name,
+                                        tags: [String(signuser.id)]
+                                    }
+                                ]
+                            }
+                        };
+                        if (!entrance.authentication)
+                            entrance.authentication = [];
+                        entrance.authentication.push(authentication);
+                        if (openapi === null || openapi === void 0 ? void 0 : openapi.props) {
+                            try {
+                                for (_a = __values(Object.entries(openapi === null || openapi === void 0 ? void 0 : openapi.props)), _b = _a.next(); !_b.done; _b = _a.next()) {
+                                    _c = __read(_b.value, 2), key = _c[0], val = _c[1];
+                                    original = (0, lodash_1.isArray)((0, lodash_1.get)(body, key)) ? (0, lodash_1.get)(body, key) : String((0, lodash_1.get)(body, key)).split(',');
+                                    if (!(0, lodash_1.get)(signuser.optional, val))
+                                        continue;
+                                    target = (0, lodash_1.intersection)((0, lodash_1.get)(signuser.optional, val), original);
+                                    if (!(0, lodash_1.isArray)((0, lodash_1.get)(body, key))) {
+                                        target = target.join(',');
+                                    }
+                                    (0, lodash_1.set)(body, key, target);
+                                }
+                            }
+                            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                            finally {
+                                try {
+                                    if (_b && !_b.done && (_e = _a.return)) _e.call(_a);
+                                }
+                                finally { if (e_1) throw e_1.error; }
+                            }
+                        }
+                        if (openapi === null || openapi === void 0 ? void 0 : openapi.fields) {
+                            (0, lodash_1.set)(entrance, 'payload', (0, lodash_1.concat)(entrance.payload, openapi.fields));
+                        }
+                    }
                     return [4, useAuthentication(entrance, getUser)];
                 case 2:
-                    _a = _f.sent(), authenticationState = _a.authenticationState, isUser = _a.isUser;
+                    _d = _m.sent(), authenticationState = _d.authenticationState, isUser = _d.isUser;
                     payload = entrance.payload ? (0, parse_string_1.filterData)(entrance.payload, serviceModules)(body) : body;
-                    __TAG = (0, lodash_1.get)(ctx.params, 'tag');
                     if (__TAG) {
                         (0, lodash_1.set)(payload, '__TAG', __TAG);
                     }
-                    if ((authenticationState === null || authenticationState === void 0 ? void 0 : authenticationState.type) === 'sign' && !((_b = authenticationState.sign) === null || _b === void 0 ? void 0 : _b.debug)) {
+                    if ((authenticationState === null || authenticationState === void 0 ? void 0 : authenticationState.type) === 'sign' && !((_g = authenticationState.sign) === null || _g === void 0 ? void 0 : _g.debug)) {
                         sign = authenticationState.sign;
+                        if (signuserOpts === null || signuserOpts === void 0 ? void 0 : signuserOpts.timestamp) {
+                            timestamp = Number((0, lodash_1.get)(payload, signuserOpts.timestamp.field));
+                            if (Number.isNaN(timestamp)) {
+                                timestamp = 0;
+                            }
+                            if (Date.now() < timestamp) {
+                                throw (0, http_errors_1.default)(500, 'MD5验签失败', { code: 1000 });
+                            }
+                            if (Date.now() - timestamp > ((_h = signuserOpts.timestamp.timeout) !== null && _h !== void 0 ? _h : 1000)) {
+                                throw (0, http_errors_1.default)(500, 'MD5验签失败', { code: 1000 });
+                            }
+                        }
                         if ((0, lodash_1.isArray)(sign === null || sign === void 0 ? void 0 : sign.token)) {
                             tokenOpts = __TAG ? sign === null || sign === void 0 ? void 0 : sign.token.find((0, rule_judgment_1.default)({ tags: { $_in: __TAG } })) : (0, lodash_1.get)(sign === null || sign === void 0 ? void 0 : sign.token, 0);
                             valid = tokenOpts && (0, parse_string_1.validSign)(sign === null || sign === void 0 ? void 0 : sign.md5, sign === null || sign === void 0 ? void 0 : sign.field)((0, lodash_1.merge)(payload, { key: tokenOpts === null || tokenOpts === void 0 ? void 0 : tokenOpts.key }));
@@ -232,11 +292,11 @@ function getEntrance(options) {
                         }
                     }
                     payload = (0, lodash_1.omit)(parseProps(entrance.props)(payload), (authenticationState === null || authenticationState === void 0 ? void 0 : authenticationState.type) === 'sign'
-                        ? [(_d = (_c = authenticationState === null || authenticationState === void 0 ? void 0 : authenticationState.sign) === null || _c === void 0 ? void 0 : _c.field) !== null && _d !== void 0 ? _d : 'sign']
+                        ? [(_k = (_j = authenticationState === null || authenticationState === void 0 ? void 0 : authenticationState.sign) === null || _j === void 0 ? void 0 : _j.field) !== null && _k !== void 0 ? _k : 'sign']
                         : []);
                     serviceModules.payload = payload;
                     if (entrance.httpProxy) {
-                        entrance.native = (_e = entrance.native) !== null && _e !== void 0 ? _e : true;
+                        entrance.native = (_l = entrance.native) !== null && _l !== void 0 ? _l : true;
                     }
                     return [2, { isUser: isUser, payload: payload, entrance: entrance, setting: setting, authenticationState: authenticationState, channelPath: channelPath, serviceModules: serviceModules }];
             }
@@ -247,8 +307,8 @@ exports.getEntrance = getEntrance;
 function useAuthentication(entrance, getUser) {
     var _a, _b, _c, _d;
     return __awaiter(this, void 0, void 0, function () {
-        var authenticationState, isUser, _e, _f, authentication, user, e_1_1;
-        var e_1, _g;
+        var authenticationState, isUser, _e, _f, authentication, user, e_2_1;
+        var e_2, _g;
         return __generator(this, function (_h) {
             switch (_h.label) {
                 case 0:
@@ -293,14 +353,14 @@ function useAuthentication(entrance, getUser) {
                     return [3, 2];
                 case 6: return [3, 9];
                 case 7:
-                    e_1_1 = _h.sent();
-                    e_1 = { error: e_1_1 };
+                    e_2_1 = _h.sent();
+                    e_2 = { error: e_2_1 };
                     return [3, 9];
                 case 8:
                     try {
                         if (_f && !_f.done && (_g = _e.return)) _g.call(_e);
                     }
-                    finally { if (e_1) throw e_1.error; }
+                    finally { if (e_2) throw e_2.error; }
                     return [7];
                 case 9: return [2, { authenticationState: authenticationState, isUser: isUser }];
             }
@@ -309,7 +369,7 @@ function useAuthentication(entrance, getUser) {
 }
 function parseProps(props) {
     return function (data, tag) {
-        var e_2, _a, _b;
+        var e_3, _a, _b;
         if (tag === void 0) { tag = 'payload'; }
         if (!props)
             return data;
@@ -325,12 +385,12 @@ function parseProps(props) {
                     keys.push(val);
             }
         }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        catch (e_3_1) { e_3 = { error: e_3_1 }; }
         finally {
             try {
                 if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
             }
-            finally { if (e_2) throw e_2.error; }
+            finally { if (e_3) throw e_3.error; }
         }
         return (0, lodash_1.pick)(result, Object.keys(props));
     };

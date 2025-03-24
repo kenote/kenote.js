@@ -2,7 +2,7 @@ import type { APIProxy } from '../types'
 import { loadConfig, isJson, isYaml } from '@kenote/config'
 import ruleJudgment from 'rule-judgment'
 import { Context } from '@kenote/core'
-import { compact, concat, get, merge, omit, pick, uniq, isPlainObject, isString, isArray, set } from 'lodash'
+import { compact, concat, get, merge, omit, pick, uniq, isPlainObject, isString, isArray, set, intersection } from 'lodash'
 import createError from 'http-errors'
 import { filterData, validSign } from 'parse-string'
 import { shellAsCurl } from './http'
@@ -114,15 +114,65 @@ export function getEntrance<T> (options: APIProxy.EntranceOptions<T>) {
     if (whitelist.length > 0 && !whitelist.find( v => new RegExp(v).test(clientIP(ctx)) )) {
       throw createError(500, '没有访问该页面的权限', { code: 1000 })
     }
+    // 获取验签配置
+    let { signuserOpts } = setting
+    let __TAG = get(ctx.params, 'tag')
+    let signuser = signuserOpts?.user.find(v => v.id == __TAG && v.openapi?.includes(entrance?.name!))
+    if (signuser && !entrance?.authentication?.find(v => v.type == 'sign')) {
+      let openapi = signuserOpts?.openapi.find(v => v.name == entrance?.name!)
+      let authentication: APIProxy.Authentication = {
+        type: 'sign',
+        sign: {
+          field: 'sign',
+          md5: openapi?.valid!,
+          token: [
+            {
+              key: signuser.token,
+              name: signuser.name,
+              tags: [ String(signuser.id) ]
+            }
+          ]
+        }
+      }
+      if (!entrance.authentication) entrance.authentication = []
+      entrance.authentication.push(authentication)
+      // 出来用户可选项参数
+      if (openapi?.props) {
+        for (let [key, val] of Object.entries(openapi?.props)) {
+          let original = isArray(get(body, key)) ? get(body, key) : String(get(body, key)).split(',')
+          if (!get(signuser.optional, val)) continue
+          let target: (string|number)[] | string = intersection(get(signuser.optional, val), original)
+          if (!isArray(get(body, key))) {
+            target = target.join(',')
+          }
+          set(body, key, target)
+        }
+      }
+      // 添加附加字段
+      if (openapi?.fields) {
+        set(entrance, 'payload', concat(entrance.payload, openapi.fields))
+      }
+    }
     // 鉴权判断
     let { authenticationState, isUser } = await useAuthentication(entrance, getUser)
     let payload = entrance.payload ? filterData(entrance.payload, serviceModules)(body) : body
-    let __TAG = get(ctx.params, 'tag')
     if (__TAG) {
       set(payload, '__TAG', __TAG)
     }
     if (authenticationState?.type === 'sign' && !authenticationState.sign?.debug) {
       let { sign } = authenticationState
+      if (signuserOpts?.timestamp) {
+        let timestamp = Number(get(payload, signuserOpts.timestamp.field))
+        if (Number.isNaN(timestamp)) {
+          timestamp = 0
+        }
+        if (Date.now() < timestamp) {
+          throw createError(500, 'MD5验签失败', { code: 1000 })
+        }
+        if (Date.now() - timestamp > (signuserOpts.timestamp.timeout??1000)) {
+          throw createError(500, 'MD5验签失败', { code: 1000 })
+        }
+      }
       if (isArray(sign?.token)) {
         let tokenOpts = __TAG ? sign?.token.find( ruleJudgment({ tags: { $_in: __TAG } }) ) : get(sign?.token, 0)
         let valid = tokenOpts && validSign(sign?.md5!, sign?.field!)(merge(payload, { key: tokenOpts?.key }))

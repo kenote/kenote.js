@@ -143,6 +143,52 @@ export declare namespace APIProxy {
      * Js 映射表
      */
     jsAlias             ?: Record<string, string>
+    /**
+     * 忽略路径
+     */
+    ignorePath          ?: Record<string, RegExp>
+    /**
+     * 验签用户选项
+     */
+    signuserOpts        ?: SignuserOptions
+  }
+
+  /**
+   * 验签用户选项
+   */
+  interface SignuserOptions {
+    openapi              : SignAPI[]
+    user                 : SignUser[]
+    timestamp           ?: TimestampOpts
+  }
+
+  /**
+   * 时间戳超时设置
+   */
+  interface TimestampOpts {
+    field                : string
+    timeout             ?: number
+  }
+
+  /**
+   * 验签用户
+   */
+  interface SignUser {
+    id                   : number | string
+    name                 : string
+    token                : string
+    optional            ?: Record<string, Array<string|number>>
+    openapi             ?: string[]
+  }
+
+  /**
+   * 验签API
+   */
+  interface SignAPI {
+    name                 : string
+    valid                : string
+    fields              ?: FilterData.options[]
+    props               ?: Record<string, string>
   }
 
   /**
